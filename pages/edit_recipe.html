@@ -1,1 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Recipe Finder - Edit Recipe</title>
+  </head>
+  <body>
 
+    <h1>🍽️ Recipe Finder</h1>
+    <p>Discover, Share and Save your Favourite Recipes</p>
+
+    <nav>
+      <a href="index.html">Home</a> |
+      <a href="all-recipes.html">All Recipes</a> |
+      <a href="search-results.html">Search</a> |
+      <a href="favourites.html">Favourites</a> |
+      <a href="add-recipe.html">Add Recipe</a> |
+      <a href="login.html">Login</a> |
+      <a href="signup.html">Signup</a>
+    </nav>
+
+    <hr>
+
+    <h2>✏️ Edit Recipe</h2>
+    <p>Update the details of your recipe below</p>
+
+    <form>
+
+      <fieldset>
+        <legend>Which Recipe are you Editing?</legend>
+        <label for="recipeId">Recipe Name or ID: *</label><br>
+        <input type="text" id="recipeId" name="recipeId" placeholder="e.g. Spaghetti Bolognese" required />
+      </fieldset>
+
+      <br>
+
+      <fieldset>
+        <legend>Basic Information</legend>
+
+        <label for="recipeName">Recipe Name: *</label><br>
+        <input type="text" id="recipeName" name="recipeName" placeholder="e.g. Spaghetti Bolognese" required /><br><br>
+
+        <label for="description">Description: *</label><br>
+        <textarea id="description" name="description" rows="4" cols="50" placeholder="Describe your recipe..." required></textarea><br><br>
+
+        <table>
+          <tr>
+            <td width="180"><label>Cuisine Type *</label></td>
+            <td width="180"><label>Meal Type *</label></td>
+            <td width="180"><label>Difficulty *</label></td>
+          </tr>
+          <tr>
+            <td>
+              <select name="cuisine" required>
+                <option value="">-- Select Cuisine --</option>
+                <option value="italian">Italian</option>
+                <option value="mexican">Mexican</option>
+                <option value="arabic">Arabic</option>
+                <option value="somali">Somali</option>
+                <option value="hindi">Hindi</option>
+                <option value="chinese">Chinese</option>
+              </select>
+            </td>
+            <td>
+              <select name="meal" required>
+                <option value="">-- Select Meal Type --</option>
+                <option value="breakfast">Breakfast</option>
+                <option value="lunch">Lunch</option>
+                <option value="dinner">Dinner</option>
+                <option value="snack">Snack</option>
+              </select>
+            </td>
+            <td>
+              <select name="difficulty" required>
+                <option value="">-- Select Difficulty --</option>
+                <option value="easy">Easy</option>
+                <option value="medium">Medium</option>
+                <option value="hard">Hard</option>
+              </select>
+            </td>
+          </tr>
+        </table>
+
+      </fieldset>
+
+      <br>
+
+      <fieldset>
+        <legend>Time &amp; Servings</legend>
+
+        <table>
+          <tr>
+            <td width="180"><label>Prep Time (mins) *</label></td>
+            <td width="180"><label>Cook Time (mins) *</label></td>
+            <td width="180"><label>Number of Servings *</label></td>
+          </tr>
+          <tr>
+            <td>
+              <input type="number" name="prepTime" placeholder="e.g. 15" min="1" required />
+            </td>
+            <td>
+              <input type="number" name="cookTime" placeholder="e.g. 30" min="1" required />
+            </td>
+            <td>
+              <input type="number" name="servings" placeholder="e.g. 4" min="1" required />
+            </td>
+          </tr>
+        </table>
+
+      </fieldset>
+
+      <br>
+
+      <fieldset>
+        <legend>Ingredients</legend>
+
+        <table>
+          <tr>
+            <td width="180"><label>Ingredient Name *</label></td>
+            <td width="180"><label>Quantity *</label></td>
+            <td width="180"><label>Unit *</label></td>
+          </tr>
+          <tr>
+            <td>
+              <input type="text" name="ingredientName" placeholder="e.g. Flour" required />
+            </td>
+            <td>
+              <input type="number" name="quantity" placeholder="e.g. 2" min="0" required />
+            </td>
+            <td>
+              <select name="unit">
+                <option value="">-- Select Unit --</option>
+                <option value="cups">Cups</option>
+                <option value="grams">Grams</option>
+                <option value="tbsp">Tbsp</option>
+                <option value="tsp">Tsp</option>
+                <option value="ml">ML</option>
+                <option value="kg">KG</option>
+                <option value="pieces">Pieces</option>
+              </select>
+            </td>
+          </tr>
+        </table>
+
+      </fieldset>
+
+      <br>
+
+      <fieldset>
+        <legend>Instructions</legend>
+
+        <label for="instructions">Step by Step Directions: *</label><br>
+        <textarea id="instructions" name="instructions" rows="6" cols="50" placeholder="1. First do this...&#10;2. Then do that..." required></textarea><br>
+
+      </fieldset>
+
+      <br>
+
+      <fieldset>
+        <legend>Extra Details</legend>
+
+        <label>Dietary Info:</label><br><br>
+
+        <input type="checkbox" id="vegan" name="vegan" />
+        <label for="vegan">Vegan</label> &nbsp;
+
+        <input type="checkbox" id="vegetarian" name="vegetarian" />
+        <label for="vegetarian">Vegetarian</label> &nbsp;
+
+        <input type="checkbox" id="glutenFree" name="glutenFree" />
+        <label for="glutenFree">Gluten Free</label> &nbsp;
+
+        <input type="checkbox" id="nutFree" name="nutFree" />
+        <label for="nutFree">Nut Free</label> &nbsp;
+
+        <input type="checkbox" id="dairyFree" name="dairyFree" />
+        <label for="dairyFree">Dairy Free</label>
+
+        <br><br>
+
+        <label for="recipeImage">Update Recipe Image (optional):</label><br>
+        <input type="file" id="recipeImage" name="recipeImage" accept="image/*" />
+
+      </fieldset>
+
+      <br>
+
+      <button type="submit">💾 SAVE CHANGES</button>
+      &nbsp;
+      <a href="all-recipes.html"><button type="button">❌ CANCEL</button></a>
+
+    </form>
+
+    <hr>
+    <p>Recipe Finder &copy; 2025 | All Rights Reserved</p>
+
+  </body>
+</html>
