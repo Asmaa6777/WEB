@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Profile - Recipe Finder</title>
+</head>
+<body>
+    <main>
+        <h1>User Profile</h1>
+        <form action="#" method="POST" enctype="multipart/form-data">
+            
+            <section>
+                <h2>Account Details</h2>
+                
+                <div>
+                    <img src="" alt="[Dynamic User Profile Picture]" width="150" height="150">
+                    
+                    <label for="profile_pic"></label>
+                    <input type="file" id="profile_pic" name="profile_pic" accept="image/png, image/jpeg, image/jpg">
+                </div>
+
+                <p><strong>Current Username:</strong> [Dynamic Username]</p>
+                <p><strong>Current Email:</strong> [Dynamic Email]</p>
+                <p><strong>Role:</strong> [Admin / User]</p>
+            </section>
+
+            <hr>
+
+            <section>
+                <h3>Update Information</h3>
+                
+                <label for="username">New Username:</label>
+                <input type="text" id="username" name="username" placeholder="Enter new username" required>
+                <br><br>
+
+                <label for="email">New Email:</label>
+                <input type="email" id="email" name="email" placeholder="Enter new email" required>
+                <br><br>
+
+                <label for="password">New Password:</label>
+                <input type="password" id="password" name="password" placeholder="Enter new password">
+                <br><br>
+                <button type="submit">Save Changes</button>
+            </section>
+        </form>
+        <hr>
+        <section>
+            <h2>My Favorite Recipes</h2>
+            <p><em>(This section is for users to view their favorites)</em></p>
+            <ul>
+                <li>
+                    <strong>Dynamic Recipe Name</strong> - 
+                    <!-- <a href="recipes.html">View Recipe</a> |  -->
+                    <a href="#">Remove</a>
+                </li>
+            </ul>
+        </section>
+
+    </main>
+
+</body>
+</html>
