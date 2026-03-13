@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Recipe Finder - Recipes</title>
+</head>
+<body>
+
+  <h1>Welcome to Recipe Finder</h1>
+  <hr>
+
+  <h2>All Recipes</h2>
+ 
+  <form action="recipes.html" method="GET">
+    <label for="search">Search by dish name or ingredient:</label><br>
+    <input type="text" id="search" name="q" placeholder="e.g. chicken, pasta..." />
+    <input type="submit" value="Search" />
+  </form>
+
+  <br>
+
+  <b>Filter by course:</b>
+  <a href="recipes.html">All</a> |
+  <a href="recipes.html?course=appetizers">Appetizers</a> |
+  <a href="recipes.html?course=main-course">Main Course</a> |
+  <a href="recipes.html?course=dessert">Dessert</a>
+
+  <hr>
+
+  <table border="1" cellpadding="8" cellspacing="0">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Recipe Name</th>
+        <th>Course</th>
+        <th>Ingredients</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+
+      <tr>
+        <td>1</td>
+        <td>patsa</td>
+        <td>Main Course</td>
+        <td>pasta,Beef, Tomato Sauce, Onion, Garlic,milk</td>
+        <td>
+          <a href="recipe_detail.html">View</a>
+          &nbsp;|&nbsp;
+          <a href="favorites.html">Add to Favorites</a>
+          &nbsp;|&nbsp;
+       
+          <a href="edit_recipe.html">Edit</a>
+          &nbsp;|&nbsp;
+          <a href="#" onclick="return confirm('Delete this recipe?')">Delete</a>
+        </td>
+      </tr>
+
+      <tr>
+        <td>2</td>
+        <td> Mahshy </td>
+        <td>Main Course</td>
+        <td>rice, fresh herbs (dill, parsley, cilantro), tomato sauce, onions,spices</td>
+        <td>
+          <a href="recipe_detail.html">View</a>
+          &nbsp;|&nbsp;
+          <a href="favorites.html">Add to Favorites</a>
+          &nbsp;|&nbsp;
+          <a href="edit_recipe.html">Edit</a>
+          &nbsp;|&nbsp;
+          <a href="#" onclick="return confirm('Delete this recipe?')">Delete</a>
+        </td>
+      </tr>
+
+      <tr>
+        <td>3</td>
+        <td>Chocolate Cake</td>
+        <td>Dessert</td>
+        <td>dark chocolate, milk, Eggs, Flour, Sugar,oil</td>
+        <td>
+          <a href="recipe_detail.html">View</a>
+          &nbsp;|&nbsp;
+          <a href="favorites.html">Add to Favorites</a>
+          &nbsp;|&nbsp;
+          <a href="edit_recipe.html">Edit</a>
+          &nbsp;|&nbsp;
+          <a href="#" onclick="return confirm('Delete this recipe?')">Delete</a>
+        </td>
+      </tr>
+
+      <tr>
+        <td>4</td>
+        <td>Grilled Chicken Breast</td>
+        <td>Main Course</td>
+        <td>Chicken, Lemon, Garlic, Rosemary, Olive Oil</td>
+        <td>
+          <a href="recipe-detail.html">View</a>
+          &nbsp;|&nbsp;
+          <a href="favorites.html">Add to Favorites</a>
+          &nbsp;|&nbsp;
+          <a href="edit-recipe.html">Edit</a>
+          &nbsp;|&nbsp;
+          <a href="#" onclick="return confirm('Delete this recipe?')">Delete</a>
+        </td>
+      </tr>
+
+      <tr>
+        <td>5</td>
+        <td>Vegetable Soup</td>
+        <td>Appetizer</td>
+        <td>Onion, Carrot, garlic,olive oil,potatoes, tomatoes, green beans</td>
+        <td>
+          <a href="recipe_detail.html">View</a>
+          &nbsp;|&nbsp;
+          <a href="favorites.html">Add to Favorites</a>
+          &nbsp;|&nbsp;
+          <a href="edit_recipe.html">Edit</a>
+          &nbsp;|&nbsp;
+          <a href="#" onclick="return confirm('Delete this recipe?')">Delete</a>
+        </td>
+      </tr>
+
+      <tr>
+        <td>6</td>
+        <td>Pancake</td>
+        <td>Dessert</td>
+        <td>Heavy Cream, Eggs, Vanilla, Sugar, flour </td>
+        <td>
+          <a href="recipe_detail.html">View</a>
+          &nbsp;|&nbsp;
+          <a href="favorites.html">Add to Favorites</a>
+          &nbsp;|&nbsp;
+          <a href="edit_recipe.html">Edit</a>
+          &nbsp;|&nbsp;
+          <a href="#" onclick="return confirm('Delete this recipe?')">Delete</a>
+        </td>
+      </tr>
+
+    </tbody>
+  </table>
+
+  <br>
+  <p><i>Edit and Delete are visible to admins only. Add to Favorites is for regular users.</i></p>
+
+</body>
+</html>
