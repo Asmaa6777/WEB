@@ -4,21 +4,21 @@
     <title>Recipe Finder - Add Recipe</title>
   </head>
   <body>
-
-    <!-- HEADER -->
+ 
     <h1>🍽️ Recipe Finder</h1>
     <p>Discover, Share and Save your Favourite Recipes</p>
 
-    <!-- NAVIGATION BAR -->
-    <nav>
+     
+   <nav>
       <a href="index.html">Home</a> |
-      <a href="all-recipes.html">All Recipes</a> |
-      <a href="search-results.html">Search</a> |
-      <a href="favourites.html">Favourites</a> |
-      <a href="add-recipe.html">Add Recipe</a> |
+      <a href="recipes.html">All Recipes</a> |
+      <a href="favorites.html">Favourites</a> |
+      <a href="admin_dashboard.html">Admin Dashboard</a> |
       <a href="login.html">Login</a> |
-      <a href="signup.html">Signup</a>
+      <a href="signup.html">Signup</a> |
+      <a href="profile.html">Profile</a>
     </nav>
+    <hr> 
 
     <hr>
 
@@ -26,8 +26,7 @@
     <p>Fill in the details below to share your recipe with the community</p>
 
     <form>
-
-      <!-- BASIC INFORMATION -->
+ 
       <fieldset>
         <legend>Basic Information</legend>
 
@@ -48,11 +47,19 @@
               <select name="cuisine" required>
                 <option value="">-- Select Cuisine --</option>
                 <option value="italian">Italian</option>
-                <option value="mexican">Mexican</option>
-                <option value="arabic">Arabic</option>
-                <option value="somali">Somali</option>
-                <option value="hindi">Hindi</option>
                 <option value="chinese">Chinese</option>
+                <option value="mexican">Mexican</option>
+                <option value="indian">Indian</option>
+                <option value="french">French</option>
+                <option value="japanese">Japanese</option>
+                <option value="mediterranean">Mediterranean</option>
+              </select>
+            <td>
+              <select name="type" required>
+                <option value="">-- Select type --</option>
+                <option value="main course">Main Course</option>
+                <option value="appetizer">Appetizer</option>
+                <option value="dessert">Dessert</option>
               </select>
             </td>
             <td>
@@ -78,8 +85,7 @@
       </fieldset>
 
       <br>
-
-      <!-- TIME AND SERVINGS -->
+ 
       <fieldset>
         <legend>Time &amp; Servings</legend>
 
@@ -106,7 +112,7 @@
 
       <br>
 
-      <!-- INGREDIENTS -->
+     
       <fieldset>
         <legend>Ingredients</legend>
 
@@ -141,8 +147,7 @@
       </fieldset>
 
       <br>
-
-      <!-- INSTRUCTIONS -->
+ 
       <fieldset>
         <legend>Instructions</legend>
 
@@ -153,7 +158,7 @@
 
       <br>
 
-      <!-- EXTRA DETAILS -->
+    
       <fieldset>
         <legend>Extra Details</legend>
 
@@ -182,10 +187,10 @@
 
       <br>
 
-      <!-- BUTTONS -->
-      <button type="submit">✅ SUBMIT RECIPE</button>
+ 
+      <button type="submit"> SUBMIT RECIPE</button>
       &nbsp;
-      <button type="reset">🗑️ CLEAR FORM</button>
+      <button type="reset"> CLEAR FORM</button>
 
     </form>
 
