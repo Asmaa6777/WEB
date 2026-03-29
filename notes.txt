@@ -18,7 +18,7 @@ Admin Pages:
   - Profile page
   - Add/Edit recipe
   - Remove Recipe (not a separate page)
-  - Edit users
+  - users management
 
 Product Card Overview:
  - Includes: [image, recipe name, brief description, heart (favorite) icon, hover effect]
