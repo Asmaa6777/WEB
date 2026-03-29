@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Recipe Finder - Edit Recipe</title>
+  <script>
+    var recipes = {
+      "1": {
+        name: "Pasta",
+        description: "A classic Italian pasta dish with a rich beef and tomato sauce.",
+        cuisine: "italian",
+        meal: "dinner",
+        difficulty: "easy",
+        prepTime: 10,
+        cookTime: 20,
+        servings: 4,
+        ingredientName: "Pasta",
+        quantity: 2,
+        unit: "cups",
+        instructions: "1. Boil salted water and cook pasta until al dente.\n2. Brown the beef in a pan.\n3. Add onion, garlic, tomato sauce and milk. Simmer 10 mins.\n4. Mix in pasta and serve.",
+        vegan: false, vegetarian: false, glutenFree: false, nutFree: true, dairyFree: true
+      },
+      "2": {
+        name: "Mahshy",
+        description: "Traditional Egyptian stuffed vegetables with rice and herbs.",
+        cuisine: "arabic",
+        meal: "lunch",
+        difficulty: "hard",
+        prepTime: 40,
+        cookTime: 60,
+        servings: 6,
+        ingredientName: "Rice",
+        quantity: 3,
+        unit: "cups",
+        instructions: "1. Soak rice for 20 mins.\n2. Mix with herbs, onions and spices.\n3. Stuff into vegetables.\n4. Cook with tomato sauce on low heat for 60 mins.",
+        vegan: true, vegetarian: true, glutenFree: true, nutFree: true, dairyFree: true
+      },
+      "3": {
+        name: "Chocolate Cake",
+        description: "A rich and moist chocolate cake perfect for any occasion.",
+        cuisine: "french",
+        meal: "snack",
+        difficulty: "medium",
+        prepTime: 20,
+        cookTime: 35,
+        servings: 8,
+        ingredientName: "Dark Chocolate",
+        quantity: 200,
+        unit: "grams",
+        instructions: "1. Preheat oven to 180C.\n2. Melt chocolate with oil.\n3. Whisk eggs and sugar.\n4. Fold in flour, chocolate and milk.\n5. Bake for 35 mins.",
+        vegan: false, vegetarian: true, glutenFree: false, nutFree: true, dairyFree: false
+      },
+      "4": {
+        name: "Grilled Chicken",
+        description: "Juicy grilled chicken marinated with lemon, garlic and rosemary.",
+        cuisine: "italian",
+        meal: "dinner",
+        difficulty: "easy",
+        prepTime: 10,
+        cookTime: 25,
+        servings: 2,
+        ingredientName: "Chicken",
+        quantity: 2,
+        unit: "pieces",
+        instructions: "1. Mix olive oil, lemon, garlic and rosemary.\n2. Coat chicken and marinate 10 mins.\n3. Grill 12 mins each side.\n4. Rest 5 mins before serving.",
+        vegan: false, vegetarian: false, glutenFree: true, nutFree: true, dairyFree: true
+      },
+      "5": {
+        name: "Vegetable Soup",
+        description: "A hearty and healthy vegetable soup packed with goodness.",
+        cuisine: "french",
+        meal: "lunch",
+        difficulty: "easy",
+        prepTime: 15,
+        cookTime: 30,
+        servings: 4,
+        ingredientName: "Carrot",
+        quantity: 3,
+        unit: "pieces",
+        instructions: "1. Saute onion and garlic in olive oil.\n2. Add carrots, potatoes and green beans.\n3. Cover with water and add tomatoes.\n4. Simmer 30 mins until tender.",
+        vegan: true, vegetarian: true, glutenFree: true, nutFree: true, dairyFree: true
+      },
+      "6": {
+        name: "Pancake",
+        description: "Fluffy and light pancakes perfect for breakfast or dessert.",
+        cuisine: "french",
+        meal: "breakfast",
+        difficulty: "easy",
+        prepTime: 10,
+        cookTime: 15,
+        servings: 4,
+        ingredientName: "Flour",
+        quantity: 2,
+        unit: "cups",
+        instructions: "1. Whisk eggs and sugar.\n2. Add flour and mix.\n3. Stir in vanilla and cream.\n4. Cook on a non-stick pan until golden on both sides.",
+        vegan: false, vegetarian: true, glutenFree: false, nutFree: true, dairyFree: false
+      }
+    };
+ 
+    var currentUserRole = "admin"; // change to "user" to test access denied
+ 
+    window.onload = function () {
+      var params = new URLSearchParams(window.location.search);
+      var id = params.get("id");
+      var recipe = recipes[id];
+ 
+      if (currentUserRole !== "admin") {
+        document.getElementById("accessDenied").style.display = "block";
+        document.getElementById("editSection").style.display = "none";
+        return;
+      }
+ 
+      if (!recipe) {
+        document.getElementById("notFound").style.display = "block";
+        document.getElementById("editSection").style.display = "none";
+        return;
+      }
+ 
+      // Pre-fill all fields with the recipe data
+      document.title = "Recipe Finder - Edit " + recipe.name;
+      document.getElementById("recipeName").value = recipe.name;
+      document.getElementById("description").value = recipe.description;
+      document.getElementById("cuisine").value = recipe.cuisine;
+      document.getElementById("meal").value = recipe.meal;
+      document.getElementById("difficulty").value = recipe.difficulty;
+      document.getElementById("prepTime").value = recipe.prepTime;
+      document.getElementById("cookTime").value = recipe.cookTime;
+      document.getElementById("servings").value = recipe.servings;
+      document.getElementById("ingredientName").value = recipe.ingredientName;
+      document.getElementById("quantity").value = recipe.quantity;
+      document.getElementById("unit").value = recipe.unit;
+      document.getElementById("instructions").value = recipe.instructions;
+      document.getElementById("vegan").checked = recipe.vegan;
+      document.getElementById("vegetarian").checked = recipe.vegetarian;
+      document.getElementById("glutenFree").checked = recipe.glutenFree;
+      document.getElementById("nutFree").checked = recipe.nutFree;
+      document.getElementById("dairyFree").checked = recipe.dairyFree;
+    };
+  </script>
+</head>
+<body>
+ 
+  <header>
+    <nav>
+      <a href="index.html">Home</a> |
+      <a href="recipes.html">All Recipes</a> |
+      <a href="favorites.html">Favourites</a> |
+      <a href="add_recipe.html">Add Recipe</a> |
+      <a href="admin_dashboard.html">Admin Dashboard</a> |
+      <a href="login.html">Login</a> |
+      <a href="signup.html">Signup</a> |
+      <a href="profile.html">Profile</a>
+    </nav>
+    <hr>
+  </header>
+ 
+  <main>
+    <h1>Recipe Finder</h1>
+ 
+    <!-- Shown if user is not admin -->
+    <section id="accessDenied" style="display:none;">
+      <h2>Access Denied</h2>
+      <p>You do not have permission to edit recipes. This action is for admins only.</p>
+      <p><a href="recipes.html">Back to All Recipes</a></p>
+    </section>
+ 
+    <!-- Shown if recipe id not found -->
+    <section id="notFound" style="display:none;">
+      <h2>Recipe Not Found</h2>
+      <p>The recipe you are trying to edit does not exist.</p>
+      <p><a href="recipes.html">Back to All Recipes</a></p>
+    </section>
+ 
+    <!-- Edit form -->
+    <section id="editSection">
+      <h2>Edit Recipe</h2>
+      <p>Update the details of your recipe below. Fields marked with * are required.</p>
+ 
+      <hr>
+ 
+      <form action="recipes.html" method="post">
+ 
+        <fieldset>
+          <legend>Basic Information</legend>
+ 
+          <label for="recipeName">Recipe Name: *</label><br>
+          <input type="text" id="recipeName" name="recipeName" required /><br><br>
+ 
+          <label for="description">Description: *</label><br>
+          <textarea id="description" name="description" rows="4" cols="50" required></textarea><br><br>
+ 
+          <table>
+            <tr>
+              <td width="180"><label for="cuisine">Cuisine Type *</label></td>
+              <td width="180"><label for="meal">Meal Type *</label></td>
+              <td width="180"><label for="difficulty">Difficulty *</label></td>
+            </tr>
+            <tr>
+              <td>
+                <select id="cuisine" name="cuisine" required>
+                  <option value="">-- Select Cuisine --</option>
+                  <option value="italian">Italian</option>
+                  <option value="mexican">Mexican</option>
+                  <option value="arabic">Arabic</option>
+                  <option value="somali">Somali</option>
+                  <option value="hindi">Hindi</option>
+                  <option value="chinese">Chinese</option>
+                  <option value="french">French</option>
+                </select>
+              </td>
+              <td>
+                <select id="meal" name="meal" required>
+                  <option value="">-- Select Meal Type --</option>
+                  <option value="breakfast">Breakfast</option>
+                  <option value="lunch">Lunch</option>
+                  <option value="dinner">Dinner</option>
+                  <option value="snack">Snack</option>
+                </select>
+              </td>
+              <td>
+                <select id="difficulty" name="difficulty" required>
+                  <option value="">-- Select Difficulty --</option>
+                  <option value="easy">Easy</option>
+                  <option value="medium">Medium</option>
+                  <option value="hard">Hard</option>
+                </select>
+              </td>
+            </tr>
+          </table>
+ 
+        </fieldset>
+ 
+        <br>
+ 
+        <fieldset>
+          <legend>Time &amp; Servings</legend>
+          <table>
+            <tr>
+              <td width="180"><label for="prepTime">Prep Time (mins) *</label></td>
+              <td width="180"><label for="cookTime">Cook Time (mins) *</label></td>
+              <td width="180"><label for="servings">Servings *</label></td>
+            </tr>
+            <tr>
+              <td><input type="number" id="prepTime" name="prepTime" min="1" required /></td>
+              <td><input type="number" id="cookTime" name="cookTime" min="1" required /></td>
+              <td><input type="number" id="servings" name="servings" min="1" required /></td>
+            </tr>
+          </table>
+        </fieldset>
+ 
+        <br>
+ 
+        <fieldset>
+          <legend>Ingredients</legend>
+          <table>
+            <tr>
+              <td width="180"><label for="ingredientName">Ingredient Name *</label></td>
+              <td width="180"><label for="quantity">Quantity *</label></td>
+              <td width="180"><label for="unit">Unit *</label></td>
+            </tr>
+            <tr>
+              <td><input type="text" id="ingredientName" name="ingredientName" required /></td>
+              <td><input type="number" id="quantity" name="quantity" min="0" required /></td>
+              <td>
+                <select id="unit" name="unit">
+                  <option value="">-- Select Unit --</option>
+                  <option value="cups">Cups</option>
+                  <option value="grams">Grams</option>
+                  <option value="tbsp">Tbsp</option>
+                  <option value="tsp">Tsp</option>
+                  <option value="ml">ML</option>
+                  <option value="kg">KG</option>
+                  <option value="pieces">Pieces</option>
+                </select>
+              </td>
+            </tr>
+          </table>
+        </fieldset>
+ 
+        <br>
+ 
+        <fieldset>
+          <legend>Instructions</legend>
+          <label for="instructions">Step-by-Step Directions: *</label><br><br>
+          <textarea id="instructions" name="instructions" rows="6" cols="50" required></textarea>
+        </fieldset>
+ 
+        <br>
+ 
+        <fieldset>
+          <legend>Extra Details</legend>
+ 
+          <label>Dietary Info:</label><br><br>
+ 
+          <input type="checkbox" id="vegan" name="vegan" />
+          <label for="vegan">Vegan</label> &nbsp;
+ 
+          <input type="checkbox" id="vegetarian" name="vegetarian" />
+          <label for="vegetarian">Vegetarian</label> &nbsp;
+ 
+          <input type="checkbox" id="glutenFree" name="glutenFree" />
+          <label for="glutenFree">Gluten Free</label> &nbsp;
+ 
+          <input type="checkbox" id="nutFree" name="nutFree" />
+          <label for="nutFree">Nut Free</label> &nbsp;
+ 
+          <input type="checkbox" id="dairyFree" name="dairyFree" />
+          <label for="dairyFree">Dairy Free</label>
+ 
+          <br><br>
+ 
+          <label for="recipeImage">Update Recipe Image (optional):</label><br><br>
+          <input type="file" id="recipeImage" name="recipeImage" accept="image/*" />
+ 
+        </fieldset>
+ 
+        <br>
+ 
+        <button type="submit">Save Changes</button>
+        &nbsp;
+        <a href="recipes.html"><button type="button">Cancel</button></a>
+ 
+      </form>
+    </section>
+ 
+  </main>
+ 
+  <hr>
+ 
+  <footer>
+    <p>&copy; 2026 Recipe Finder. All rights reserved.</p>
+  </footer>
+ 
+</body>
+</html>
