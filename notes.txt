@@ -4,7 +4,7 @@ Ensure the code is optimized for performance and page speed
 
 User Pages:
   - Home Page
-  - Collection Page (Recipes Page) -> Note: A Category option may be added to the navigation bar. Each category will have its                                             own collection, but the same structure will be reused for all categories.
+  - Collection Page (Recipes Page) -> Note: A Category option may be added to the navigation bar. Each category will have its own collection, but the same structure will be reused for all categories.
   - Recipe Details Page
   - Favorites Page
   - Login Page
