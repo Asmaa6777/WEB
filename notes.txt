@@ -16,9 +16,13 @@ User Pages:
 Admin Pages:
   - Admin dashboard
   - Profile page
-  - Add/Edit recipe
-  - Remove Recipe (not a separate page)
+  - Manage recipe [edit, delete]
+  - Add recipe
   - users management
 
 Product Card Overview:
  - Includes: [image, recipe name, brief description, heart (favorite) icon, hover effect]
+
+Navigation bar overview:
+ user - Include: [logo, Recipes, Category, Trending, Favorites, search icon, Login/Signup/[Profile icon if he loged in]
+ admin - Include: [Dashboard, Add recipe, Manage Recipes, Users, Profile icon]
