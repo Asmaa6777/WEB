@@ -1,16 +1,18 @@
 All images should be in .webp format
 Any added videos should be compressed
 Ensure the code is optimized for performance and page speed
+Figma Link: https://www.figma.com/design/659OKc5SqbQnQIkytoGQC4/Recipe-Finder-Web-Project?node-id=0-1&t=NolFktq98F0KnmBP-1
 
 User Pages:
   - Home Page
   - Collection Page (Recipes Page) -> Note: A Category option may be added to the navigation bar. Each category will have its own collection, but the same structure will be reused for all categories.
   - Recipe Details Page
   - Favorites Page
+  - Trending (Popular) Page
   - Login Page
   - Signup Page
   - Profile Page
-  - Trending (Popular) Page
+  
 
 Admin Pages:
   - Admin dashboard
