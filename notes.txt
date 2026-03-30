@@ -27,3 +27,52 @@ Product Card Overview:
 Navigation bar overview:
  user - Include: [logo, Recipes, Category, Trending, Favorites, search icon, Login/Signup/[Profile icon if he loged in]
  admin - Include: [Dashboard, Add recipe, Manage Recipes, Users, Profile icon]
+
+_____________________________________________________________________________________
+
+agreed upon theme is dark/golden/elegant style
+reference website : https://awesome-gourmet-plate-path.base44.app/
+
+here are the colors that we will be using in all the pages
+
+--background: #0a0a0a; /* near black — main page background /
+--surface: #1a1a1a; / dark gray — cards and navbar background /
+--gold: #c9a84c; / warm gold — logo, active filters, accents /
+--gold-light: #e8c97a; / lighter gold — hover states, italic headings /
+--white: #ffffff; / pure white — main headings /
+--text-muted: #a0a0a0; / gray — subtitles, descriptions, ingredients /
+--border: #2a2a2a; / subtle border — card borders, dividers /
+--overlay: rgba(0,0,0,0.6); / hero image overlay */
+
+where to use :
+Logo text "Recipe" | --white
+Logo text "Finder" | --gold
+Logo circle icon | --gold
+Navbar links | --white
+Active navbar link | --gold
+Hero heading "A Symphony of" | --white
+Hero italic word "Taste" | --gold
+Hero subtitle text | --text-muted
+Search bar background | --surface
+Search bar border | --border
+Search bar text | --white
+Active filter pill background | --gold
+Active filter pill text | --background
+Inactive filter pill background | transparent
+Inactive filter pill border | --border
+Inactive filter pill text | --white
+Recipe card background | --surface
+Recipe card course tag | --gold
+Recipe card course tag text | --background
+Recipe card title | --white
+Recipe card description | --text-muted
+
+font :
+/* Headings — elegant serif like the hero */
+font-family: 'Playfair Display', serif;
+
+/* Body, navbar, buttons — clean sans-serif */
+font-family: 'Lato', sans-serif;
+
+/* Import both from Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=Lato:wght@300;400;600&display=swap');
