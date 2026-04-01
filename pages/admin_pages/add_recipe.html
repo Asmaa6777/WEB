@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+     <link rel="stylesheet" href="../../assets/css/add.css">
     <title>Recipe Finder - Add Recipe</title>
   </head>
+  
   <body>
- 
-    <h1>🍽️ Recipe Finder</h1>
+ <h1><span id="recipe">🍽️ Recipe</span> <span id="finder">Finder</span></h1>
     <p>Discover, Share and Save your Favourite Recipes</p>
 
      
@@ -31,16 +32,16 @@
         <label for="recipeName">Recipe Name: *</label><br>
         <input type="text" id="recipeName" name="recipeName" placeholder="e.g. Spaghetti Bolognese" required /><br><br>
 
-        <label for="description">Description: *</label><br>
-        <textarea id="description" name="description" rows="4" cols="50" placeholder="Describe your recipe..." required></textarea><br><br>
+        <label for="description"> Description: *</label><br>
+
+<textarea id="description" name="description"  placeholder=" Describe your recipe..." required></textarea>
 
         <table>
           <tr>
-            <td width="180"><label>Cuisine Type *</label></td>
-            <td width="180"><label>Meal Type *</label></td>
-            <td width="180"><label>Difficulty *</label></td>
-          </tr>
-          <tr>
+            <td width="180"><label class="table-label">Prep Time (mins) *</label></td>
+             <td width="180"><label class="table-label">Cook Time (mins) *</label></td>
+           <td width="180"><label class="table-label">Number of Servings *</label></td>
+            </tr>
             <td>
               <select name="cuisine" required>
                 <option value="">-- Select Cuisine --</option>
@@ -89,7 +90,7 @@
 
         <table>
           <tr>
-            <td width="180"><label>Prep Time (mins) *</label></td>
+            <td width="180"><label>Prep Time (mins)  *</label></td>
             <td width="180"><label>Cook Time (mins) *</label></td>
             <td width="180"><label>Number of Servings *</label></td>
           </tr>
@@ -115,11 +116,11 @@
         <legend>Ingredients</legend>
 
         <table>
-          <tr>
-            <td width="180"><label>Ingredient Name *</label></td>
-            <td width="180"><label>Quantity *</label></td>
-            <td width="180"><label>Unit *</label></td>
-          </tr>
+         <tr>
+      <td width="180"><label class="table-label">Ingredient Name *</label></td>
+      <td width="180"><label class="table-label">Quantity *</label></td>
+       <td width="180"><label class="table-label">Unit *</label></td>
+        </tr>
           <tr>
             <td>
               <input type="text" name="ingredientName" placeholder="e.g. Flour" required />
@@ -150,7 +151,7 @@
         <legend>Instructions</legend>
 
         <label for="instructions">Step by Step Directions: *</label><br>
-        <textarea id="instructions" name="instructions" rows="6" cols="50" placeholder="1. First do this...&#10;2. Then do that..." required></textarea><br>
+<textarea id="instructions" name="instructions" placeholder=" First do this then do that..." required></textarea>
 
       </fieldset>
 

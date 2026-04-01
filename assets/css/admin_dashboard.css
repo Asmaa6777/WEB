@@ -1,0 +1,247 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Lato:wght@300;400;700&display=swap');
+
+
+:root {
+    --background: #0a0a0a;
+    --surface: #1a1a1a;
+    --gold: #c9a84c;
+    --gold-light: #e8c97a;
+    --white: #ffffff;
+    --text-muted: #a0a0a0;
+    --border: #2a2a2a;
+    --overlay: rgba(0, 0, 0, 0.6);
+}
+
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+body {
+    background-color: var(--background);
+    color: var(--white);
+    font-family: 'Lato', sans-serif;
+    min-height: 100vh;
+    padding-bottom: 40px;
+}
+
+
+header {
+    background-color: var(--surface);
+    border-bottom: 1px solid var(--border);
+    padding: 18px 40px;
+}
+
+
+h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 28px;
+    font-weight: 400;
+    color: var(--white);
+    text-align: center;
+    padding: 30px 40px 4px;
+}
+
+
+nav {
+    text-align: center;
+    padding: 16px 40px;
+    background-color: var(--surface);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+}
+
+nav a {
+    color: var(--white);
+    text-decoration: none;
+    font-size: 14px;
+    font-family: 'Lato', sans-serif;
+    margin: 0 8px;
+    transition: color 0.3s;
+}
+
+nav a:hover {
+    color: var(--gold);
+}
+
+nav a.active {
+    color: var(--gold);
+}
+
+
+hr {
+    border: none;
+    border-top: 1px solid var(--border);
+    margin: 0;
+}
+
+
+main {
+    padding: 20px 40px;
+}
+
+
+section:first-of-type table {
+    border-collapse: separate;
+    border-spacing: 14px;
+    width: 100%;
+    border: none;
+}
+
+section:first-of-type table td {
+    background-color: var(--surface);
+    border: 1px solid var(--border) !important;
+    border-radius: 10px;
+    padding: 18px 16px;
+    vertical-align: top;
+    width: 20%;
+}
+
+section:first-of-type table h3 {
+    font-size: 11px;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    font-weight: 400;
+    font-family: 'Lato', sans-serif;
+    margin-bottom: 10px;
+}
+
+section:first-of-type table p strong {
+    font-size: 26px;
+    color: var(--gold);
+    font-weight: 700;
+}
+
+
+section:last-of-type {
+    margin-top: 20px;
+}
+
+
+section:last-of-type > table:first-of-type {
+    border: none;
+    margin-bottom: 16px;
+}
+
+section:last-of-type > table:first-of-type td {
+    border: none;
+    padding: 0;
+    background: transparent;
+}
+
+section:last-of-type > table:first-of-type input[type="text"] {
+    background-color: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    color: var(--white);
+    font-size: 13px;
+    font-family: 'Lato', sans-serif;
+    padding: 9px 14px;
+    width: 220px;
+    outline: none;
+    transition: border-color 0.3s;
+}
+
+section:last-of-type > table:first-of-type input[type="text"]:focus {
+    border-color: var(--gold);
+}
+
+section:last-of-type > table:first-of-type input::placeholder {
+    color: #555555;
+}
+
+section:last-of-type > table:first-of-type button[type="submit"] {
+    background-color: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    color: var(--text-muted);
+    padding: 9px 16px;
+    font-size: 13px;
+    font-family: 'Lato', sans-serif;
+    cursor: pointer;
+    transition: border-color 0.3s, color 0.3s;
+}
+
+section:last-of-type > table:first-of-type button[type="submit"]:hover {
+    border-color: var(--gold);
+    color: var(--gold);
+}
+
+section:last-of-type > table:first-of-type button[type="button"] {
+    background-color: var(--gold);
+    border: none;
+    border-radius: 8px;
+    color: var(--background);
+    padding: 9px 18px;
+    font-size: 13px;
+    font-weight: 700;
+    font-family: 'Lato', sans-serif;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+section:last-of-type > table:first-of-type button[type="button"]:hover {
+    background-color: var(--gold-light);
+}
+
+
+section:last-of-type > table:last-of-type {
+    border-collapse: collapse;
+    width: 100%;
+    font-size: 13px;
+    border: none;
+}
+
+section:last-of-type > table:last-of-type thead tr {
+    border-bottom: 1px solid var(--border);
+}
+
+section:last-of-type > table:last-of-type th {
+    color: var(--text-muted);
+    text-align: left;
+    padding: 10px 12px;
+    font-size: 11px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    font-weight: 400;
+    font-family: 'Lato', sans-serif;
+    border: none;
+    background: transparent;
+}
+
+section:last-of-type > table:last-of-type td {
+    padding: 14px 12px;
+    border: none;
+    border-bottom: 1px solid #1e1e1e !important;
+    color: #dddddd;
+    vertical-align: middle;
+    background: transparent;
+}
+
+section:last-of-type > table:last-of-type tbody tr:hover {
+    background-color: #111111;
+}
+
+
+input[type="checkbox"] {
+    accent-color: var(--gold);
+    width: 15px;
+    height: 15px;
+    cursor: pointer;
+}
+
+
+section:last-of-type a {
+    color: var(--gold);
+    text-decoration: none;
+    font-size: 12px;
+    transition: color 0.3s;
+}
+
+section:last-of-type a:hover {
+    color: var(--gold-light);
+}
