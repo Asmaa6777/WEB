@@ -1,0 +1,66 @@
+ <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>RecipeFinder — Recipe Detail</title>
+  <link rel="stylesheet" href="/WEB/assets/css/style.css" />
+</head>
+<body>
+ 
+  <nav class="navbar">
+    <div class="nav-logo">
+      <span class="logo-circle">R</span>
+      Recipe<span class="logo-gold">Finder</span>
+    </div>
+    <ul class="nav-links">
+      <li><a href="../homepage.html">Home</a></li>
+      <li><a href="recipes.html">Recipes</a></li>
+      <li><a href="favorites.html">Favourites</a></li>
+      <li><a href="../trending.html">Trending</a></li>
+    </ul>
+    <div class="nav-user">
+      <span id="navUsername"></span>
+      <a href="../login.html" class="nav-logout">Logout</a>
+    </div>
+  </nav>
+
+  <!-- BACK LINK -->
+  <div class="back-link-wrapper">
+    <a href="recipes.html" class="back-link">&#8592; Back to Recipes</a>
+  </div>
+ 
+  <div class="detail-section">
+
+     
+    <div class="detail-hero">
+      <img src="" alt="" id="detailImage" class="detail-img"/>
+      <span class="course-tag" id="detailCourse"></span>
+    </div>
+ 
+    <div class="detail-info">
+      <p class="section-label">RECIPE DETAIL</p>
+      <h1 class="detail-title" id="detailName"></h1>
+      <p class="detail-desc" id="detailDescription"></p>
+
+      <div class="detail-ingredients">
+        <h3 class="ingredients-heading">Ingredients</h3>
+        <ul class="ingredients-list" id="ingredientsList"></ul>
+      </div>
+
+      <div class="detail-actions">
+        <button class="btn-gold user-only" id="btnFavourite">&#9825; Add to Favourites</button>
+        <a href="" class="btn-outline admin-only" id="btnEdit">Edit Recipe</a>
+        <a href="" class="btn-danger admin-only" id="btnDelete">Delete Recipe</a>
+      </div>
+    </div>
+
+  </div>
+
+   
+
+  <script src="/WEB/assets/js/data.js"></script>
+  <script src="/WEB/assets/js/recipedetails.js"></script>
+
+</body>
+</html>
