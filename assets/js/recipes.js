@@ -71,7 +71,7 @@ function renderRecipes() {
   });
 }
 
-// ── Format course label ───────────────────────────────────────────
+
 function formatCourse(course) {
   const map = {
     'appetizer': 'Appetizer',
@@ -81,7 +81,7 @@ function formatCourse(course) {
   return map[course] || course;
 }
 
-// ── Add to favourites ─────────────────────────────────────────────
+
 function addToFavourites(recipeId, event) {
   event.preventDefault();
   const favourites = JSON.parse(localStorage.getItem('favourites')) || [];
@@ -102,7 +102,7 @@ function addToFavourites(recipeId, event) {
   alert('Added to favourites!');
 }
 
-// ── Filter pills ──────────────────────────────────────────────────
+ 
 filterButtons.forEach(btn => {
   btn.addEventListener('click', () => {
     filterButtons.forEach(b => b.classList.remove('active'));
@@ -112,13 +112,13 @@ filterButtons.forEach(btn => {
   });
 });
 
-// ── Search input ──────────────────────────────────────────────────
+ 
 searchInput.addEventListener('input', () => {
   currentSearch = searchInput.value.trim();
   renderRecipes();
 });
 
-// ── Logout ────────────────────────────────────────────────────────
+ 
 const logoutLink = document.querySelector('.nav-logout');
 if (logoutLink) {
   logoutLink.addEventListener('click', (e) => {
@@ -127,6 +127,5 @@ if (logoutLink) {
     window.location.href = 'login.html';
   });
 }
-
-// ── Init ──────────────────────────────────────────────────────────
+ 
 renderRecipes();
