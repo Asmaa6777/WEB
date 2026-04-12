@@ -109,6 +109,13 @@ function addToFavourites(recipeId, btn) {
   btn.textContent = '♥ Saved';
   btn.classList.add('saved');
   btn.disabled = true;
+
+  // Show success message with link to favorites
+  setTimeout(() => {
+    if (confirm('Added to favourites! View your favorites now?')) {
+      window.location.href = 'favorites.html';
+    }
+  }, 500);
 }
 
  
