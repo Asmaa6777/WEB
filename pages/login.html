@@ -2,27 +2,33 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8" />
-  <title>Recipe Finder Login</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Recipe Finder Login</title>
+    <link rel="stylesheet" href="../assets/css/style.css">
 </head>
 <body>
-    <h1>Welcome to Recipe Finder</h1>
-    <hr>
+    <main class="auth-container">
+        <h1>Welcome to Recipe Finder</h1>
+        <hr>
 
-    
-  <h2>Login</h2>
-    <form action="recipes.html" method="GET">
-    <label for="username">Username:</label><br>
-    <input type="text" id="username" name="username" required /><br><br>
+        <h2>Login</h2>
 
-    <label for="password">Password:</label><br>
-    <input type="password" id="password" name="password" required /><br><br>
+        <form id="loginForm">
+            <label for="loginIdentifier">Username or Email:</label><br>
+            <input type="text" id="loginIdentifier" name="loginIdentifier" required /><br><br>
 
-    <input type="submit" value="Login" />
+            <label for="loginPassword">Password:</label><br>
+            <input type="password" id="loginPassword" name="loginPassword" required /><br><br>
 
-  </form>
+            <div id="formMessage"></div>
 
-  <br>
-  <p>Don't have an account? <a href="signup.html">Sign Up</a></p>
+            <input type="submit" value="Login" />
+        </form>
 
+        <br>
+        <p>Don't have an account? <a href="signup.html">Sign Up</a></p>
+    </main>
+
+    <script src="../assets/js/auth.js"></script>
 </body>
 </html>
