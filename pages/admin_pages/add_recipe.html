@@ -10,21 +10,21 @@
     <p>Discover, Share and Save your Favourite Recipes</p>
 
      
-   <nav>
-      <a href="homepage.html">Home</a> |
-      <a href="recipes.html">All Recipes</a> |
-      <a href="favorites.html">Favourites</a> |
-      <a href="admin_dashboard.html">Admin Dashboard</a> |
-      <a href="login.html">Login</a> |
-      <a href="signup.html">Signup</a> |
-      <a href="profile.html">Profile</a>
-    </nav>
+  <nav>
+  <a href="../homepage.html">Home</a> |
+  <a href="recipes.html">All Recipes</a> |
+  <a href="../user_pages/favorites.html">Favourites</a> |
+  <a href="add_recipe.html">Add Recipe</a> |
+  <a href="../login.html">Login</a> |
+  <a href="../signup.html">Signup</a> |
+  <a href="profile.html">Profile</a>
+</nav>
     <hr> 
 
     <h2>Add Your Own Recipe</h2>
     <p>Fill in the details below to share your recipe with the community</p>
 
-    <form>
+    <form id="recipeForm">
  
       <fieldset>
         <legend>Basic Information</legend>
@@ -38,12 +38,13 @@
 
         <table>
           <tr>
-            <td width="180"><label class="table-label">Prep Time (mins) *</label></td>
-             <td width="180"><label class="table-label">Cook Time (mins) *</label></td>
-           <td width="180"><label class="table-label">Number of Servings *</label></td>
+            <td width="180"><label class="table-label">cuisine type *</label></td>
+             <td width="180"><label class="table-label"> meal type *</label></td>
+           <td width="180"><label class="table-label">Difficulty *</label></td>
+          
             </tr>
             <td>
-              <select name="cuisine" required>
+              <select id="cuisine" name="cuisine" required>
                 <option value="">-- Select Cuisine --</option>
                 <option value="italian">Italian</option>
                 <option value="chinese">Chinese</option>
@@ -54,24 +55,16 @@
                 <option value="mediterranean">Mediterranean</option>
               </select>
             <td>
-              <select name="type" required>
+              <select  id="type"  name="type" required>
                 <option value="">-- Select type --</option>
                 <option value="main course">Main Course</option>
                 <option value="appetizer">Appetizer</option>
                 <option value="dessert">Dessert</option>
               </select>
             </td>
+            
             <td>
-              <select name="meal" required>
-                <option value="">-- Select Meal Type --</option>
-                <option value="breakfast">Breakfast</option>
-                <option value="lunch">Lunch</option>
-                <option value="dinner">Dinner</option>
-                <option value="snack">Snack</option>
-              </select>
-            </td>
-            <td>
-              <select name="difficulty" required>
+              <select  id="difficulty"  name="difficulty" required>
                 <option value="">-- Select Difficulty --</option>
                 <option value="easy">Easy</option>
                 <option value="medium">Medium</option>
@@ -96,13 +89,13 @@
           </tr>
           <tr>
             <td>
-              <input type="number" name="prepTime" placeholder="e.g. 15" min="1" required />
+              <input type="number" name="prepTime" id="prepTime" placeholder="e.g. 15" min="1" required />
             </td>
             <td>
-              <input type="number" name="cookTime" placeholder="e.g. 30" min="1" required />
+              <input type="number" name="cookTime" id="cookTime"placeholder="e.g. 30" min="1" required />
             </td>
             <td>
-              <input type="number" name="servings" placeholder="e.g. 4" min="1" required />
+              <input type="number" name="servings" id="servings" placeholder="e.g. 4" min="1" required />
             </td>
           </tr>
         </table>
@@ -113,35 +106,32 @@
 
      
       <fieldset>
-        <legend>Ingredients</legend>
-
-        <table>
-         <tr>
-      <td width="180"><label class="table-label">Ingredient Name *</label></td>
-      <td width="180"><label class="table-label">Quantity *</label></td>
-       <td width="180"><label class="table-label">Unit *</label></td>
-        </tr>
-          <tr>
-            <td>
-              <input type="text" name="ingredientName" placeholder="e.g. Flour" required />
-            </td>
-            <td>
-              <input type="number" name="quantity" placeholder="e.g. 2" min="0" required />
-            </td>
-            <td>
-              <select name="unit">
-                <option value="">-- Select Unit --</option>
-                <option value="cups">Cups</option>
-                <option value="grams">Grams</option>
-                <option value="tbsp">Tbsp</option>
-                <option value="tsp">Tsp</option>
-                <option value="ml">ML</option>
-                <option value="kg">KG</option>
-                <option value="pieces">Pieces</option>
-              </select>
-            </td>
-          </tr>
-        </table>
+         <legend>Ingredients</legend>
+      <table id="ingredientsTable">
+  <tr>
+    <td width="180"><label class="table-label">Ingredient Name *</label></td>
+    <td width="180"><label class="table-label">Quantity *</label></td>
+    <td width="180"><label class="table-label">Unit *</label></td>
+  </tr>
+  <tr>
+    <td><input type="text" name="ingredientName" placeholder="e.g. Flour" /></td>
+    <td><input type="number" name="quantity" placeholder="e.g. 2" min="0" /></td>
+    <td>
+      <select name="unit">
+        <option value="">-- Select Unit --</option>
+        <option value="cups">Cups</option>
+        <option value="grams">Grams</option>
+        <option value="tbsp">Tbsp</option>
+        <option value="tsp">Tsp</option>
+        <option value="ml">ML</option>
+        <option value="kg">KG</option>
+        <option value="pieces">Pieces</option>
+      </select>
+    </td>
+  </tr>
+</table>
+<br>
+<button type="button" id="addIngredientBtn">+ Add Ingredient</button>
 
       </fieldset>
 
@@ -194,7 +184,8 @@
     </form>
 
     <hr>
-    <p>Recipe Finder &copy; 2025 | All Rights Reserved</p>
-
+    <p>Recipe Finder &copy; 2025 | All Rights Reserved</p>  
+<script src="../../assets/data_files/data.js" defer></script>
+<script src="../../assets/js/add-recipe.js" defer></script>
   </body>
 </html>

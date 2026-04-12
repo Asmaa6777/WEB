@@ -13,17 +13,15 @@
         
         <header>
             <h1>Admin Dashboard</h1>
-             
-  
-    <nav>
-      <a href="homepage.html">Home</a> |
-      <a href="recipes.html">All Recipes</a> |
-      <a href="favorites.html">Favourites</a> |
-      <a href="add_recipe.html">Add Recipe</a> |
-      <a href="login.html">Login</a> |
-      <a href="signup.html">Signup</a> |
-      <a href="profile.html">Profile</a>
-    </nav>
+   <nav>
+  <a href="../homepage.html">Home</a> |
+  <a href="recipes.html">All Recipes</a> |
+  <a href="../user_pages/favorites.html">Favourites</a> |
+  <a href="add_recipe.html">Add Recipe</a> |
+  <a href="../login.html">Login</a> |
+  <a href="../signup.html">Signup</a> |
+  <a href="profile.html">Profile</a>
+</nav>
     <hr> 
         </header>
 
@@ -31,23 +29,23 @@
         <section>
             <table width="100%" border="1" cellpadding="10" cellspacing="0">
                 <tr>
-                    <td>
+                    <td id="stat-total">
                         <h3>Total Recipes</h3>
                         <p><strong>[Dynamic: 180]</strong></p>
                     </td>
-                    <td>
+                    <td id="stat-appetizers">
                         <h3>Appetizers</h3>
                         <p><strong>[Dynamic: 45]</strong></p>
                     </td>
-                    <td>
+                    <td id="stat-mains">
                         <h3>Main Courses</h3>
                         <p><strong>[Dynamic: 85]</strong></p>
                     </td>
-                    <td>
+                    <td id="stat-desserts">
                         <h3>Desserts</h3>
                         <p><strong>[Dynamic: 50]</strong></p>
                     </td>
-                    <td>
+                    <td id="stat-users">
                         <h3>Total Users</h3>
                         <p><strong>[Dynamic: 320]</strong></p>
                     </td>
@@ -61,7 +59,7 @@
             <table width="100%">
                 <tr>
                     <td align="left">
-                        <form action="search_results.html" method="GET">
+                        <form id="searchForm" action="search_results.html" method="GET">
                             <input type="text" name="search" placeholder="Search recipes..." required>
                             <button type="submit"> Search</button>
                         </form>
@@ -79,7 +77,8 @@
             <table border="1" width="100%" cellpadding="10" cellspacing="0">
                 <thead>
                     <tr>
-                        <th></th> <th>RECIPE ID</th>
+                        <th></th>
+                        <th>RECIPE ID</th>
                         <th>RECIPE NAME</th>
                         <th>COURSE NAME</th>
                         <th>DATE ADDED</th>
@@ -87,36 +86,14 @@
                         <th>ACTIONS</th>
                     </tr>
                 </thead>
-                <tbody>
-                    <tr>
-                        <td><input type="checkbox"></td>
-                        <td>[Dynamic: No 674839]</td>
-                        <td>[Dynamic: Spicy Chicken Tacos]</td>
-                        <td>[Dynamic: Main Course]</td>
-                        <td>[Dynamic: 26.07.2024]</td>
-                        <td>[Dynamic: Published]</td>
-                        <td>
-                            <a href="edit_recipe.html">Edit</a> | 
-                            <a href="delete_recipe.html">Delete</a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td><input type="checkbox"></td>
-                        <td>[Dynamic: No 674840]</td>
-                        <td>[Dynamic: Lava Cake]</td>
-                        <td>[Dynamic: Dessert]</td>
-                        <td>[Dynamic: 25.07.2024]</td>
-                        <td>[Dynamic: Draft]</td>
-                        <td>
-                            <a href="edit_recipe.html">Edit</a> | 
-                            <a href="delete_recipe.html">Delete</a>
-                        </td>
-                    </tr>
+                <tbody id="recipesTableBody">
                 </tbody>
             </table>
         </section>
 
     </main>
 
+    <script src="../../assets/data_files/data.js"></script>
+    <script src="../../assets/js/admin_dashboard.js" defer></script>
 </body>
 </html>
