@@ -803,3 +803,17 @@ input[type="date"] {
     background-color: white;
     color: black;
 }
+.auth-container h1,
+.auth-container h2,
+.auth-container legend {
+  color: var(--gold);
+}
+
+.auth-container p,
+.auth-container label {
+  color: var(--white);
+}
+.auth-container input[type="date"] {
+  background-color: #ffffff !important;
+  color: #000000 !important;
+}
