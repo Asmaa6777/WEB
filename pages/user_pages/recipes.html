@@ -1,108 +1,59 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Recipe Finder - Recipes</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>RecipeFinder — All Recipes</title>
+  <link rel="stylesheet" href="/WEB/assets/css/style.css" />
 </head>
 <body>
-  <header>
-     <nav>
-      <a href="homepage.html">Home</a> |
-      <a href="recipes.html">All Recipes</a> |
-      <a href="favorites.html">Favourites</a> |
-      <a href="add_recipe.html">Add Recipe</a> |
-      <a href="admin_dashboard.html">Admin Dashboard</a> |
-      <a href="login.html">Login</a> |
-      <a href="signup.html">Signup</a> |
-      <a href="profile.html">Profile</a>
-    </nav>
-    <hr>
-  </header>
- 
-  <h1>Welcome to Recipe Finder</h1>
-  <hr>
 
-  <h2>All Recipes</h2>
 
-  <form action="search-results.html" method="GET">
-    <label for="search">Search by dish name or ingredient:</label><br>
-    <input type="text" id="search" name="q" placeholder="e.g. chicken, pasta..." />
-    <input type="submit" value="Search" />
-  </form>
-
-  <br>
-
-  <hr>
-  <img src="images/pasta.jpg" alt="Pasta" width="120" height="120">
-  <br>
-  <b>Pasta</b> — Main Course<br>
-  <i>Pasta, Beef, Tomato Sauce, Onion, Garlic, Milk</i><br>
-  <a href="recipe_detail/recipe_detail1.html">View</a> |
-  <a href="favorites.html">Add to Favorites</a> |
-  <a href="edit_recipe.html">Edit</a> |
-  <a href="delete_recipe.html">Delete</a>
-
-  <hr>
- 
-  <img src="images/mahshy.jpg" alt="Mahshy" width="120" height="120">
-  <br>
-  <b>Mahshy </b> — Main Course<br>
-  <i>Rice, Fresh Herbs, Tomato Sauce, Onions, Spices</i><br>
-  <a href="recipe_detail/recipe_detail2.html">View</a> |
-  <a href="favorites.html">Add to Favorites</a> |
-  <a href="edit_recipe.html">Edit</a> |
-  <a href="delete_recipe.html">Delete</a>
-
-  <hr>
- 
-  <img src="images/chocolate_cake.jpg" alt="Chocolate Cake" width="120" height="120">
-  <br>
-  <b>Chocolate Cake</b> — Dessert<br>
-  <i>Dark Chocolate, Milk, Eggs, Flour, Sugar, Oil</i><br>
-  <a href="recipe_detail/recipe_detail3.html">View</a> |
-  <a href="favorites.html">Add to Favorites</a> |
-  <a href="edit_recipe.html">Edit</a> |
-  <a href="delete_recipe.html">Delete</a>
-
-  <hr>
+  <nav class="navbar">
+    <div class="nav-logo">
+      <span class="logo-circle">R</span>
+      Recipe<span class="logo-gold">Finder</span>
+    </div>
+    <ul class="nav-links">
+      <li><a href="../homepage.html">Home</a></li>
+      <li><a href="recipes.html" class="active">Recipes</a></li>
+      <li><a href="favorites.html">Favourites</a></li>
+      <li><a href="../trending.html">Trending</a></li>
+    </ul>
+    <div class="nav-user">
+      <span id="navUsername"></span>
+      <a href="../login.html" class="nav-logout">Logout</a>
+    </div>
+  </nav>
 
  
-  <img src="images/grilled.jpg" alt="Grilled Chicken" width="120" height="120">
-  <br>
-  <b>Grilled Chicken</b> — Main Course<br>
-  <i>Chicken, Lemon, Garlic, Rosemary, Olive Oil</i><br>
-  <a href="recipe_detail/recipe_detail4.html">View</a> |
-  <a href="favorites.html">Add to Favorites</a> |
-  <a href="edit_recipe.html">Edit</a> |
-  <a href="delete_recipe.html">Delete</a>
+  <div class="page-header">
+    <p class="section-label"> OUR COLLECTION </p>
+    <h1 class="page-title">All <em class="gold-italic">Recipes</em></h1>
 
-  <hr>
+    <div class="search-wrapper">
+      <input type="text" id="searchInput" class="search-bar" placeholder="Search recipes or ingredients..." />
+    </div>
+
+    <div class="filter-pills">
+      <button class="pill active" data-filter="all">All</button>
+      <button class="pill" data-filter="appetizer">Appetizers</button>
+      <button class="pill" data-filter="main-course">Main Course</button>
+      <button class="pill" data-filter="dessert">Dessert</button>
+    </div>
+  </div>
+
  
-     <img src="images/soup.jpg" alt="Vegetable Soup" width="120" height="120">
-  <br>
-  <b>Vegetable Soup</b> — Appetizer<br>
-  <i>Onion, Carrot, Garlic, Olive Oil, Potatoes, Tomatoes, Green Beans</i><br>
-  <a href="recipe_detail/recipe_detail5.html">View</a> |
-  <a href="favorites.html">Add to Favorites</a> |
-  <a href="edit_recipe.html">Edit</a> |
-  <a href="delete_recipe.html">Delete</a>
+  <div class="recipes-section">
+    <div class="recipe-grid" id="recipeGrid"></div>
+    <div class="empty-state" id="emptyState">
+      <p>No recipes found. Try a different search or filter.</p>
+    </div>
+  </div>
 
-  <hr>
 
-  
-  <img src="images/pancake.jpg" alt="Pancake" width="120" height="120">
-  <br>
-  <b>Pancake</b> — Dessert<br>
-  <i>Heavy Cream, Eggs, Vanilla, Sugar, Flour</i><br>
-  <a href="recipe_detail/recipe_detail6.html">View</a> |
-  <a href="favorites.html">Add to Favorites</a> |
-  <a href="edit_recipe.html">Edit</a> |
-  <a href="delete_recipe.html">Delete</a>
-
-  <hr>
-
-  <p><i>Edit and Delete are visible to admins only. Add to Favorites is for regular users.</i></p>
+  <script src="/WEB/assets/js/data.js"></script>
+  <script src="/WEB/assets/js/recipes.js"></script>
 
 </body>
 </html>
