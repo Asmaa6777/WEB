@@ -1,5 +1,5 @@
 const USERS_KEY = "recipeFinderUsers";
-const CURRENT_USER_KEY = "recipeFinderCurrentUser";
+const CURRENT_USER_KEY = "currentUser";
 
 function getUsers() {
   return JSON.parse(localStorage.getItem(USERS_KEY)) || [];
@@ -50,6 +50,8 @@ if (signupForm) {
     }
 
     const newUser = {
+      id: Date.now(),
+      name: `${firstName} ${lastName}`,
       firstName,
       lastName,
       dob,
@@ -61,11 +63,12 @@ if (signupForm) {
 
     users.push(newUser);
     saveUsers(users);
+    localStorage.setItem(CURRENT_USER_KEY, JSON.stringify(newUser));
 
-    if (formMessage) formMessage.textContent = "Account created successfully.";
+    if (formMessage) formMessage.textContent = "Account created successfully. Redirecting...";
 
     setTimeout(() => {
-      window.location.href = "login.html";
+      window.location.href = "homepage.html";
     }, 1000);
   });
 }
