@@ -74,7 +74,10 @@
     display: flex;
     gap: 20px;
     align-items: center;
+    
 }
+
+
 
 .cr{
     justify-content: center;
@@ -82,8 +85,12 @@
     font-family: serif;
     font-weight: 400;
     font-size: 15px;  
+    text-decoration: none;
+    
 }
-
+.cr a{
+    text-decoration: none;
+}
 .cr a:hover{
     color: var(--white);
     
@@ -139,7 +146,6 @@ h1{
     border-radius: 10px;
     overflow: hidden;
     background-color: var(--surface);
-    color: var(--gold);
     flex: 0 0 30%;
     margin: 10px;
     position: relative;
@@ -156,7 +162,7 @@ h1{
     padding: 10px;
     font-size: 18px;
     color: var(--gold);
-    margin-bottom: 20px;
+    margin-bottom: 8px;
 
 }
 .card p {
@@ -171,15 +177,53 @@ h1{
 }
 .course-label {
     position: absolute;
-    z-index: 10;
-    top: 15px;
-    left: 15px;
-    background-color:var(--gold);
-    color: var(--background); 
-    padding: 6px 16px;
-    border-radius: 50px; 
-    font-size: 12px;
-    font-weight: bold;
-    font-family: var(--background);
-
+  top: 14px;
+  left: 14px;
+  background-color: var(--gold);
+  color: var(--background)!important;
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 4px 12px;
+  border-radius: 20px;
+  letter-spacing: 0.3px;
 }
+
+.btn-view {
+  background-color: var(--gold);
+  color: var(--background);
+  padding: 8px 18px;
+  border-radius: 8px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  font-family: 'Lato', sans-serif;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  display: inline-block;
+  margin-left: 20px;
+  margin-top: 20px;
+  text-decoration: none;
+}
+
+.btn-view:hover {
+  background-color: var(--gold-light);
+}
+.topnumber {
+  position: absolute;
+color: var(--background)!important;
+  background-color: var(--gold);
+  letter-spacing: 0.3px;
+  top: 16px;
+  right: 16px;
+  width: 40px;
+  height: 40px;   
+  font-size: 1rem;
+  font-weight:bolder;
+  border-radius: 50px ;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+   
+}
+
