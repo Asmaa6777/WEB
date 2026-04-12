@@ -7,7 +7,15 @@ const recipes = [
     course: "main-course",
     ingredients: ["Spaghetti", "Eggs", "Pancetta", "Parmesan", "Black Pepper", "Salt"],
     image: "../../assets/images/carbonara.jpg",
-    description: "Silky Roman pasta with crispy pancetta and creamy egg sauce."
+    description: "Silky Roman pasta with crispy pancetta and creamy egg sauce.",
+    instructions: [
+      "Boil spaghetti in salted water until al dente.",
+      "Fry pancetta until crispy in a pan.",
+      "Whisk eggs and parmesan together in a bowl.",
+      "Drain pasta and mix with pancetta off the heat.",
+      "Add egg mixture and toss quickly to coat.",
+      "Season with black pepper and serve immediately."
+    ]
   },
   {
     id: 2,
@@ -15,7 +23,15 @@ const recipes = [
     course: "appetizer",
     ingredients: ["Sourdough Bread", "Avocado", "Lemon", "Chili Flakes", "Olive Oil", "Salt"],
     image: "../../assets/images/avocado_toast.jpg",
-    description: "Creamy smashed avocado on golden toasted sourdough with a kick of chili."
+    description: "Creamy smashed avocado on golden toasted sourdough with a kick of chili.",
+    instructions: [
+      "Toast sourdough bread until golden and crispy.",
+      "Halve the avocado and scoop out the flesh.",
+      "Mash avocado with lemon juice and salt.",
+      "Spread avocado mixture on the toast.",
+      "Drizzle with olive oil and sprinkle chili flakes.",
+      "Serve immediately."
+    ]
   },
   {
     id: 3,
@@ -23,7 +39,15 @@ const recipes = [
     course: "dessert",
     ingredients: ["Cream Cheese", "Strawberries", "Digestive Biscuits", "Butter", "Sugar", "Vanilla"],
     image: "../../assets/images/cheesecake.jpg",
-    description: "Velvety cheesecake topped with fresh glossy strawberries."
+    description: "Velvety cheesecake topped with fresh glossy strawberries.",
+    instructions: [
+      "Crush digestive biscuits and mix with melted butter.",
+      "Press mixture into a springform pan to form the base.",
+      "Beat cream cheese, sugar, and vanilla until smooth.",
+      "Pour mixture over the biscuit base and refrigerate.",
+      "Top with fresh sliced strawberries before serving.",
+      "Chill for at least 4 hours before serving."
+    ]
   },
   {
     id: 4,

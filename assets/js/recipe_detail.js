@@ -28,7 +28,7 @@ const recipe = recipes.find(r => r.id === recipeId);
 if (!recipe) {
   document.querySelector('.detail-section').innerHTML = `
     <p style="color: var(--text-muted); padding: 48px;">
-      Recipe not found. <a href="/WEB/pages/user_pages/recipes.html" style="color: var(--gold);">Back to recipes</a>
+      Recipe not found. <a href="recipes.html" style="color: var(--gold);">Back to recipes</a>
     </p>
   `;
 } else {
@@ -37,7 +37,7 @@ if (!recipe) {
 
   detailImage.src = recipe.image;
   detailImage.alt = recipe.name;
-  detailImage.onerror = function () { this.src = '/WEB/assets/images/placeholder.jpg'; };
+  detailImage.onerror = function () { this.src = '../../assets/images/placeholder.jpg'; };
 
   detailCourse.textContent = formatCourse(recipe.course);
   detailName.textContent = recipe.name;
