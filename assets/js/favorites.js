@@ -7,18 +7,15 @@ const navUsername = document.getElementById('navUsername');
 
 let currentFilter = 'all';
 
-// ── Current user ──────────────────────────────────────────────────
 const currentUser = JSON.parse(localStorage.getItem('currentUser'));
 if (currentUser) navUsername.textContent = currentUser.name;
 
-// ── Logout ────────────────────────────────────────────────────────
 document.querySelector('.nav-logout').addEventListener('click', e => {
   e.preventDefault();
   localStorage.removeItem('currentUser');
   window.location.href = '../login.html';
 });
 
-// ── Helpers ───────────────────────────────────────────────────────
 function formatCourse(course) {
   const map = { 'appetizer': 'Appetizer', 'main-course': 'Main Course', 'dessert': 'Dessert' };
   return map[course] || course;
@@ -28,14 +25,12 @@ function getFavouriteIds() {
   return JSON.parse(localStorage.getItem('favourites')) || [];
 }
 
-// ── Remove from favourites ────────────────────────────────────────
 function removeFromFavourites(recipeId) {
   let favs = getFavouriteIds().filter(id => id !== recipeId);
   localStorage.setItem('favourites', JSON.stringify(favs));
   renderFavourites();
 }
 
-// ── Render ────────────────────────────────────────────────────────
 function renderFavourites() {
   const favIds = getFavouriteIds();
   let favRecipes = recipes.filter(r => favIds.includes(r.id));
@@ -83,7 +78,6 @@ function renderFavourites() {
   });
 }
 
-// ── Filter pills ──────────────────────────────────────────────────
 filterPills.forEach(btn => {
   btn.addEventListener('click', () => {
     filterPills.forEach(b => b.classList.remove('active'));
@@ -93,5 +87,4 @@ filterPills.forEach(btn => {
   });
 });
 
-// ── Init ──────────────────────────────────────────────────────────
 renderFavourites();

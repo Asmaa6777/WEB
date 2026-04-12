@@ -1,68 +1,55 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-     
-
-    <title>Search Results</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Search Results – RecipeFinder</title>
+  <link rel="stylesheet" href="../../assets/css/style.css" />
 </head>
-
 <body>
-    <header>
- <nav>
-      <a href="homepage.html">Home</a> |
-      <a href="recipes.html">All Recipes</a> |
-      <a href="favorites.html">Favourites</a> |
-      <a href="add_recipe.html">Add Recipe</a> |
-      <a href="admin_dashboard.html">Admin Dashboard</a> |
-      <a href="login.html">Login</a> |
-      <a href="signup.html">Signup</a> |
-      <a href="profile.html">Profile</a>
-    </nav>
-    <hr>
-    </header>
-    <main>
-<h1>Search Results</h1>
 
-<p>Recipes found based on your search:</p>
+  <nav class="navbar">
+    <div class="nav-logo">
+      <span class="logo-circle">R</span>
+      Recipe<span class="logo-gold">Finder</span>
+    </div>
+    <ul class="nav-links">
+      <li><a href="../homepage.html">Home</a></li>
+      <li><a href="recipes.html" class="active">Recipes</a></li>
+      <li><a href="favorites.html">Favourites</a></li>
+      <li><a href="../trending.html">Trending</a></li>
+    </ul>
+    <div class="nav-user">
+      <span id="navUsername"></span>
+      <a href="../login.html" class="nav-logout">Logout</a>
+    </div>
+  </nav>
 
-<hr>
-  <img src="images/pasta.jpg" alt="Pasta" width="120" height="120">
-  <br>
-  <b>Pasta</b> — Main Course<br>
-  <i>Pasta, Beef, Tomato Sauce, Onion, Garlic, Milk</i><br>
-  <a href="recipe_detail/recipe_detail1.html">View</a> |
-  <a href="favorites.html">Add to Favorites</a> |
-  <a href="edit_recipe.html">Edit</a> |
-  <a href="delete_recipe">Delete</a>
+  <div class="page-header">
+    <p class="section-label">OUR COLLECTION</p>
+    <h1 class="page-title">Search <em class="gold-italic">Results</em></h1>
 
-  <hr>
+    <div class="search-wrapper">
+      <input type="text" id="searchInput" class="search-bar" placeholder="Search recipes or ingredients..." />
+    </div>
 
+    <div class="filter-pills">
+      <button class="pill active" data-filter="all">All</button>
+      <button class="pill" data-filter="appetizer">Appetizers</button>
+      <button class="pill" data-filter="main-course">Main Course</button>
+      <button class="pill" data-filter="dessert">Dessert</button>
+    </div>
+  </div>
 
- 
-  <img src="images/grilled.jpg" alt="Grilled Chicken" width="120" height="120">
-  <br>
-  <b>Grilled Chicken</b> — Main Course<br>
-  <i>Chicken, Lemon, Garlic, Rosemary, Olive Oil</i><br>
-  <a href="recipe_detail/recipe_detail4.html">View</a> |
-  <a href="favorites.html">Add to Favorites</a> |
-  <a href="edit_recipe.html">Edit</a> |
-  <a href="delete_recipe.html">Delete</a>
+  <div class="recipes-section">
+    <div class="recipe-grid" id="recipeGrid"></div>
+    <div class="empty-state" id="emptyState">
+      <p>No recipes found. Try a different search or filter.</p>
+    </div>
+  </div>
 
-  <hr>
- 
-     <img src="images/soup.jpg" alt="Vegetable Soup" width="120" height="120">
-  <br>
-  <b>Vegetable Soup</b> — Appetizer<br>
-  <i>Onion, Carrot, Garlic, Olive Oil, Potatoes, Tomatoes, Green Beans</i><br>
-  <a href="recipe_detail/recipe_detail5.html">View</a> |
-  <a href="favorites.html">Add to Favorites</a> |
-  <a href="edit_recipe.html">Edit</a> |
-  <a href="delete_recipe.html">Delete</a>
-
-  <hr>
-
-<a href="favorites.html">Go to Favorites</a>
-    </main>
+  <script src="../../assets/js/data.js"></script>
+  <script src="../../assets/js/search_results.js"></script>
 
 </body>
 </html>
