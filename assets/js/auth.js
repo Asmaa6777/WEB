@@ -96,10 +96,10 @@ if (loginForm) {
 
     localStorage.setItem(CURRENT_USER_KEY, JSON.stringify(foundUser));
 
-    if (foundUser.role === "admin") {
-      window.location.href = "admin_pages/admin_dashboard.html";
-    } else {
-      window.location.href = "user_pages/homepage.html";
-    }
+   if (foundUser.role === "admin") {
+  window.location.href = "admin_pages/admin_dashboard.html";
+} else {
+  window.location.href = "homepage.html";
+}
   });
 }
