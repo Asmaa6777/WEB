@@ -10,6 +10,7 @@ function saveUsers(users) {
 }
 
 const signupForm = document.getElementById("signupForm");
+
 if (signupForm) {
   signupForm.addEventListener("submit", function (e) {
     e.preventDefault();
@@ -21,10 +22,17 @@ if (signupForm) {
     const email = document.getElementById("email").value.trim().toLowerCase();
     const password = document.getElementById("password").value;
     const confirmPassword = document.getElementById("confirmPassword").value;
-    const role = document.querySelector('input[name="role"]:checked').value;
+
+    const selectedRole = document.querySelector('input[name="role"]:checked');
+    const role = selectedRole ? selectedRole.value : "user";
 
     const formMessage = document.getElementById("formMessage");
     if (formMessage) formMessage.textContent = "";
+
+    if (!firstName || !lastName || !dob || !username || !email || !password || !confirmPassword) {
+      if (formMessage) formMessage.textContent = "Please fill in all required fields.";
+      return;
+    }
 
     if (password.length < 8) {
       if (formMessage) formMessage.textContent = "Password must be at least 8 characters.";
@@ -64,6 +72,8 @@ if (signupForm) {
 
     if (formMessage) formMessage.textContent = "Account created successfully.";
 
+    signupForm.reset();
+
     setTimeout(() => {
       window.location.href = "login.html";
     }, 1000);
@@ -71,6 +81,7 @@ if (signupForm) {
 }
 
 const loginForm = document.getElementById("loginForm");
+
 if (loginForm) {
   loginForm.addEventListener("submit", function (e) {
     e.preventDefault();
@@ -80,6 +91,11 @@ if (loginForm) {
 
     const formMessage = document.getElementById("formMessage");
     if (formMessage) formMessage.textContent = "";
+
+    if (!identifier || !password) {
+      if (formMessage) formMessage.textContent = "Please enter username/email and password.";
+      return;
+    }
 
     const users = getUsers();
 
@@ -96,10 +112,10 @@ if (loginForm) {
 
     localStorage.setItem(CURRENT_USER_KEY, JSON.stringify(foundUser));
 
-   if (foundUser.role === "admin") {
-  window.location.href = "admin_pages/admin_dashboard.html";
-} else {
-  window.location.href = "homepage.html";
-}
+    if (foundUser.role === "admin") {
+      window.location.href = "admin_pages/admin_dashboard.html";
+    } else {
+      window.location.href = "homepage.html";
+    }
   });
 }
