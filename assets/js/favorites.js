@@ -1,0 +1,97 @@
+// assets/js/favorites.js
+
+const recipeGrid  = document.getElementById('recipeGrid');
+const emptyState  = document.getElementById('emptyState');
+const filterPills = document.querySelectorAll('.pill');
+const navUsername = document.getElementById('navUsername');
+
+let currentFilter = 'all';
+
+// ── Current user ──────────────────────────────────────────────────
+const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+if (currentUser) navUsername.textContent = currentUser.name;
+
+// ── Logout ────────────────────────────────────────────────────────
+document.querySelector('.nav-logout').addEventListener('click', e => {
+  e.preventDefault();
+  localStorage.removeItem('currentUser');
+  window.location.href = '../login.html';
+});
+
+// ── Helpers ───────────────────────────────────────────────────────
+function formatCourse(course) {
+  const map = { 'appetizer': 'Appetizer', 'main-course': 'Main Course', 'dessert': 'Dessert' };
+  return map[course] || course;
+}
+
+function getFavouriteIds() {
+  return JSON.parse(localStorage.getItem('favourites')) || [];
+}
+
+// ── Remove from favourites ────────────────────────────────────────
+function removeFromFavourites(recipeId) {
+  let favs = getFavouriteIds().filter(id => id !== recipeId);
+  localStorage.setItem('favourites', JSON.stringify(favs));
+  renderFavourites();
+}
+
+// ── Render ────────────────────────────────────────────────────────
+function renderFavourites() {
+  const favIds = getFavouriteIds();
+  let favRecipes = recipes.filter(r => favIds.includes(r.id));
+
+  if (currentFilter !== 'all') {
+    favRecipes = favRecipes.filter(r => r.course === currentFilter);
+  }
+
+  recipeGrid.innerHTML = '';
+
+  if (favIds.length === 0) {
+    emptyState.style.display = 'block';
+    emptyState.querySelector('p').innerHTML =
+      'No favourite recipes yet. <a href="recipes.html">Browse recipes</a> and add some!';
+    return;
+  }
+
+  if (favRecipes.length === 0) {
+    emptyState.style.display = 'block';
+    emptyState.querySelector('p').innerHTML = 'No favourites in this category.';
+    return;
+  }
+
+  emptyState.style.display = 'none';
+
+  favRecipes.forEach(recipe => {
+    const card = document.createElement('div');
+    card.classList.add('recipe-card');
+    card.innerHTML = `
+      <div class="card-image-wrapper">
+        <img src="${recipe.image}" alt="${recipe.name}" class="card-img"
+             onerror="this.src='../../assets/images/placeholder.jpg'"/>
+        <span class="course-tag">${formatCourse(recipe.course)}</span>
+      </div>
+      <div class="card-body">
+        <h3 class="card-title">${recipe.name}</h3>
+        <p class="card-desc">${recipe.description}</p>
+        <div class="card-actions">
+          <a href="recipe_detail.html?id=${recipe.id}" class="btn-view">View Recipe</a>
+          <button class="btn-remove" onclick="removeFromFavourites(${recipe.id})">♥ Remove</button>
+        </div>
+      </div>
+    `;
+    recipeGrid.appendChild(card);
+  });
+}
+
+// ── Filter pills ──────────────────────────────────────────────────
+filterPills.forEach(btn => {
+  btn.addEventListener('click', () => {
+    filterPills.forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    currentFilter = btn.getAttribute('data-filter');
+    renderFavourites();
+  });
+});
+
+// ── Init ──────────────────────────────────────────────────────────
+renderFavourites();
