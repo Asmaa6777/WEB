@@ -37,7 +37,7 @@ if (!recipe) {
 
   detailImage.src = recipe.image;
   detailImage.alt = recipe.name;
-  detailImage.onerror = function () { this.src = '../../assets/images/placeholder.jpg'; };
+  detailImage.onerror = function () { this.src = '../../assets/images/placeholder.svg'; };
 
   detailCourse.textContent = formatCourse(recipe.course);
   detailName.textContent = recipe.name;

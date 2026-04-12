@@ -62,7 +62,7 @@ function renderFavourites() {
     card.innerHTML = `
       <div class="card-image-wrapper">
         <img src="${recipe.image}" alt="${recipe.name}" class="card-img"
-             onerror="this.src='../../assets/images/placeholder.jpg'"/>
+             onerror="this.src='../../assets/images/placeholder.svg'"/>
         <span class="course-tag">${formatCourse(recipe.course)}</span>
       </div>
       <div class="card-body">

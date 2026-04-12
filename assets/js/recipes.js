@@ -36,16 +36,23 @@ function renderRecipes() {
 
   emptyState.style.display = 'none';
 
+  const favIds = JSON.parse(localStorage.getItem('favourites')) || [];
+
   filtered.forEach(recipe => {
+    const isSaved = favIds.includes(recipe.id);
     const card = document.createElement('div');
     card.classList.add('recipe-card');
     card.setAttribute('data-course', recipe.course);
 
-    // Build action buttons based on role
     let actionButtons = `<a href="recipe_detail.html?id=${recipe.id}" class="btn-view">View Recipe</a>`;
 
     if (currentUser && currentUser.role === 'user') {
-      actionButtons += `<button class="btn-fav" onclick="addToFavourites(${recipe.id}, event)">&#9825;</button>`;
+      actionButtons += `
+        <button class="btn-fav ${isSaved ? 'saved' : ''}"
+          ${isSaved ? 'disabled' : ''}
+          onclick="addToFavourites(${recipe.id}, this)">
+          ${isSaved ? '♥ Saved' : '♡ Save'}
+        </button>`;
     }
 
     if (currentUser && currentUser.role === 'admin') {
@@ -57,7 +64,7 @@ function renderRecipes() {
 
     card.innerHTML = `
       <div class="card-image-wrapper">
-        <img src="${recipe.image}" alt="${recipe.name}" class="card-img" onerror="this.src='../../assets/images/placeholder.jpg'"/>
+        <img src="${recipe.image}" alt="${recipe.name}" class="card-img" onerror="this.src='../../assets/images/placeholder.svg'"/>
         <span class="course-tag">${formatCourse(recipe.course)}</span>
       </div>
       <div class="card-body">
@@ -82,24 +89,26 @@ function formatCourse(course) {
 }
 
 
-function addToFavourites(recipeId, event) {
-  event.preventDefault();
-  const favourites = JSON.parse(localStorage.getItem('favourites')) || [];
+function addToFavourites(recipeId, btn) {
+  const favs = JSON.parse(localStorage.getItem('favourites')) || [];
 
-  if (favourites.includes(recipeId)) {
+  if (favs.includes(recipeId)) {
     alert('Already in your favourites!');
     return;
   }
 
-  favourites.push(recipeId);
-  localStorage.setItem('favourites', JSON.stringify(favourites));
+  favs.push(recipeId);
+  localStorage.setItem('favourites', JSON.stringify(favs));
 
-  // Update favourite counts for trending
+  // Update trending counts
   const favCounts = JSON.parse(localStorage.getItem('favoriteCounts')) || {};
   favCounts[recipeId] = (favCounts[recipeId] || 0) + 1;
   localStorage.setItem('favoriteCounts', JSON.stringify(favCounts));
 
-  alert('Added to favourites!');
+  // Update button immediately
+  btn.textContent = '♥ Saved';
+  btn.classList.add('saved');
+  btn.disabled = true;
 }
 
  
