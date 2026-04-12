@@ -9,12 +9,21 @@ const navUsername = document.getElementById('navUsername');
 let currentFilter = 'all';
 let currentSearch = '';
 
+// ── Image path helper ─────────────────────────────────────────────
+function imgSrc(filename) {
+  const base = typeof IMAGE_BASE !== 'undefined' ? IMAGE_BASE : '../../assets/images/';
+  return base + filename;
+}
+
 // ── Load current user from localStorage ──────────────────────────
 const currentUser = JSON.parse(localStorage.getItem('currentUser'));
 
 if (currentUser) {
   navUsername.textContent = currentUser.name;
 }
+
+// Use initial recipes like trending
+const recipes = initialRecipes;
 
 // ── Render recipe cards ───────────────────────────────────────────
 function renderRecipes() {
@@ -64,7 +73,7 @@ function renderRecipes() {
 
     card.innerHTML = `
       <div class="card-image-wrapper">
-        <img src="${recipe.image}" alt="${recipe.name}" class="card-img" onerror="this.src='../../assets/images/placeholder.svg'"/>
+        <img src="${imgSrc(recipe.image)}" alt="${recipe.name}" class="card-img" onerror="this.src='${imgSrc('placeholder.svg')}'"/>
         <span class="course-tag">${formatCourse(recipe.course)}</span>
       </div>
       <div class="card-body">
