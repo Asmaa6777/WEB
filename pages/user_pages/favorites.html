@@ -1,66 +1,210 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>My Favorite Recipes</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Favourites – RecipeFinder</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=Lato:wght@300;400;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0a0a0a;
+      --surface: #1a1a1a;
+      --gold: #c9a84c;
+      --gold-light: #e8c97a;
+      --white: #ffffff;
+      --muted: #a0a0a0;
+      --border: #2a2a2a;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Lato', sans-serif; background: var(--bg); color: var(--white); }
+
+    /* NAV */
+    nav {
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 2rem;
+      height: 72px;
+    }
+
+    /* LOGO */
+    .logo { display: flex; flex-direction: column; text-decoration: none; line-height: 1.2; }
+    .logo-top { display: flex; align-items: center; gap: 8px; }
+    .logo-icon { font-size: 1.3rem; }
+    .logo-name { font-family: 'Lato', sans-serif; font-size: 1.25rem; font-weight: 700; }
+    .logo-name .r { color: var(--white); }
+    .logo-name .f { color: var(--gold); }
+    .logo-sub { font-size: 0.72rem; font-weight: 300; color: var(--muted); margin-top: 2px; padding-left: 2px; }
+
+    nav ul { display: flex; gap: 2rem; list-style: none; }
+    nav a { color: var(--white); text-decoration: none; font-size: 0.9rem; }
+    nav a:hover, nav a.active { color: var(--gold); }
+    .nav-user { color: var(--muted); font-size: 0.9rem; }
+
+    /* HERO */
+    .hero { text-align: center; padding: 5rem 1rem 3.5rem; }
+    .eyebrow { font-size: 0.72rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); margin-bottom: 1rem; }
+    h1 { font-family: 'Playfair Display', serif; font-size: 3.2rem; font-weight: 700; color: var(--white); }
+    h1 em { font-style: italic; font-weight: 400; color: var(--gold-light); }
+    .sub { color: var(--muted); font-weight: 300; margin-top: 0.75rem; }
+
+    /* PILLS */
+    .pills { display: flex; justify-content: center; gap: 0.6rem; flex-wrap: wrap; margin: 2.5rem 0 1rem; }
+    .pill { padding: 8px 22px; border-radius: 999px; border: 1px solid var(--border); background: transparent; color: var(--white); font-family: 'Lato', sans-serif; font-size: 0.85rem; cursor: pointer; transition: all 0.2s; }
+    .pill:hover { border-color: var(--gold); color: var(--gold); }
+    .pill.active { background: var(--gold); border-color: var(--gold); color: var(--bg); font-weight: 600; }
+
+    /* META */
+    .meta { max-width: 1100px; margin: 1.5rem auto; padding: 0 2rem; display: flex; justify-content: space-between; align-items: center; }
+    .meta span { color: var(--muted); font-size: 0.85rem; }
+    .meta a { color: var(--gold); font-size: 0.85rem; font-weight: 600; text-decoration: none; }
+    .meta a:hover { color: var(--gold-light); }
+
+    /* GRID */
+    .grid { max-width: 1100px; margin: 0 auto; padding: 0 2rem 5rem; display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 1.5rem; }
+
+    /* CARD */
+    .card { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; overflow: hidden; transition: transform 0.25s, border-color 0.25s; }
+    .card:hover { transform: translateY(-5px); border-color: var(--gold); }
+
+    .card-img { position: relative; height: 210px; background: #111; overflow: hidden; }
+    .card-img img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s; }
+    .card:hover .card-img img { transform: scale(1.05); }
+    .card-img .emoji { font-size: 3rem; display: flex; align-items: center; justify-content: center; height: 100%; }
+
+    .tag { position: absolute; top: 12px; left: 12px; background: var(--gold); color: var(--bg); font-size: 0.7rem; font-weight: 600; letter-spacing: 0.05em; padding: 3px 11px; border-radius: 999px; }
+
+    .card-body { padding: 1.2rem 1.4rem 1.5rem; }
+    .card-title { font-family: 'Playfair Display', serif; font-size: 1.25rem; color: var(--white); margin-bottom: 0.4rem; }
+    .card-ing { color: var(--muted); font-size: 0.8rem; font-weight: 300; line-height: 1.5; margin-bottom: 1.1rem; }
+
+    .actions { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+    .btn { text-decoration: none; font-family: 'Lato', sans-serif; font-size: 0.76rem; font-weight: 600; padding: 7px 13px; border-radius: 7px; border: 1px solid transparent; transition: all 0.2s; }
+    .btn-gold   { background: var(--gold); color: var(--bg); }
+    .btn-gold:hover { background: var(--gold-light); }
+    .btn-ghost  { background: transparent; color: var(--muted); border-color: var(--border); }
+    .btn-ghost:hover { border-color: var(--gold); color: var(--gold); }
+    .btn-saved  { background: transparent; color: var(--gold); border-color: rgba(201,168,76,0.3); }
+    .btn-delete { background: transparent; color: #c04040; border-color: rgba(192,64,64,0.25); }
+    .btn-delete:hover { background: rgba(192,64,64,0.08); }
+
+    footer { background: var(--surface); border-top: 1px solid var(--border); text-align: center; padding: 1.5rem; color: var(--muted); font-size: 0.8rem; }
+  </style>
 </head>
-
 <body>
-<header>
-  <nav>
-      <a href="homepage.html">Home</a> |
-      <a href="recipes.html">All Recipes</a> |
-      <a href="favorites.html">Favourites</a> |
-      <a href="add_recipe.html">Add Recipe</a> |
-      <a href="admin_dashboard.html">Admin Dashboard</a> |
-      <a href="login.html">Login</a> |
-      <a href="signup.html">Signup</a> |
-      <a href="profile.html">Profile</a>
-    </nav>
-    <hr>
-  </header>
-<main>
-<h1>My Favorite Recipes</h1>
 
-<p>These are the recipes you saved:</p>
+<nav>
+  <a href="homepage.html" class="logo">
+    <div class="logo-top">
+      <span class="logo-icon">🍽️</span>
+      <span class="logo-name"><span class="r">Recipe </span><span class="f">Finder</span></span>
+    </div>
+    <span class="logo-sub">Discover, Share and Save your Favourite Recipes</span>
+  </a>
 
-<hr>
- 
-  <img src="images/chocolate_cake.jpg" alt="Chocolate Cake" width="120" height="120">
-  <br>
-  <b>Chocolate Cake</b> — Dessert<br>
-  <i>Dark Chocolate, Milk, Eggs, Flour, Sugar, Oil</i><br>
-  <a href="recipe_detail/recipe_detail3.html">View</a> |
-  <a href="favorites.html">Add to Favorites</a> |
-  <a href="edit_recipe.html">Edit</a> |
-  <a href="delete_recipe.html">Delete</a>
+  <ul>
+    <li><a href="homepage.html">Home</a></li>
+    <li><a href="recipes.html">Recipes</a></li>
+    <li><a href="favorites.html" class="active">Favourites</a></li>
+    <li><a href="add_recipe.html">Add Recipe</a></li>
+    <li><a href="login.html">Login</a></li>
+    <li><a href="signup.html">Sign Up</a></li>
+    <li><a href="profile.html">Profile</a></li>
+  </ul>
 
-  <hr>
+</nav>
 
-   <img src="images/pancake.jpg" alt="Pancake" width="120" height="120">
-  <br>
-  <b>Pancake</b> — Dessert<br>
-  <i>Heavy Cream, Eggs, Vanilla, Sugar, Flour</i><br>
-  <a href="recipe_detail/recipe_detail6.html">View</a> |
-  <a href="favorites.html">Add to Favorites</a> |
-  <a href="edit_recipe.html">Edit</a> |
-  <a href="delete_recipe.html">Delete</a>
+<section class="hero">
+  <p class="eyebrow">Your Collection</p>
+  <h1>My Favourite <em>Recipes</em></h1>
+  <p class="sub">The dishes you've saved to cook again and again.</p>
+</section>
 
-  <hr>
+<div class="pills">
+  <button class="pill active" onclick="filter(this,'all')">All</button>
+  <button class="pill" onclick="filter(this,'Appetizer')">Appetizers</button>
+  <button class="pill" onclick="filter(this,'Main Course')">Main Course</button>
+  <button class="pill" onclick="filter(this,'Dessert')">Dessert</button>
+</div>
 
- 
-     <img src="images/soup.jpg" alt="Vegetable Soup" width="120" height="120">
-  <br>
-  <b>Vegetable Soup</b> — Appetizer<br>
-  <i>Onion, Carrot, Garlic, Olive Oil, Potatoes, Tomatoes, Green Beans</i><br>
-  <a href="recipe_detail/recipe_detail5.html">View</a> |
-  <a href="favorites.html">Add to Favorites</a> |
-  <a href="edit_recipe.html">Edit</a> |
-  <a href="delete_recipe.html">Delete</a>
+<div class="meta">
+  <span id="count">3 saved recipes</span>
+  <a href="recipes.html">← Browse All Recipes</a>
+</div>
 
-  <hr>
+<div class="grid">
 
-<a href="recipes.html">Back to All Recipes</a>
+  <div class="card" data-cat="Dessert">
+    <div class="card-img">
+      <img src="images/chocolate_cake.jpg" alt="Chocolate Cake" onerror="this.parentNode.innerHTML='<div class=emoji>🍫</div>'">
+      <span class="tag">Dessert</span>
+    </div>
+    <div class="card-body">
+      <h2 class="card-title">Chocolate Cake</h2>
+      <p class="card-ing">Dark Chocolate · Milk · Eggs · Flour · Sugar · Oil</p>
+      <div class="actions">
+        <a href="recipe_detail/recipe_detail3.html" class="btn btn-gold">View Recipe</a>
+        <a href="favorites.html" class="btn btn-saved">♥ Saved</a>
+        <a href="edit_recipe.html" class="btn btn-ghost">Edit</a>
+        <a href="delete_recipe.html" class="btn btn-delete">Delete</a>
+      </div>
+    </div>
+  </div>
 
-</main>
+  <div class="card" data-cat="Dessert">
+    <div class="card-img">
+      <img src="images/pancake.jpg" alt="Pancake" onerror="this.parentNode.innerHTML='<div class=emoji>🥞</div>'">
+      <span class="tag">Dessert</span>
+    </div>
+    <div class="card-body">
+      <h2 class="card-title">Pancake</h2>
+      <p class="card-ing">Heavy Cream · Eggs · Vanilla · Sugar · Flour</p>
+      <div class="actions">
+        <a href="recipe_detail/recipe_detail6.html" class="btn btn-gold">View Recipe</a>
+        <a href="favorites.html" class="btn btn-saved">♥ Saved</a>
+        <a href="edit_recipe.html" class="btn btn-ghost">Edit</a>
+        <a href="delete_recipe.html" class="btn btn-delete">Delete</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="card" data-cat="Appetizer">
+    <div class="card-img">
+      <img src="images/soup.jpg" alt="Vegetable Soup" onerror="this.parentNode.innerHTML='<div class=emoji>🥣</div>'">
+      <span class="tag">Appetizer</span>
+    </div>
+    <div class="card-body">
+      <h2 class="card-title">Vegetable Soup</h2>
+      <p class="card-ing">Onion · Carrot · Garlic · Olive Oil · Potatoes · Tomatoes · Green Beans</p>
+      <div class="actions">
+        <a href="recipe_detail/recipe_detail5.html" class="btn btn-gold">View Recipe</a>
+        <a href="favorites.html" class="btn btn-saved">♥ Saved</a>
+        <a href="edit_recipe.html" class="btn btn-ghost">Edit</a>
+        <a href="delete_recipe.html" class="btn btn-delete">Delete</a>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<footer>RecipeFinder — Your personal gourmet collection</footer>
+
+<script>
+  function filter(btn, cat) {
+    document.querySelectorAll('.pill').forEach(p => p.classList.remove('active'));
+    btn.classList.add('active');
+    let n = 0;
+    document.querySelectorAll('.card').forEach(c => {
+      const show = cat === 'all' || c.dataset.cat === cat;
+      c.style.display = show ? '' : 'none';
+      if (show) n++;
+    });
+    document.getElementById('count').textContent = n + ' saved recipe' + (n !== 1 ? 's' : '');
+  }
+</script>
+
 </body>
 </html>
