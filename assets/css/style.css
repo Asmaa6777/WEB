@@ -17,6 +17,10 @@
   --danger-hover: #a93226;
 }
 
+* {
+  box-sizing: border-box;
+  font-family: 'Playfair Display', serif;
+}
 /* ===========================
    RESET & BASE
 =========================== */
@@ -75,6 +79,10 @@ img {
   display: flex;
   align-items: center;
   gap: 10px;
+  font-family: 'Lato', sans-serif;
+  font-weight: 600;
+  font-size: 1.1rem;
+  color: var(--white);
 }
 
 .logo-circle {
@@ -89,14 +97,6 @@ img {
   font-family: 'Playfair Display', serif;
   font-weight: 700;
   font-size: 1rem;
-}
-
-.logo-text {
-  font-family: 'Lato', sans-serif;
-  font-weight: 600;
-  font-size: 1.1rem;
-  color: var(--white);
-  letter-spacing: 0.3px;
 }
 
 .logo-gold {
@@ -144,7 +144,7 @@ img {
   gap: 16px;
 }
 
-.nav-username {
+#navUsername {
   font-size: 0.9rem;
   color: var(--text-light);
 }
@@ -160,7 +160,7 @@ img {
 }
 
 /* ===========================
-   PAGE HEADER (recipes.html)
+   PAGE HEADER
 =========================== */
 .page-header {
   text-align: center;
@@ -199,22 +199,12 @@ img {
   margin: 0 auto 28px;
 }
 
-.search-icon {
-  position: absolute;
-  left: 18px;
-  top: 50%;
-  transform: translateY(-50%);
-  font-size: 1rem;
-  color: var(--text-muted);
-  pointer-events: none;
-}
-
 .search-bar {
   width: 100%;
   background-color: var(--surface-2);
   border: 1px solid var(--border);
   border-radius: 50px;
-  padding: 14px 20px 14px 48px;
+  padding: 14px 20px;
   color: var(--white);
   font-family: 'Lato', sans-serif;
   font-size: 0.95rem;
@@ -230,9 +220,7 @@ img {
   border-color: var(--gold);
 }
 
-/* ===========================
-   FILTER PILLS
-=========================== */
+ 
 .filter-pills {
   display: flex;
   justify-content: center;
@@ -374,6 +362,7 @@ img {
 
 .btn-view:hover {
   background-color: var(--gold-light);
+  color: var(--background);
 }
 
 .btn-gold {
@@ -392,6 +381,11 @@ img {
 
 .btn-gold:hover {
   background-color: var(--gold-light);
+}
+
+.btn-gold:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
 }
 
 .btn-outline {
@@ -438,7 +432,7 @@ img {
   border: 1px solid var(--border);
   padding: 8px 14px;
   border-radius: 8px;
-  font-size: 0.82rem;
+  font-size: 1rem;
   font-family: 'Lato', sans-serif;
   cursor: pointer;
   transition: all 0.2s;
@@ -549,12 +543,28 @@ img {
 .detail-info {
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
   gap: 16px;
+  overflow-y: auto;
+  max-height: 580px;
+  padding-right: 8px;
+}
+
+.detail-info::-webkit-scrollbar {
+  width: 4px;
+}
+
+.detail-info::-webkit-scrollbar-track {
+  background: var(--surface);
+}
+
+.detail-info::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 4px;
 }
 
 .detail-title {
-  font-family: 'Playfair Display', serif;
+  
   font-size: 2.4rem;
   font-weight: 700;
   color: var(--white);
@@ -567,12 +577,15 @@ img {
   line-height: 1.7;
 }
 
+/* ===========================
+   INGREDIENTS
+=========================== */
 .detail-ingredients {
-  margin-top: 8px;
+  margin-top: 4px;
 }
 
 .ingredients-heading {
-  font-family: 'Playfair Display', serif;
+   
   font-size: 1.1rem;
   color: var(--gold);
   margin-bottom: 14px;
@@ -595,6 +608,38 @@ img {
   font-size: 0.85rem;
 }
 
+/* ===========================
+   INSTRUCTIONS
+=========================== */
+.detail-instructions {
+  margin-top: 4px;
+}
+.instructions-heading {
+
+  font-size: 1.1rem;
+  color: var(--gold);
+  margin-bottom: 14px;
+  font-weight: 700;
+}
+
+.instructions-list {
+ 
+  list-style: decimal;
+  padding-left: 20px;
+  gap: 10px;
+}
+
+.instructions-list li {
+    
+  color: var(--text-light);
+  font-size: 0.85rem;        
+  font-weight: 400;
+  line-height: 1.6;
+  padding-left: 4px;
+}
+/* ===========================
+   DETAIL ACTIONS
+=========================== */
 .detail-actions {
   display: flex;
   gap: 12px;
@@ -603,8 +648,7 @@ img {
 }
 
 /* ===========================
-   ROLE-BASED VISIBILITY
-   (toggled by JS)
+   ROLE VISIBILITY
 =========================== */
 .admin-only,
 .user-only {
@@ -638,16 +682,19 @@ img {
   .detail-hero {
     height: 320px;
   }
+
+  .detail-info {
+    max-height: none;
+    overflow-y: visible;
+  }
 }
 
 @media (max-width: 640px) {
   .navbar {
-    padding: 0 20px;
+    padding: 12px 20px;
     flex-wrap: wrap;
     height: auto;
     gap: 12px;
-    padding-top: 12px;
-    padding-bottom: 12px;
   }
 
   .nav-links {
@@ -672,5 +719,9 @@ img {
 
   .detail-section {
     padding: 24px 20px;
+  }
+
+  .detail-title {
+    font-size: 1.8rem;
   }
 }
