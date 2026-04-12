@@ -5,7 +5,7 @@ const initialRecipes = [
     name: "Spaghetti Carbonara",
     course: "main-course",
     ingredients: ["Spaghetti", "Eggs", "Pancetta", "Parmesan", "Black Pepper", "Salt"],
-    image: "../assets/images/carbonara.jpg",
+    image: "carbonara.jpg",
     description: "Silky Roman pasta with crispy pancetta and creamy egg sauce.",
     instructions: [
       "Boil spaghetti in salted water until al dente.",
@@ -21,7 +21,7 @@ const initialRecipes = [
     name: "Avocado Toast",
     course: "appetizer",
     ingredients: ["Sourdough Bread", "Avocado", "Lemon", "Chili Flakes", "Olive Oil", "Salt"],
-    image: "../assets/images/avocado_toast.jpg",
+    image: "avocado_toast.jpg",
     description: "Creamy smashed avocado on golden toasted sourdough with a kick of chili.",
     instructions: [
       "Toast sourdough bread until golden and crispy.",
@@ -37,7 +37,7 @@ const initialRecipes = [
     name: "Strawberry Cheesecake",
     course: "dessert",
     ingredients: ["Cream Cheese", "Strawberries", "Digestive Biscuits", "Butter", "Sugar", "Vanilla"],
-    image: "../assets/images/cheesecake.jpg",
+    image: "cheesecake.jpg",
     description: "Velvety cheesecake topped with fresh glossy strawberries.",
     instructions: [
       "Crush digestive biscuits and mix with melted butter.",
@@ -53,7 +53,7 @@ const initialRecipes = [
     name: "Butter Chicken",
     course: "main-course",
     ingredients: ["Chicken", "Butter", "Tomato Puree", "Heavy Cream", "Garlic", "Garam Masala", "Ginger"],
-    image: "../assets/images/butter_chicken.jpg",
+    image: "butter_chicken.jpg",
     description: "Tender chicken in a rich, velvety tomato and butter sauce.",
     instructions: [
       "Marinate chicken in yogurt and spices for 1 hour.",
@@ -69,7 +69,7 @@ const initialRecipes = [
     name: "Caprese Salad",
     course: "appetizer",
     ingredients: ["Fresh Mozzarella", "Tomatoes", "Basil", "Olive Oil", "Balsamic Glaze", "Salt"],
-    image: "../assets/images/caprese.jpg",
+    image: "caprese.jpg",
     description: "Fresh mozzarella and ripe tomatoes drizzled with balsamic glaze.",
     instructions: [
       "Slice mozzarella and tomatoes into equal rounds.",
@@ -85,7 +85,7 @@ const initialRecipes = [
     name: "Chocolate Lava Cake",
     course: "dessert",
     ingredients: ["Dark Chocolate", "Butter", "Eggs", "Sugar", "Flour", "Vanilla"],
-    image: "../assets/images/lava_cake.jpg",
+    image: "lava_cake.jpg",
     description: "Warm chocolate cake with an irresistible molten center.",
     instructions: [
       "Preheat oven to 220°C and grease ramekins.",
@@ -102,7 +102,7 @@ const initialRecipes = [
     name: "Salmon Poke Bowl",
     course: "main-course",
     ingredients: ["Salmon", "Sushi Rice", "Avocado", "Cucumber", "Edamame", "Soy Sauce", "Sesame Oil"],
-    image: "../assets/images/poke_bowl.jpg",
+    image: "poke_bowl.jpg",
     description: "Vibrant Hawaiian bowl with fresh salmon, rice and colorful toppings.",
     instructions: [
       "Cook sushi rice and season with rice vinegar.",
@@ -118,7 +118,7 @@ const initialRecipes = [
     name: "Bruschetta",
     course: "appetizer",
     ingredients: ["Baguette", "Tomatoes", "Basil", "Garlic", "Olive Oil", "Balsamic"],
-    image: "../assets/images/bruschetta.jpg",
+    image: "bruschetta.jpg",
     description: "Toasted bread topped with juicy tomatoes, fresh basil and garlic.",
     instructions: [
       "Slice baguette diagonally and toast until golden.",
@@ -134,7 +134,7 @@ const initialRecipes = [
     name: "Crème Brûlée",
     course: "dessert",
     ingredients: ["Heavy Cream", "Egg Yolks", "Sugar", "Vanilla Bean"],
-    image: "../assets/images/creme_brulee.jpg",
+    image: "creme_brulee.jpg",
     description: "Silky custard topped with a perfectly caramelized sugar crust.",
     instructions: [
       "Preheat oven to 160°C.",
@@ -151,7 +151,7 @@ const initialRecipes = [
     name: "Beef Tacos",
     course: "main-course",
     ingredients: ["Corn Tortillas", "Ground Beef", "Avocado", "Salsa", "Lime", "Cilantro", "Cheese"],
-    image: "../assets/images/tacos.jpg",
+    image: "tacos.jpg",
     description: "Crispy tacos loaded with spiced beef and fresh colorful toppings.",
     instructions: [
       "Brown ground beef in a pan with taco seasoning.",
@@ -167,7 +167,7 @@ const initialRecipes = [
     name: "Shrimp Cocktail",
     course: "appetizer",
     ingredients: ["Shrimp", "Cocktail Sauce", "Lemon", "Horseradish", "Parsley"],
-    image: "../assets/images/shrimp_cocktail.jpg",
+    image: "shrimp_cocktail.jpg",
     description: "Chilled juicy shrimp served with zesty cocktail sauce.",
     instructions: [
       "Boil shrimp in salted water for 2-3 minutes until pink.",
@@ -183,7 +183,7 @@ const initialRecipes = [
     name: "Tiramisu",
     course: "dessert",
     ingredients: ["Ladyfinger Biscuits", "Mascarpone", "Espresso", "Eggs", "Sugar", "Cocoa Powder"],
-    image: "../assets/images/tiramisu.jpg",
+    image: "tiramisu.jpg",
     description: "Layers of coffee soaked biscuits and cloud-like mascarpone cream.",
     instructions: [
       "Brew espresso and let it cool.",
@@ -201,7 +201,7 @@ const initialRecipes = [
     name: "Margherita Pizza",
     course: "main-course",
     ingredients: ["Pizza Dough", "Tomato Sauce", "Fresh Mozzarella", "Basil", "Olive Oil"],
-    image: "../assets/images/pizza.jpg",
+    image: "pizza.jpg",
     description: "Classic Neapolitan pizza with bubbling mozzarella and fresh basil.",
     instructions: [
       "Preheat oven to its highest setting with a pizza stone inside.",
@@ -218,7 +218,7 @@ const initialRecipes = [
     name: "Stuffed Mushrooms",
     course: "appetizer",
     ingredients: ["Portobello Mushrooms", "Cream Cheese", "Garlic", "Parmesan", "Parsley", "Breadcrumbs"],
-    image: "../assets/images/stuffed_mushrooms.jpg",
+    image: "stuffed_mushrooms.jpg",
     description: "Golden baked mushrooms filled with creamy garlic and cheese stuffing.",
     instructions: [
       "Preheat oven to 190°C.",
@@ -234,7 +234,7 @@ const initialRecipes = [
     name: "Mango Mousse",
     course: "dessert",
     ingredients: ["Mango Puree", "Heavy Cream", "Sugar", "Gelatin", "Lime Juice"],
-    image: "../assets/images/mango_mousse.jpg",
+    image: "mango_mousse.jpg",
     description: "Light and airy tropical mousse bursting with fresh mango flavor.",
     instructions: [
       "Bloom gelatin in cold water for 5 minutes.",
@@ -250,7 +250,7 @@ const initialRecipes = [
     name: "Grilled Salmon",
     course: "main-course",
     ingredients: ["Salmon Fillet", "Lemon", "Garlic", "Dill", "Olive Oil", "Capers"],
-    image: "../assets/images/salmon.jpg",
+    image: "salmon.jpg",
     description: "Perfectly seared salmon with golden skin and fresh herb butter.",
     instructions: [
       "Pat salmon fillets dry with paper towels.",
@@ -266,7 +266,7 @@ const initialRecipes = [
     name: "Burrata with Tomatoes",
     course: "appetizer",
     ingredients: ["Burrata", "Heirloom Tomatoes", "Basil", "Olive Oil", "Sea Salt", "Black Pepper"],
-    image: "../assets/images/burrata.jpg",
+    image: "burrata.jpg",
     description: "Creamy burrata on a bed of colorful heirloom tomatoes.",
     instructions: [
       "Slice heirloom tomatoes into thick rounds.",
@@ -282,7 +282,7 @@ const initialRecipes = [
     name: "French Macarons",
     course: "dessert",
     ingredients: ["Almond Flour", "Egg Whites", "Powdered Sugar", "Buttercream", "Food Coloring"],
-    image: "../assets/images/macarons.jpg",
+    image: "macarons.jpg",
     description: "Delicate pastel shells with silky buttercream filling.",
     instructions: [
       "Sift almond flour and powdered sugar together.",
@@ -299,7 +299,7 @@ const initialRecipes = [
     name: "Ramen",
     course: "main-course",
     ingredients: ["Ramen Noodles", "Soft Boiled Egg", "Pork Belly", "Broth", "Nori", "Spring Onion", "Corn"],
-    image: "../assets/images/ramen.jpg",
+    image: "ramen.jpg",
     description: "A rich steaming bowl of Japanese ramen with all the toppings.",
     instructions: [
       "Simmer broth with soy sauce and mirin for 20 minutes.",
@@ -315,7 +315,7 @@ const initialRecipes = [
     name: "Acai Bowl",
     course: "appetizer",
     ingredients: ["Acai", "Banana", "Granola", "Fresh Berries", "Honey", "Coconut Flakes"],
-    image: "../assets/images/acai_bowl.jpg",
+    image: "acai_bowl.jpg",
     description: "A vibrant purple bowl topped with fresh fruit and crunchy granola.",
     instructions: [
       "Blend frozen acai with banana until thick and smooth.",
