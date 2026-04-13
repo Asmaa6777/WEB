@@ -49,7 +49,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const updatedUsername = profileUsername.value.trim();
     const updatedEmail = document.getElementById('emailInput').value.trim().toLowerCase();
-    const updatedDob = document.getElementById('dobInput').value;
     const updatedPassword = document.getElementById('passwordInput').value;
 
     if (!updatedUsername || !updatedEmail) {
@@ -68,7 +67,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     currentUser.username = updatedUsername;
     currentUser.email = updatedEmail;
-    currentUser.dob = updatedDob;
     if (updatedPassword) {
       currentUser.password = updatedPassword;
     }
@@ -82,10 +80,8 @@ document.addEventListener('DOMContentLoaded', () => {
     localStorage.setItem('currentUser', JSON.stringify(currentUser));
     if (profileUsernameText) profileUsernameText.textContent = currentUser.username;
     if (profileEmail) profileEmail.textContent = currentUser.email;
-    if (profileDob) profileDob.textContent = currentUser.dob || 'N/A';
 
     profileMessage.textContent = 'Profile updated successfully.';
     profileMessage.style.color = 'green';
     document.getElementById('passwordInput').value = '';
   });
-});
