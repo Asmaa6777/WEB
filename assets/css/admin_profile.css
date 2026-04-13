@@ -1,0 +1,121 @@
+.profile-container {
+    max-width: 900px;
+    margin: 40px auto;
+    background-color: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 30px;
+}
+
+.profile-header-section {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+    margin-bottom: 40px;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 30px;
+}
+
+.avatar-container {
+    text-align: center;
+}
+
+.avatar-container img {
+    width: 150px;
+    height: 150px;
+    border-radius: 10px;
+    object-fit: cover;
+    border: 2px solid var(--gold);
+}
+
+.profile-info h2 {
+    font-family: 'Playfair Display', serif;
+    color: var(--gold);
+    margin-bottom: 10px;
+}
+
+.profile-info p {
+    color: var(--text-muted);
+    margin-bottom: 5px;
+    font-size: 14px;
+}
+
+.profile-info strong {
+    color: var(--white);
+}
+
+.edit-form-section h3 {
+    font-family: 'Playfair Display', serif;
+    color: var(--gold);
+    margin-bottom: 20px;
+    font-size: 22px;
+}
+
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+}
+
+.input-group label {
+    display: block;
+    color: var(--text-muted);
+    margin-bottom: 8px;
+    font-size: 13px;
+}
+
+.input-group input {
+    width: 100%;
+    background-color: var(--background);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    color: var(--white);
+    padding: 12px;
+    font-family: 'Lato', sans-serif;
+    transition: border-color 0.3s;
+}
+
+.input-group input:focus {
+    border-color: var(--gold);
+    outline: none;
+}
+
+.form-actions {
+    margin-top: 30px;
+    text-align: right;
+}
+
+.btn-save {
+    background-color: var(--gold);
+    color: var(--background);
+    border: none;
+    padding: 12px 24px;
+    border-radius: 8px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.btn-save:hover {
+    background-color: var(--gold-light);
+}
+
+.profile-message {
+    margin-top: 15px;
+    font-size: 14px;
+    text-align: right;
+}
+
+.profile-icon {
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+    background-color: var(--gold);
+    color: var(--background);
+    border-radius: 50%;
+    line-height: 30px;
+    text-align: center;
+    font-weight: bold;
+    vertical-align: middle;
+    margin-left: 5px;
+}
