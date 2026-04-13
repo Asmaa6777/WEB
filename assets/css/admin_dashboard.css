@@ -49,9 +49,6 @@ h1 {
 nav {
     text-align: center;
     padding: 16px 40px;
-    background-color: var(--surface);
-    border-top: 1px solid var(--border);
-    border-bottom: 1px solid var(--border);
 }
 
 nav a {
