@@ -7,22 +7,22 @@
     <link rel="stylesheet" href="../../assets/css/style.css">
     <link rel="stylesheet" href="../../assets/css/admin_dashboard.css">
     <link rel="stylesheet" href="../../assets/css/admin_profile.css">
+</head>
 <body>
 
-    <header>
-        <h1>Admin Dashboard</h1>
-        <nav>
-            <a href="../homepage.html">Home</a> |
-            <a href="../user_pages/recipes.html">All Recipes</a> |
-            <a href="../user_pages/favorites.html">Favourites</a> |
-            <a href="add_recipe.html">Add Recipe</a> |
-            <a href="admin_dashboard.html">Dashboard</a> |
-            <a href="../login.html" class="nav-logout">Logout</a> |
-            <a href="profile.html" class="active">
-                Profile <span class="profile-icon">👤</span>
-            </a>
+    <header class="main-header">
+        <div class="logo">
+            <span class="logo-icon">R</span>
+            <span class="logo-text">Recipe<span class="logo-highlight">Finder</span></span>
+        </div>
+        <nav class="main-nav">
+            <a href="../homepage.html">Home</a>
+            <a href="../user_pages/recipes.html">Recipes</a>
+            <a href="../user_pages/favorites.html">Favourites</a>
+            <a href="admin_dashboard.html">Dashboard</a>
+            <a href="admin_profile.html" class="active">Profile</a>
+            <a href="../login.html" class="nav-logout">Logout</a>
         </nav>
-        <hr> 
     </header>
 
     <main>
@@ -35,7 +35,6 @@
                     <h2 id="profileName">Admin Name</h2>
                     <p><strong>Username:</strong> <span id="profileUsernameText">...</span></p>
                     <p><strong>Email:</strong> <span id="profileEmail">...</span></p>
-                    <p><strong>Date of Birth:</strong> <span id="profileDob">...</span></p>
                     <p><strong>Role:</strong> <span id="profileRole">...</span></p>
                 </div>
             </div>
@@ -43,7 +42,7 @@
             <div class="edit-form-section">
                 <h3>Update Information</h3>
                 <form id="profileForm">
-                    <div class="form-grid">
+                    <div class="form-vertical">
                         <div class="input-group">
                             <label for="profileUsername">Username</label>
                             <input type="text" id="profileUsername" name="username" required>
@@ -52,11 +51,6 @@
                         <div class="input-group">
                             <label for="emailInput">Email Address</label>
                             <input type="email" id="emailInput" name="email" required>
-                        </div>
-
-                        <div class="input-group">
-                            <label for="dobInput">Date of Birth</label>
-                            <input type="date" id="dobInput" name="dob">
                         </div>
 
                         <div class="input-group">
