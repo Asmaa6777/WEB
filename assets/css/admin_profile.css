@@ -1,13 +1,44 @@
 .main-header {
     display: flex;
-    justify-content: space-between;
+    justify-content: space-between; 
     align-items: center;
-    background-color: #080808; 
     padding: 15px 50px;
-    border-bottom: 1px solid var(--border);
     position: sticky;
     top: 0;
-    z-index: 1000; 
+    z-index: 1000;
+}
+
+.main-nav {
+    display: flex;
+    align-items: center;
+    width: 100%; 
+    justify-content: center; 
+    position: relative; 
+}
+
+.nav-links {
+    display: flex;
+    gap: 25px;
+}
+
+.nav-actions {
+    position: absolute;
+    right: 0; 
+    display: flex;
+    gap: 20px;
+    align-items: center;
+}
+
+.main-nav a {
+    color: #cccccc;
+    text-decoration: none;
+    font-family: 'Lato', sans-serif;
+    font-size: 16px;
+    transition: color 0.3s;
+}
+
+.main-nav a:hover, .main-nav a.active {
+    color: var(--gold);
 }
 
 .logo {
@@ -39,25 +70,6 @@
 .logo-highlight {
     color: var(--gold);
 }
-
-.main-nav {
-    display: flex;
-    gap: 25px;
-    align-items: center;
-}
-
-.main-nav a {
-    color: #cccccc;
-    text-decoration: none;
-    font-family: 'Lato', sans-serif;
-    font-size: 16px;
-    transition: color 0.3s;
-}
-
-.main-nav a:hover, .main-nav a.active {
-    color: var(--gold);
-}
-
 /* -------------------------------------- */
 .profile-container {
     max-width: 1524px;
