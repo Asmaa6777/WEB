@@ -13,7 +13,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 <div class="card">
                     <p class="course-label">${initialRecipes.course}</p>
                     <p class = "topnumber">#${topnumber++}</p>
-                    <img src="${initialRecipes.image}" alt="${initialRecipes.name}">
+                    <img src="${imgSrc(initialRecipes.image)}" alt="${initialRecipes.name}" onerror="this.src='${imgSrc('placeholder.svg')}'">
                     <div class="card-content">
                         <h3>${initialRecipes.name}</h3>
                         <p>${initialRecipes.description}</p>
@@ -28,3 +28,9 @@ document.addEventListener("DOMContentLoaded", function () {
         container.innerHTML = cardsHTML;
     } 
 );
+
+// ── Image path helper ─────────────────────────────────────────────
+function imgSrc(filename) {
+  const base = typeof IMAGE_BASE !== 'undefined' ? IMAGE_BASE : '../assets/images/';
+  return base + filename;
+}

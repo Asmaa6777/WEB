@@ -7,6 +7,13 @@ const navUsername = document.getElementById('navUsername');
 
 let currentFilter = 'all';
 
+
+// ── Image path helper ─────────────────────────────────────────────
+function imgSrc(filename) {
+  const base = typeof IMAGE_BASE !== 'undefined' ? IMAGE_BASE : '../../assets/images/';
+  return base + filename;
+}
+
 const currentUser = JSON.parse(localStorage.getItem('currentUser'));
 if (currentUser) navUsername.textContent = currentUser.name;
 
@@ -62,7 +69,7 @@ function renderFavourites() {
     card.innerHTML = `
       <div class="card-image-wrapper">
         <img src="${recipe.image}" alt="${recipe.name}" class="card-img"
-             onerror="this.src='../../assets/images/placeholder.svg'"/>
+             onerror="this.src='/assets/images/placeholder.svg'"/>
         <span class="course-tag">${formatCourse(recipe.course)}</span>
       </div>
       <div class="card-body">

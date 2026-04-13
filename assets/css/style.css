@@ -799,3 +799,53 @@ img {
   align-items: center;
   gap: 8px;
 }
+input[type="date"] {
+    background-color: white;
+    color: black;
+}
+.auth-container h1,
+.auth-container h2,
+.auth-container legend {
+  color: var(--gold);
+}
+
+.auth-container p,
+.auth-container label {
+  color: var(--white);
+}
+.auth-container input[type="date"] {
+  background-color: #111111 !important;
+  color: #ffffff !important;
+  border: 1px solid #2a2a2a !important;
+}
+
+.auth-container input[type="date"]::-webkit-calendar-picker-indicator {
+  filter: invert(1);
+  cursor: pointer;
+}
+.auth-container p,
+.auth-container label {
+  color: var(--gold);
+}
+.auth-container h1 {
+  margin-bottom: 5px;
+}
+
+.auth-container h2 {
+  margin-bottom: 10px;
+}
+
+.auth-container p {
+  margin-bottom: 20px;
+  line-height: 1.6;
+}
+.auth-container form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+fieldset {
+  padding: 20px;
+  border: 1px solid #2a2a2a;
+  border-radius: 10px;
+}

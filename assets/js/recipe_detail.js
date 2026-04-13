@@ -1,5 +1,11 @@
 
 
+// ── Image path helper ─────────────────────────────────────────────
+function imgSrc(filename) {
+  const base = typeof IMAGE_BASE !== 'undefined' ? IMAGE_BASE : '../../assets/images/';
+  return base + filename;
+}
+
 const detailImage = document.getElementById('detailImage');
 const detailCourse = document.getElementById('detailCourse');
 const detailName = document.getElementById('detailName');
@@ -22,7 +28,7 @@ if (currentUser && navUsername) {
   navUsername.textContent = currentUser.name;
 }
  
-const recipes = getRecipes();
+const recipes = initialRecipes;
 const recipe = recipes.find(r => r.id === recipeId);
 
 if (!recipe) {
@@ -35,9 +41,9 @@ if (!recipe) {
  
   document.title = `RecipeFinder — ${recipe.name}`;
 
-  detailImage.src = recipe.image;
+  detailImage.src = imgSrc(recipe.image);
   detailImage.alt = recipe.name;
-  detailImage.onerror = function () { this.src = '../../assets/images/placeholder.svg'; };
+  detailImage.onerror = function () { this.src = imgSrc('placeholder.svg'); };
 
   detailCourse.textContent = formatCourse(recipe.course);
   detailName.textContent = recipe.name;
