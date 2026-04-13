@@ -13,6 +13,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const profileEmail = document.getElementById('profileEmail');
   const profileRole = document.getElementById('profileRole');
   const profileDob = document.getElementById('profileDob');
+  const profileUsernameText = document.getElementById('profileUsernameText');
   const profileUsername = document.getElementById('profileUsername');
   const profileMessage = document.getElementById('profileMessage');
   const profileForm = document.getElementById('profileForm');
@@ -23,6 +24,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   if (profileName) profileName.textContent = displayName || 'N/A';
+  if (profileUsernameText) profileUsernameText.textContent = currentUser.username || 'N/A';
   if (profileEmail) profileEmail.textContent = currentUser.email || 'N/A';
   if (profileRole) profileRole.textContent = currentUser.role || 'N/A';
   if (profileDob) profileDob.textContent = currentUser.dob || 'N/A';
@@ -78,6 +80,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     localStorage.setItem('currentUser', JSON.stringify(currentUser));
+    if (profileUsernameText) profileUsernameText.textContent = currentUser.username;
     if (profileEmail) profileEmail.textContent = currentUser.email;
     if (profileDob) profileDob.textContent = currentUser.dob || 'N/A';
 
