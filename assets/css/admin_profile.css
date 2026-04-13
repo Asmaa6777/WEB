@@ -2,9 +2,12 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: #080808;
+    background-color: #080808; 
     padding: 15px 50px;
     border-bottom: 1px solid var(--border);
+    position: sticky;
+    top: 0;
+    z-index: 1000; 
 }
 
 .logo {
