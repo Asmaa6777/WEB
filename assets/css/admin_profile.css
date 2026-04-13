@@ -1,10 +1,68 @@
+.main-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #080808;
+    padding: 15px 50px;
+    border-bottom: 1px solid var(--border);
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.logo-icon {
+    background-color: var(--gold);
+    color: #000;
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: 700;
+    font-size: 22px;
+    font-family: 'Playfair Display', serif;
+}
+
+.logo-text {
+    color: var(--white);
+    font-size: 28px;
+    font-family: 'Playfair Display', serif;
+}
+
+.logo-highlight {
+    color: var(--gold);
+}
+
+.main-nav {
+    display: flex;
+    gap: 25px;
+    align-items: center;
+}
+
+.main-nav a {
+    color: #cccccc;
+    text-decoration: none;
+    font-family: 'Lato', sans-serif;
+    font-size: 16px;
+    transition: color 0.3s;
+}
+
+.main-nav a:hover, .main-nav a.active {
+    color: var(--gold);
+}
+
+/* -------------------------------------- */
 .profile-container {
-    max-width: 900px;
-    margin: 40px auto;
+    max-width: 1524px;
+    margin: 20px auto; 
     background-color: var(--surface);
     border: 1px solid var(--border);
     border-radius: 10px;
-    padding: 30px;
+    padding: 30px 50px;
 }
 
 .profile-header-section {
@@ -14,10 +72,6 @@
     margin-bottom: 40px;
     border-bottom: 1px solid var(--border);
     padding-bottom: 30px;
-}
-
-.avatar-container {
-    text-align: center;
 }
 
 .avatar-container img {
@@ -51,10 +105,11 @@
     font-size: 22px;
 }
 
-.form-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+.form-vertical {
+    display: flex;
+    flex-direction: column;
     gap: 20px;
+    max-width: 600px; 
 }
 
 .input-group label {
@@ -82,7 +137,8 @@
 
 .form-actions {
     margin-top: 30px;
-    text-align: right;
+    max-width: 600px;
+    text-align: left; 
 }
 
 .btn-save {
@@ -103,19 +159,4 @@
 .profile-message {
     margin-top: 15px;
     font-size: 14px;
-    text-align: right;
-}
-
-.profile-icon {
-    display: inline-block;
-    width: 30px;
-    height: 30px;
-    background-color: var(--gold);
-    color: var(--background);
-    border-radius: 50%;
-    line-height: 30px;
-    text-align: center;
-    font-weight: bold;
-    vertical-align: middle;
-    margin-left: 5px;
 }
