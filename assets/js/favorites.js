@@ -7,7 +7,6 @@ const navUsername = document.getElementById('navUsername');
 
 let currentFilter = 'all';
 
-
 // ── Image path helper ─────────────────────────────────────────────
 function imgSrc(filename) {
   const base = typeof IMAGE_BASE !== 'undefined' ? IMAGE_BASE : '../../assets/images/';
@@ -29,26 +28,30 @@ function formatCourse(course) {
 }
 
 function getFavouriteIds() {
-  return JSON.parse(localStorage.getItem('favourites')) || [];
+  // Always return as numbers so === comparisons work reliably
+  return (JSON.parse(localStorage.getItem('favourites')) || []).map(Number);
 }
 
 function removeFromFavourites(recipeId) {
-  let favs = getFavouriteIds().filter(id => id !== recipeId);
+  const favs = getFavouriteIds().filter(id => id !== Number(recipeId));
   localStorage.setItem('favourites', JSON.stringify(favs));
   renderFavourites();
 }
 
 function renderFavourites() {
   const favIds = getFavouriteIds();
-  let favRecipes = recipes.filter(r => favIds.includes(r.id));
 
-  if (currentFilter !== 'all') {
-    favRecipes = favRecipes.filter(r => r.course === currentFilter);
-  }
+  // All saved recipes (regardless of active filter)
+  const allFavRecipes = initialRecipes.filter(r => favIds.includes(Number(r.id)));
+
+  // Filtered subset for display
+  const favRecipes = currentFilter === 'all'
+    ? allFavRecipes
+    : allFavRecipes.filter(r => r.course === currentFilter);
 
   recipeGrid.innerHTML = '';
 
-  if (favIds.length === 0) {
+  if (allFavRecipes.length === 0) {
     emptyState.style.display = 'block';
     emptyState.querySelector('p').innerHTML =
       'No favourite recipes yet. <a href="recipes.html">Browse recipes</a> and add some!';
@@ -68,8 +71,8 @@ function renderFavourites() {
     card.classList.add('recipe-card');
     card.innerHTML = `
       <div class="card-image-wrapper">
-        <img src="${recipe.image}" alt="${recipe.name}" class="card-img"
-             onerror="this.src='/assets/images/placeholder.svg'"/>
+        <img src="${imgSrc(recipe.image)}" alt="${recipe.name}" class="card-img"
+             onerror="this.src='${imgSrc('placeholder.svg')}'"/>
         <span class="course-tag">${formatCourse(recipe.course)}</span>
       </div>
       <div class="card-body">
@@ -77,7 +80,7 @@ function renderFavourites() {
         <p class="card-desc">${recipe.description}</p>
         <div class="card-actions">
           <a href="recipe_detail.html?id=${recipe.id}" class="btn-view">View Recipe</a>
-          <button class="btn-remove" onclick="removeFromFavourites(${recipe.id})">♥ Remove</button>
+          <button class="btn-fav saved" onclick="removeFromFavourites(${recipe.id})">♥ Remove</button>
         </div>
       </div>
     `;

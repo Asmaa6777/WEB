@@ -849,3 +849,17 @@ fieldset {
   border: 1px solid #2a2a2a;
   border-radius: 10px;
 }
+
+/* Add this to your style.css — btn-fav saved state */
+.btn-fav.saved {
+  background-color: transparent;
+  border-color: var(--gold);
+  color: var(--gold);
+  cursor: default;
+}
+
+.btn-fav.saved:hover {
+  border-color: var(--danger);
+  color: var(--danger);
+  cursor: pointer;
+}

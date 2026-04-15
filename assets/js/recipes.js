@@ -45,22 +45,25 @@ function renderRecipes() {
 
   emptyState.style.display = 'none';
 
-  const favIds = JSON.parse(localStorage.getItem('favourites')) || [];
+  // Normalise stored IDs to numbers for comparison
+  const rawFavs = JSON.parse(localStorage.getItem('favourites')) || [];
+  const favIds = rawFavs.map(Number);
 
   filtered.forEach(recipe => {
-    const isSaved = favIds.includes(recipe.id);
+    const isSaved = favIds.includes(Number(recipe.id));
     const card = document.createElement('div');
     card.classList.add('recipe-card');
     card.setAttribute('data-course', recipe.course);
 
     let actionButtons = `<a href="recipe_detail.html?id=${recipe.id}" class="btn-view">View Recipe</a>`;
 
-    if (currentUser && currentUser.role === 'user') {
+    if (currentUser) {
       actionButtons += `
-        <button class="btn-fav ${isSaved ? 'saved' : ''}"
+        <button
+          class="btn-fav ${isSaved ? 'saved' : ''}"
           ${isSaved ? 'disabled' : ''}
           onclick="addToFavourites(${recipe.id}, this)">
-          ${isSaved ? '♥ Saved' : '♡ Save'}
+          ${isSaved ? '♥ Saved' : '♡ Add to Favourites'}
         </button>`;
     }
 
@@ -73,7 +76,8 @@ function renderRecipes() {
 
     card.innerHTML = `
       <div class="card-image-wrapper">
-        <img src="${imgSrc(recipe.image)}" alt="${recipe.name}" class="card-img" onerror="this.src='${imgSrc('placeholder.svg')}'"/>
+        <img src="${imgSrc(recipe.image)}" alt="${recipe.name}" class="card-img"
+             onerror="this.src='${imgSrc('placeholder.svg')}'"/>
         <span class="course-tag">${formatCourse(recipe.course)}</span>
       </div>
       <div class="card-body">
@@ -99,14 +103,15 @@ function formatCourse(course) {
 
 
 function addToFavourites(recipeId, btn) {
-  const favs = JSON.parse(localStorage.getItem('favourites')) || [];
+  const rawFavs = JSON.parse(localStorage.getItem('favourites')) || [];
+  const favs = rawFavs.map(Number);
 
-  if (favs.includes(recipeId)) {
+  if (favs.includes(Number(recipeId))) {
     alert('Already in your favourites!');
     return;
   }
 
-  favs.push(recipeId);
+  favs.push(Number(recipeId));
   localStorage.setItem('favourites', JSON.stringify(favs));
 
   // Update trending counts
@@ -121,13 +126,13 @@ function addToFavourites(recipeId, btn) {
 
   // Show success message with link to favorites
   setTimeout(() => {
-    if (confirm('Added to favourites! View your favorites now?')) {
+    if (confirm('Added to favourites! View your favourites now?')) {
       window.location.href = 'favorites.html';
     }
   }, 500);
 }
 
- 
+
 filterButtons.forEach(btn => {
   btn.addEventListener('click', () => {
     filterButtons.forEach(b => b.classList.remove('active'));
@@ -137,13 +142,13 @@ filterButtons.forEach(btn => {
   });
 });
 
- 
+
 searchInput.addEventListener('input', () => {
   currentSearch = searchInput.value.trim();
   renderRecipes();
 });
 
- 
+
 const logoutLink = document.querySelector('.nav-logout');
 if (logoutLink) {
   logoutLink.addEventListener('click', (e) => {
@@ -152,5 +157,5 @@ if (logoutLink) {
     window.location.href = 'login.html';
   });
 }
- 
+
 renderRecipes();
