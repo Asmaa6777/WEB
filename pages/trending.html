@@ -3,47 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../assets/css/navbar.css">
     <link rel="stylesheet" href="../assets/css/trend.css">
-    
+    <script src="../assets/js/navbar.js" defer></script>
     <title>Trending</title>
 </head>
 <body>
-    <header>
-    <nav class="navbar" >
-
-    <div class="left">
-        <div class="logo-circle">R</div>
-        <div class="logo-text">Recipe Finder</div>
-</div>
-    <div class = "center cr">
-      <a href="homepage.html">Home</a> 
-      <a href="login.html"  class="none">Login</a> 
-      <a href="signup.html" class="none">Signup</a> 
-      <a href="../pages/user_pages/recipes.html">Recipes</a>
-      <a href="../pages/user_pages/favorites.html">Favourites</a>
-      <a href="trending.html">Trending</a> 
-    </div>
-      
-    <div class="right cr" >
-        <a href="../pages/user_pages/profile.html"> <p class="cr">username</p></a>
-        <a href="login.html">
-            <p class="cr">Logout</p>
-        </a>
-    </div>
-    </nav>
-    <hr> 
-        </header>
+    <main-navbar></main-navbar>
 
     <h1>Trending Page</h1>
     <p id="p1">Welcome to the Trending page! Here you can find the latest trends and popular topics.
          Stay updated with what's happening around the world.</p>
 
-         
-        <div id="recipes-container"></div>
+    <div id="recipes-container"></div>
+
     <script>const IMAGE_BASE = '../assets/images/';</script>
     <script src="../assets/js/data.js"></script>
     <script src="../assets/js/trend.js"></script>
-
-    
 </body>
 </html>

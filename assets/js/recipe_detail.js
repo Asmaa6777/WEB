@@ -15,7 +15,6 @@ const instructionsList = document.getElementById('instructionsList');
 const btnFavourite = document.getElementById('btnFavourite');
 const btnEdit = document.getElementById('btnEdit');
 const btnDelete = document.getElementById('btnDelete');
-const navUsername = document.getElementById('navUsername');
 
  
 const params = new URLSearchParams(window.location.search);
@@ -23,10 +22,6 @@ const recipeId = parseInt(params.get('id'));
 
  
 const currentUser = getCurrentUser();
-
-if (currentUser && navUsername) {
-  navUsername.textContent = currentUser.name;
-}
  
 const recipes = initialRecipes;
 const recipe = recipes.find(r => r.id === recipeId);
@@ -116,11 +111,3 @@ function formatCourse(course) {
   return map[course] || course;
 }
  
-const logoutLink = document.querySelector('.nav-logout');
-if (logoutLink) {
-  logoutLink.addEventListener('click', (e) => {
-    e.preventDefault();
-    localStorage.removeItem('currentUser');
-    window.location.href = '/WEB/pages/login.html';
-  });
-}

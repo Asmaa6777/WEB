@@ -1,10 +1,12 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>My Profile - Recipe Finder</title>
+  <link rel="stylesheet" href="../../assets/css/navbar.css" />
   <link rel="stylesheet" href="../../assets/css/style.css" />
+  <script src="../../assets/js/navbar.js" defer></script>
   <style>
     .profile-page { max-width: 900px; margin: 40px auto; padding: 0 20px; }
     .profile-header { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
@@ -15,21 +17,10 @@
     .profile-form input { width: 100%; max-width: 420px; padding: 10px; border-radius: 8px; border: 1px solid #ccc; }
     .profile-form button { margin-top: 18px; padding: 12px 20px; border: none; border-radius: 8px; background: #ff7f50; color: white; cursor: pointer; }
     .profile-message { margin-top: 12px; font-weight: 600; }
-    nav a { color: white; text-decoration: none; }
   </style>
 </head>
 <body>
-  <header>
-    <nav>
-      <a href="../homepage.html">Home</a> |
-      <a href="recipes.html">All Recipes</a> |
-      <a href="favorites.html">Favourites</a> |
-      <a href="../login.html">Login</a> |
-      <a href="../signup.html">Signup</a> |
-      <a href="profile.html">Profile</a>
-    </nav>
-    <hr />
-  </header>
+  <main-navbar></main-navbar>
 
   <main class="profile-page">
     <div class="profile-header">
@@ -37,7 +28,6 @@
         <h1>My Profile</h1>
         <p>Welcome back! Your current account information appears below.</p>
       </div>
-      <a href="../login.html" class="nav-logout">Logout</a>
     </div>
 
     <section class="profile-summary">
@@ -71,7 +61,7 @@
     </section>
   </main>
 
-  <script src="../../assets/data_files/data.js" defer></script>
+  <script src="../../assets/js/data.js" defer></script>
   <script src="../../assets/js/profile.js" defer></script>
 </body>
 </html>

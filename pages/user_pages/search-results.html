@@ -3,27 +3,13 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Search Results – RecipeFinder</title>
+  <title>Search Results - RecipeFinder</title>
+  <link rel="stylesheet" href="../../assets/css/navbar.css" />
   <link rel="stylesheet" href="../../assets/css/style.css" />
+  <script src="../../assets/js/navbar.js" defer></script>
 </head>
 <body>
-
-  <nav class="navbar">
-    <div class="nav-logo">
-      <span class="logo-circle">R</span>
-      Recipe<span class="logo-gold">Finder</span>
-    </div>
-    <ul class="nav-links">
-      <li><a href="../homepage.html">Home</a></li>
-      <li><a href="recipes.html" class="active">Recipes</a></li>
-      <li><a href="favorites.html">Favourites</a></li>
-      <li><a href="../trending.html">Trending</a></li>
-    </ul>
-    <div class="nav-user">
-      <span id="navUsername"></span>
-      <a href="../login.html" class="nav-logout">Logout</a>
-    </div>
-  </nav>
+  <main-navbar></main-navbar>
 
   <div class="page-header">
     <p class="section-label">OUR COLLECTION</p>
@@ -50,6 +36,5 @@
 
   <script src="../../assets/js/data.js"></script>
   <script src="../../assets/js/search_results.js"></script>
-
 </body>
 </html>

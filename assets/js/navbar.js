@@ -1,56 +1,53 @@
 class MainNavbar extends HTMLElement {
     connectedCallback() {
-        // 1. Check if a user is logged in
         const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+        const inUserPages = window.location.pathname.includes('/pages/user_pages/');
+        const basePath = inUserPages ? '..' : '.';
 
-        // 2. Define the Auth Section HTML
         let authHTML = '';
 
         if (currentUser) {
-            // If logged in: Show Profile Icon with Dropdown
             authHTML = `
                 <div class="profile-dropdown">
                     <a href="#" class="profile-link">
                         <span>${currentUser.name}</span>
-                        <div class="profile-avatar">👤</div>
+                        <div class="profile-avatar">U</div>
                     </a>
                     <div class="dropdown-menu">
-                        <a href="/pages/user_pages/profile.html">My Profile</a>
+                        <a href="${basePath}/user_pages/profile.html">My Profile</a>
                         <a href="#" id="logoutBtn" style="color: #ff6b6b;">Logout</a>
                     </div>
                 </div>
             `;
         } else {
-            // If NOT logged in: Show Login / Signup
             authHTML = `
-                <a href="/pages/user_pages/login.html" class="login-link">Login / Signup</a>
+                <a href="${basePath}/login.html" class="login-link">Login / Signup</a>
             `;
         }
 
-        // 3. Set the full InnerHTML
         this.innerHTML = `
             <header class="main-header">
-                <div class="logo">
+                <a href="${basePath}/homepage.html" class="logo" aria-label="Recipe Finder home">
                     <span class="logo-icon">R</span>
                     <span class="logo-text">Recipe<span class="logo-highlight">Finder</span></span>
-                </div>
-                
+                </a>
+
                 <nav class="main-nav">
                     <div class="nav-links">
-                        <a href="/pages/homepage.html">Home</a>
-                        <a href="/pages/user_pages/recipes.html">Recipes</a>
-                        <a href="/pages/user_pages/trending.html">Trending</a>
-                        <a href="/pages/user_pages/favorites.html">Favorites</a>
+                        <a href="${basePath}/homepage.html">Home</a>
+                        <a href="${basePath}/user_pages/recipes.html">Recipes</a>
+                        <a href="${basePath}/trending.html">Trending</a>
+                        <a href="${basePath}/user_pages/favorites.html">Favorites</a>
                     </div>
 
                     <div class="nav-actions">
-                        <a href="/pages/user_pages/search_results.html" class="search-btn" aria-label="Search">
+                        <a href="${basePath}/user_pages/search-results.html" class="search-btn" aria-label="Search">
                             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                 <circle cx="11" cy="11" r="8"></circle>
                                 <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
                             </svg>
                         </a>
-                        
+
                         <div id="auth-container">
                             ${authHTML}
                         </div>
@@ -59,20 +56,21 @@ class MainNavbar extends HTMLElement {
             </header>
         `;
 
-        // 4. Attach Logout Logic
         const logoutBtn = this.querySelector('#logoutBtn');
         if (logoutBtn) {
             logoutBtn.addEventListener('click', (e) => {
                 e.preventDefault();
                 localStorage.removeItem('currentUser');
-                window.location.href = '/pages/user_pages/login.html';
+                window.location.href = `${basePath}/login.html`;
             });
         }
 
-        // 5. Active Link Logic (Highlights current page)
+        const currentPage = window.location.pathname.split('/').pop();
         const links = this.querySelectorAll('.nav-links a');
+
         links.forEach(link => {
-            if (window.location.pathname.includes(link.getAttribute('href'))) {
+            const linkPage = link.getAttribute('href').split('/').pop();
+            if (currentPage === linkPage) {
                 link.classList.add('active');
             }
         });

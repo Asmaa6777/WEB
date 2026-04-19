@@ -4,7 +4,6 @@ const recipeGrid  = document.getElementById('recipeGrid');
 const emptyState  = document.getElementById('emptyState');
 const searchInput = document.getElementById('searchInput');
 const filterPills = document.querySelectorAll('.pill');
-const navUsername = document.getElementById('navUsername');
 
 let currentFilter = 'all';
 let currentSearch = '';
@@ -17,14 +16,6 @@ function imgSrc(filename) {
 }
 
 const currentUser = JSON.parse(localStorage.getItem('currentUser'));
-if (currentUser) navUsername.textContent = currentUser.name;
-
-
-document.querySelector('.nav-logout').addEventListener('click', e => {
-  e.preventDefault();
-  localStorage.removeItem('currentUser');
-  window.location.href = '../login.html';
-});
 
 
 function formatCourse(course) {

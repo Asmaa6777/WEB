@@ -3,32 +3,16 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>RecipeFinder — All Recipes</title>
+  <title>RecipeFinder - All Recipes</title>
+  <link rel="stylesheet" href="../../assets/css/navbar.css" />
   <link rel="stylesheet" href="../../assets/css/style.css" />
+  <script src="../../assets/js/navbar.js" defer></script>
 </head>
 <body>
+  <main-navbar></main-navbar>
 
-
-  <nav class="navbar">
-    <div class="nav-logo">
-      <span class="logo-circle">R</span>
-      Recipe<span class="logo-gold">Finder</span>
-    </div>
-    <ul class="nav-links">
-      <li><a href="../homepage.html">Home</a></li>
-      <li><a href="recipes.html" class="active">Recipes</a></li>
-      <li><a href="favorites.html">Favourites</a></li>
-      <li><a href="../trending.html">Trending</a></li>
-    </ul>
-    <div class="nav-user">
-      <span id="navUsername"></span>
-      <a href="../login.html" class="nav-logout">Logout</a>
-    </div>
-  </nav>
-
- 
   <div class="page-header">
-    <p class="section-label"> OUR COLLECTION </p>
+    <p class="section-label">OUR COLLECTION</p>
     <h1 class="page-title">All <em class="gold-italic">Recipes</em></h1>
 
     <div class="search-wrapper">
@@ -43,7 +27,6 @@
     </div>
   </div>
 
- 
   <div class="recipes-section">
     <div class="recipe-grid" id="recipeGrid"></div>
     <div class="empty-state" id="emptyState">
@@ -51,9 +34,7 @@
     </div>
   </div>
 
-
   <script src="../../assets/js/data.js"></script>
   <script src="../../assets/js/recipes.js"></script>
-
 </body>
 </html>

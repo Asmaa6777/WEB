@@ -4,7 +4,6 @@ const recipeGrid = document.getElementById('recipeGrid');
 const emptyState = document.getElementById('emptyState');
 const searchInput = document.getElementById('searchInput');
 const filterButtons = document.querySelectorAll('.pill');
-const navUsername = document.getElementById('navUsername');
 
 let currentFilter = 'all';
 let currentSearch = '';
@@ -17,10 +16,6 @@ function imgSrc(filename) {
 
 // ── Load current user from localStorage ──────────────────────────
 const currentUser = JSON.parse(localStorage.getItem('currentUser'));
-
-if (currentUser) {
-  navUsername.textContent = currentUser.name;
-}
 
 // Use initial recipes like trending
 const recipes = initialRecipes;
@@ -148,14 +143,5 @@ searchInput.addEventListener('input', () => {
   renderRecipes();
 });
 
-
-const logoutLink = document.querySelector('.nav-logout');
-if (logoutLink) {
-  logoutLink.addEventListener('click', (e) => {
-    e.preventDefault();
-    localStorage.removeItem('currentUser');
-    window.location.href = 'login.html';
-  });
-}
 
 renderRecipes();
