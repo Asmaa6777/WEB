@@ -9,7 +9,7 @@ let currentFilter = 'all';
 // ── Image path helper ─────────────────────────────────────────────
 function imgSrc(filename) {
   const base = typeof IMAGE_BASE !== 'undefined' ? IMAGE_BASE : '../../assets/images/';
-  return base + filename;
+  return base + (filename || 'placeholder.svg');
 }
 
 const currentUser = JSON.parse(localStorage.getItem('currentUser'));

@@ -103,7 +103,8 @@ document.getElementById('recipeForm').addEventListener('submit', function(e) {
     description: description,
     prepTime: prepTime,
     cookTime: cookTime,
-    ingredients: ingredients
+    ingredients: ingredients,
+    image: 'placeholder.svg'
   };
 
   const existingRecipes = JSON.parse(localStorage.getItem('recipes')) || recipe;
