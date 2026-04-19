@@ -16,8 +16,6 @@ function imgSrc(filename) {
 }
 
 const currentUser = JSON.parse(localStorage.getItem('currentUser'));
-
-
 function formatCourse(course) {
   const map = { 'appetizer': 'Appetizer', 'main-course': 'Main Course', 'dessert': 'Dessert' };
   return map[course] || course;
