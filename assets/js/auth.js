@@ -44,6 +44,13 @@ if (signupForm) {
       return;
     }
 
+    // Validate email format
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      if (formMessage) formMessage.textContent = "Please enter a valid email format (e.g., user@example.com).";
+      return;
+    }
+
     const users = getUsers();
 
     const existingUser = users.find(
