@@ -107,7 +107,7 @@ document.getElementById('recipeForm').addEventListener('submit', function(e) {
     image: 'placeholder.svg'
   };
 
-  const existingRecipes = JSON.parse(localStorage.getItem('recipes')) || recipe;
+  const existingRecipes = getRecipes();
   existingRecipes.push(newRecipe);
   localStorage.setItem('recipes', JSON.stringify(existingRecipes));
 

@@ -863,3 +863,13 @@ fieldset {
   color: var(--danger);
   cursor: pointer;
 }
+
+ .profile-page { max-width: 900px; margin: 40px auto; padding: 0 20px; }
+    .profile-header { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
+    .profile-summary, .profile-form { background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.12); border-radius: 12px; padding: 24px; margin-top: 24px; }
+    .profile-summary img { width: 150px; height: 150px; border-radius: 16px; object-fit: cover; display: block; margin-bottom: 16px; }
+    .profile-summary p { margin: 10px 0; }
+    .profile-form label { display: block; margin: 14px 0 6px; }
+    .profile-form input { width: 100%; max-width: 420px; padding: 10px; border-radius: 8px; border: 1px solid #ccc; }
+    .profile-form button { margin-top: 18px; padding: 12px 20px; border: none; border-radius: 8px; background: #ff7f50; color: white; cursor: pointer; }
+    .profile-message { margin-top: 12px; font-weight: 600; }

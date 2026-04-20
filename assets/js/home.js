@@ -25,66 +25,14 @@ document.addEventListener('DOMContentLoaded', () => {
     const recipeCarousel = document.getElementById('recipeCarousel');
     const timelessCarousel = document.getElementById('timelessCarousel');
 
-    // 1. FIXED PATH: Added ../ so it steps out of the pages folder!
-    fetch('../assets/data_files/recipes.json')
-        .then(response => {
-            if (!response.ok) throw new Error("Could not find recipes.json");
-            return response.json();
-        })
-        .then(allRecipes => {
-            
-            let savedFavorites = typeof getFavourites === 'function' ? getFavourites() : JSON.parse(localStorage.getItem('favourites')) || [];
-
-            function buildCardHTML(recipe) {
-                const isFavorited = savedFavorites.includes(recipe.id);
-                const badgeText = recipe.course ? recipe.course.replace('-', ' ').toUpperCase() : 'RECIPE';
-                const heartClass = isFavorited ? 'heart-btn active' : 'heart-btn';
-                const fill = isFavorited ? '#d4af37' : 'none';
-                const stroke = isFavorited ? '#d4af37' : 'currentColor';
-                
-                // 2. FIXED IMAGE PATH: Your JSON paths are already correct!
-                const correctImagePath = recipe.image;
-
-                return `
-                    <div class="recipe-card">
-                        <div class="card-image-wrapper">
-                            <span class="badge">${badgeText}</span>
-                            <button class="${heartClass}" data-id="${recipe.id}" aria-label="Favorite">
-                                <svg width="24" height="24" viewBox="0 0 24 24" fill="${fill}" stroke="${stroke}" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
-                            </button>
-                            <img src="${correctImagePath}" alt="${recipe.name}">
-                        </div>
-                        <div class="card-content">
-                            <h3>${recipe.name}</h3>
-                            <p>${recipe.description}</p>
-                            <a href="user_pages/recipe_detail.html?id=${recipe.id}" class="view-recipe">View Recipe &rarr;</a>
-                        </div>
-                    </div>
-                `;
-            }
-
-            if (recipeCarousel) {
-                const featuredIds = [9, 6, 5, 16];
-                const featuredRecipes = allRecipes.filter(r => featuredIds.includes(r.id));
-                recipeCarousel.innerHTML = featuredRecipes.map(buildCardHTML).join('');
-            }
-
-            if (timelessCarousel) {
-                const classicIds = [1, 13, 12, 18];
-                const classicRecipes = allRecipes.filter(r => classicIds.includes(r.id));
-                timelessCarousel.innerHTML = classicRecipes.map(buildCardHTML).join('');
-            }
-
-            attachHeartLogic();
-            attachCarouselLogic();
-        })
-        .catch(err => {
-            console.error("Error fetching recipes for homepage:", err);
-            if (recipeCarousel) recipeCarousel.innerHTML = '<p style="color:red; padding: 20px;">Error loading recipes. Check F12 Console!</p>';
-        });
-
-
-    // --- Heart Icon Toggle & Save Logic ---
+   
+    const allRecipes = getRecipes();
+   const featuredIds = [9, 6, 5, 16];
+   const featuredRecipes = allRecipes.filter(r => featuredIds.includes(r.id));
+if (recipeCarousel) {
+  recipeCarousel.innerHTML = featuredRecipes.map(buildCardHTML).join('');
+}
+         
     function attachHeartLogic() {
         const heartButtons = document.querySelectorAll('.heart-btn');
         

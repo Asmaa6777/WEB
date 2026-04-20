@@ -3,9 +3,10 @@
 document.addEventListener('DOMContentLoaded', function () {
 
 
-  const allRecipes = JSON.parse(localStorage.getItem('recipes')) || recipes;
+  const allRecipes = getRecipes();
+ const totalUsers = getUsers();
   const addedRecipes = allRecipes.filter(r => r.id > 20);
-  const totalUsers = JSON.parse(localStorage.getItem('users')) || users;
+   
 
   
   document.getElementById('stat-total').innerHTML = '<h3>Total Recipes</h3><p><strong>' + allRecipes.length + '</strong></p>';

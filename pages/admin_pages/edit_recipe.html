@@ -2,14 +2,18 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <link rel="stylesheet" href="../../assets/css/admin_profile.css">
-  <script src="../../assets/js/admin_navbar.js" defer></script>
+  <link rel="stylesheet" href="../../assets/css/style.css" />
+<link rel="stylesheet" href="../../assets/css/edit_recipe.css" />
+    <link rel="stylesheet" href="../../assets/css/admin_profile.css" />
+    <link rel="stylesheet" href="../../assets/css/navbar.css" />
+  <script src="../../assets/js/navbar.js" defer></script>
+
   <title>Recipe Finder - Edit Recipe</title>
 </head>
 <body>
 
   <header>
-    <admin-navbar></admin-navbar>
+    <main-navbar></main-navbar>
     <hr>
   </header>
 
@@ -22,7 +26,7 @@
 
       <hr>
 
-      <form action="recipes.html" method="GET">
+      <form id="editForm">
 
         <fieldset>
           <legend>Basic Information</legend>
@@ -140,11 +144,14 @@
 
       </form>
 
+
       <hr>
       <p><i>Note: This page is for editing existing recipes. To add a new recipe, please use the <a href="add_recipe.html">Add Recipe</a> page.</i></p>
     </section>  
   </main>
 
   <hr>
+  <script src="../../assets/js/data.js"></script>
+  <script src="../../assets/js/edit-recipe.js"></script>
 </body>
 </html>

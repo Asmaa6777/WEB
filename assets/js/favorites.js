@@ -33,8 +33,8 @@ function removeFromFavourites(recipeId) {
 function renderFavourites() {
   const favIds = getFavouriteIds();
 
-  // All saved recipes (regardless of active filter)
-  const allFavRecipes = initialRecipes.filter(r => favIds.includes(Number(r.id)));
+ 
+const allFavRecipes = getRecipes().filter(r => favIds.includes(Number(r.id)));
 
   // Filtered subset for display
   const favRecipes = currentFilter === 'all'
