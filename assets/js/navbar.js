@@ -17,14 +17,14 @@ class MainNavbar extends HTMLElement {
         <a href="${base}/homepage.html">Home</a>
         <a href="${base}/admin_pages/admin_dashboard.html">Dashboard</a>
         <a href="${base}/admin_pages/recipes.html">All Recipes</a>
-        <a href="${base}/trending.html">Trending</a>
+        <a href="${base}/user_pages/trending.html">Trending</a>
         <a href="${base}/admin_pages/add_recipe.html">Add Recipe</a>
       `;
     } else {
       navLinks = `
         <a href="${base}/homepage.html">Home</a>
         <a href="${base}/user_pages/recipes.html">Recipes</a>
-        <a href="${base}/trending.html">Trending</a>
+        <a href="${base}/user_pages/trending.html">Trending</a>
         <a href="${base}/user_pages/favorites.html">Favourites</a>
       `;
     }
