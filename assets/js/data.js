@@ -530,7 +530,7 @@ if (loginForm) {
 
     const foundUser = users.find(user =>
       (user.username.toLowerCase() === identifier ||
-       user.email.toLowerCase() === email) &&
+       user.email.toLowerCase() === identifier) &&
       user.password === password
     );
 
