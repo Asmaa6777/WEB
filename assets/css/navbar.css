@@ -156,3 +156,8 @@
 .profile-dropdown:hover .dropdown-menu {
     display: block;
 }
+
+/* --- Show dropdown when open class is applied (for click events) --- */
+.dropdown-menu.open {
+    display: block;
+}
