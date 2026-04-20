@@ -17,7 +17,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     <div class="card-content">
                         <h3>${initialRecipes.name}</h3>
                         <p>${initialRecipes.description}</p>
-                        <a href ="../pages/user_pages/recipe_detail.html?id=${initialRecipes.id}" class="btn-view">View Recipe</a>
+                        <a href ="recipe_detail.html?id=${initialRecipes.id}" class="btn-view">View Recipe</a>
                         
                         
                     </div>

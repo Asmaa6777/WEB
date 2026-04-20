@@ -9,96 +9,8 @@
     --overlay: rgba(0, 0, 0, 0.6);
 }
 
- 
-*{
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-.navbar {
-    background-color: var(--surface);
-    padding: 15px 0px;
-    display: flex;
-    justify-content: space-evenly;
-    align-items: center;
-    width: 100%;
-    border-bottom:solid 2px var(--border);
-    position:fixed;
-    z-index: 50%;
-}
-.left {
-    display: flex;
-    align-items: center;
-    gap : 10px;
-}
-.logo-circle {
-    width: 30px;
-    height: 30px;
-    background-color: var(--gold);
-    border-radius: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-weight: bold;
-    font-family: serif;
-    
-    
-}
-
-.logo-text {
-    color : var(--gold);
-    font-size: 18px;
-    font-weight: bold;
-    font-family: serif;
 
 
-}
-
-.center {
-    display: flex;
-    gap: 30px;
-    font-weight:400;
-    font-size: 15px;
-
-}
-
-.center a {
-    color: var(--text-muted);
-    text-decoration: none;
-    font-family: serif;
-
-}
-
-.right {
-    display: flex;
-    gap: 20px;
-    align-items: center;
-    
-}
-
-
-
-.cr{
-    justify-content: center;
-    color: var(--text-muted);
-    font-family: serif;
-    font-weight: 400;
-    font-size: 15px;  
-    text-decoration: none;
-    
-}
-.cr a{
-    text-decoration: none;
-}
-.cr a:hover{
-    color: var(--white);
-    
-}
-.cr p:hover{
-    color: var(--white);
-    
-}
 body {
     background-color: var(--background);
     margin: 0;
@@ -111,7 +23,7 @@ h1{
     font-weight: 400;
     color: var(--gold);
     text-align: center;
-    padding: 100px 40px 20px;
+    padding: 20px 0px 20px 0px;
 }
 
 
@@ -121,6 +33,7 @@ h1{
     font-weight: 400;
     color: var(--gold-light);
     text-align: center;
+    padding: 0px 100px 20px 100px;
 }
 
 .none{
@@ -141,7 +54,7 @@ h1{
 
 .card {
     width: 100px;
-    height: 400px;
+    height: 500px;
     border: 1px solid var(--gold);
     border-radius: 10px;
     overflow: hidden;
@@ -158,14 +71,14 @@ h1{
 
 }
 
-.card h3 {
-    padding: 10px;
+.card-content h3 {
+    padding: 8px;
     font-size: 18px;
     color: var(--gold);
     margin-bottom: 8px;
 
 }
-.card p {
+.card-content p {
     padding: 0px 10px;
     font-size: 16px;
     color: var(--gold-light);
@@ -175,20 +88,21 @@ h1{
     transition:transform 0.3s  ease;
     box-shadow: 0 4px 8px var(--gold);
 }
-.course-label {
+.card .course-label {
     position: absolute;
   top: 14px;
   left: 14px;
   background-color: var(--gold);
   color: var(--background)!important;
-  font-size: 0.75rem;
+  font-size: bold;
   font-weight: 600;
   padding: 4px 12px;
-  border-radius: 20px;
+  border-radius: 100px;
   letter-spacing: 0.3px;
 }
 
-.btn-view {
+.card-content .btn-view {
+  padding: 10px;
   background-color: var(--gold);
   color: var(--background);
   padding: 8px 18px;
@@ -202,22 +116,23 @@ h1{
   display: inline-block;
   margin-left: 20px;
   margin-top: 20px;
+  margin-bottom: 50px;
   text-decoration: none;
 }
 
 .btn-view:hover {
   background-color: var(--gold-light);
 }
-.topnumber {
+.card .topnumber {
   position: absolute;
 color: var(--background)!important;
   background-color: var(--gold);
   letter-spacing: 0.3px;
-  top: 16px;
-  right: 16px;
+  top: 14px;
+  right: 14px;
   width: 40px;
   height: 40px;   
-  font-size: 1rem;
+  font-size: bolder;
   font-weight:bolder;
   border-radius: 50px ;
   display: flex;
@@ -226,3 +141,7 @@ color: var(--background)!important;
 
    
 }
+
+
+
+
