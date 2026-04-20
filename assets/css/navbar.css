@@ -16,6 +16,7 @@
     display: flex;
     align-items: center;
     gap: 12px;
+    text-decoration: none;
 }
 
 .logo-icon {
@@ -58,6 +59,7 @@
     font-weight: 400;
     font-size: 15px;
     transition: color 0.3s;
+    text-decoration: none;
 }
 
 .nav-links a:hover, .nav-links a.active {
@@ -72,12 +74,13 @@
     align-items: center;
 }
 
-.search-btn, .login-link {
+.search-btn, .nav-login-link {
     color: var(--text-muted);
     transition: color 0.3s;
+    text-decoration: none;
 }
 
-.search-btn:hover, .login-link:hover {
+.search-btn:hover, .nav-login-link:hover {
     color: var(--gold);
 }
 
