@@ -587,3 +587,20 @@ a {
     .inspiration-grid { grid-template-columns: 1fr; }
     .inspiration-section { padding: 60px 20px; }
 }
+
+/* Specifically target the auth links to prevent "visited" blue/purple color */
+.auth-link {
+    color: var(--text-muted) !important;
+    text-decoration: none;
+    transition: color 0.3s ease;
+    font-size: 14px;
+}
+
+.auth-link:hover {
+    color: var(--white) !important;
+}
+
+.auth-separator {
+    color: var(--border);
+    margin: 0 4px;
+}
