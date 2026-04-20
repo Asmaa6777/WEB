@@ -1,4 +1,32 @@
 
+console.log("DATA.JS LOADED SUCCESSFULLY!");
+
+const initialRecipes = [
+  {
+    id: 1,
+    name: "Spaghetti Carbonara",
+    course: "main-course",
+    ingredients: ["Spaghetti", "Eggs", "Pancetta", "Parmesan", "Black Pepper", "Salt"],
+    image: "carbonara.jpg",
+    description: "Silky Roman pasta with crispy pancetta and creamy egg sauce.",
+    instructions: [
+      "Boil spaghetti in salted water until al dente.",
+      "Fry pancetta until crispy in a pan.",
+      "Whisk eggs and parmesan together in a bowl.",
+      "Drain pasta and mix with pancetta off the heat.",
+      "Add egg mixture and toss quickly to coat.",
+      "Season with black pepper and serve immediately."
+    ]
+  },
+ =
+];
+
+const initialUsers = [
+  { id: 1, name: "Admin", email: "admin@recipes.com", password: "admin123", role: "admin" },
+  { id: 2, name: "User", email: "user@recipes.com", password: "user123", role: "user" }
+];
+
+// ... rest of your code
 const initialRecipes = [
   {
     id: 1,
