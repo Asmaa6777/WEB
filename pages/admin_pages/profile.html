@@ -1,80 +1,75 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Profile - Recipe Finder</title>
-    <link rel="stylesheet" href="../../assets/css/style.css">
-    <link rel="stylesheet" href="../../assets/css/admin_dashboard.css">
-    <link rel="stylesheet" href="../../assets/css/admin_profile.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Profile - Recipe Finder</title>
+  <link rel="stylesheet" href="../../assets/css/navbar.css">
+  <link rel="stylesheet" href="../../assets/css/style.css">
+  <link rel="stylesheet" href="../../assets/css/admin_profile.css">
+  <script src="../../assets/js/navbar.js" defer></script>
 </head>
 <body>
 
-    <header class="main-header">
-        <div class="logo">
-            <span class="logo-icon">R</span>
-            <span class="logo-text">Recipe<span class="logo-highlight">Finder</span></span>
+  <main-navbar></main-navbar>
+
+  <main>
+    <div class="profile-container">
+
+      <!-- Display section -->
+      <div class="profile-header-section">
+        <div class="avatar-container">
+          <img id="profileAvatar" src="../../assets/images/placeholder.svg" alt="Admin Avatar">
         </div>
-        
-        <nav class="main-nav">
-            <div class="nav-links">
-                <a href="recipes.html">Recipes</a>
-                <a href="admin_dashboard.html">Dashboard</a>
-                <a href="profile.html" class="active">Profile</a>
-            </div>
-
-            <div class="nav-actions">
-                <a href="profile.html" class="active">
-                    Profile <span class="profile-icon">P</span>
-                </a>
-            </div>
-        </nav>
-    </header>
-
-    <main>
-        <div class="profile-container">
-            <div class="profile-header-section">
-                <div class="avatar-container">
-                    <img id="profileAvatar" src="../../assets/images/placeholder.svg" alt="Admin Avatar">
-                </div>
-                <div class="profile-info">
-                    <h2 id="profileName">Admin Name</h2>
-                    <p><strong>Username:</strong> <span id="profileUsernameText">...</span></p>
-                    <p><strong>Email:</strong> <span id="profileEmail">...</span></p>
-                    <p><strong>Role:</strong> <span id="profileRole">...</span></p>
-                </div>
-            </div>
-
-            <div class="edit-form-section">
-                <h3>Update Information</h3>
-                <form id="profileForm">
-                    <div class="form-vertical">
-                        <div class="input-group">
-                            <label for="profileUsername">Username</label>
-                            <input type="text" id="profileUsername" name="username" required>
-                        </div>
-
-                        <div class="input-group">
-                            <label for="emailInput">Email Address</label>
-                            <input type="email" id="emailInput" name="email" required>
-                        </div>
-
-                        <div class="input-group">
-                            <label for="passwordInput">New Password (Optional)</label>
-                            <input type="password" id="passwordInput" name="password" placeholder="Leave blank to keep current">
-                        </div>
-                    </div>
-
-                    <div class="form-actions">
-                        <button type="submit" class="btn-save">Save Changes</button>
-                        <div id="profileMessage" class="profile-message"></div>
-                    </div>
-                </form>
-            </div>
+        <div class="profile-info">
+          <h2 id="profileName"></h2>
+          <p><strong>Username:</strong> <span id="profileUsernameText"></span></p>
+          <p><strong>Email:</strong> <span id="profileEmail"></span></p>
+          <p><strong>Date of Birth:</strong> <span id="profileDob"></span></p>
+          <p><strong>Role:</strong> <span id="profileRole"></span></p>
         </div>
-    </main>
+      </div>
 
-    <script src="../../assets/data_files/data.js"></script>
-    <script src="../../assets/js/admin_profile.js"></script>
+      <!-- Edit form section -->
+      <div class="edit-form-section">
+        <h3>Update Information</h3>
+        <form id="profileForm">
+          <div class="form-vertical">
+
+            <div class="input-group">
+              <label for="profileUsername">Username</label>
+              <input type="text" id="profileUsername" name="username" required>
+            </div>
+
+            <div class="input-group">
+              <label for="emailInput">Email Address</label>
+              <input type="email" id="emailInput" name="email" required>
+            </div>
+
+            <div class="input-group">
+              <label for="dobInput">Date of Birth</label>
+              <input type="date" id="dobInput" name="dob">
+            </div>
+
+            <div class="input-group">
+              <label for="passwordInput">New Password (Optional)</label>
+              <input type="password" id="passwordInput" name="password" placeholder="Leave blank to keep current">
+            </div>
+
+          </div>
+
+          <div class="form-actions">
+            <button type="submit" class="btn-save">Save Changes</button>
+            <div id="profileMessage" class="profile-message"></div>
+          </div>
+        </form>
+      </div>
+
+    </div>
+  </main>
+
+  <script src="../../assets/js/data.js"></script>
+  <script src="../../assets/js/profile.js"></script>
+
 </body>
 </html>
