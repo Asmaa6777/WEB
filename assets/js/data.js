@@ -392,9 +392,12 @@ function setCurrentUser(user) {
 // SIGN UP
 const signupForm = document.getElementById("signupForm");
 
+console.log("Signup form found:", signupForm);
+
 if (signupForm) {
   signupForm.addEventListener("submit", function (e) {
     e.preventDefault();
+    console.log("Form submitted!");
 
     const firstName = document.getElementById("firstName").value.trim();
     const lastName = document.getElementById("lastName").value.trim();
@@ -404,6 +407,8 @@ if (signupForm) {
     const password = document.getElementById("password").value;
     const confirmPassword = document.getElementById("confirmPassword").value;
 
+    console.log("Form data:", { firstName, lastName, username, email });
+
     const selectedRole = document.querySelector('input[name="role"]:checked');
     const role = selectedRole ? selectedRole.value : "user";
 
@@ -411,6 +416,7 @@ if (signupForm) {
     if (formMessage) formMessage.textContent = "";
 
     if (!firstName || !lastName || !dob || !username || !email || !password || !confirmPassword) {
+      console.log("Missing fields!");
       if (formMessage) {
         formMessage.textContent = "Please fill in all required fields.";
         formMessage.style.color = "red";
@@ -419,6 +425,7 @@ if (signupForm) {
     }
 
     if (password.length < 8) {
+      console.log("Password too short!");
       if (formMessage) {
         formMessage.textContent = "Password must be at least 8 characters.";
         formMessage.style.color = "red";
@@ -427,6 +434,7 @@ if (signupForm) {
     }
 
     if (password !== confirmPassword) {
+      console.log("Passwords don't match!");
       if (formMessage) {
         formMessage.textContent = "Passwords do not match.";
         formMessage.style.color = "red";
@@ -435,6 +443,7 @@ if (signupForm) {
     }
 
     const users = getUsers();
+    console.log("Existing users:", users);
 
     const existingUser = users.find(user =>
       user.username.toLowerCase() === username.toLowerCase() ||
@@ -442,6 +451,7 @@ if (signupForm) {
     );
 
     if (existingUser) {
+      console.log("User already exists:", existingUser);
       if (formMessage) {
         formMessage.textContent = "Username or email already exists.";
         formMessage.style.color = "red";
@@ -461,8 +471,12 @@ if (signupForm) {
       role
     };
 
+    console.log("Creating new user:", newUser);
+
     users.push(newUser);
     saveUsers(users);
+    
+    console.log("Users after save:", getUsers());
 
     if (formMessage) {
       formMessage.textContent = "Account created successfully! Redirecting...";
@@ -480,17 +494,23 @@ if (signupForm) {
 // LOGIN
 const loginForm = document.getElementById("loginForm");
 
+console.log("Login form found:", loginForm);
+
 if (loginForm) {
   loginForm.addEventListener("submit", function (e) {
     e.preventDefault();
+    console.log("Login form submitted!");
 
     const identifier = document.getElementById("loginIdentifier").value.trim().toLowerCase();
     const password = document.getElementById("loginPassword").value;
+
+    console.log("Login attempt:", { identifier, password });
 
     const formMessage = document.getElementById("formMessage");
     if (formMessage) formMessage.textContent = "";
 
     if (!identifier || !password) {
+      console.log("Missing login fields!");
       if (formMessage) {
         formMessage.textContent = "Please enter username/email and password.";
         formMessage.style.color = "red";
@@ -499,6 +519,7 @@ if (loginForm) {
     }
 
     const users = getUsers();
+    console.log("All users:", users);
 
     const foundUser = users.find(user =>
       (user.username.toLowerCase() === identifier ||
@@ -506,7 +527,10 @@ if (loginForm) {
       user.password === password
     );
 
+    console.log("Found user:", foundUser);
+
     if (!foundUser) {
+      console.log("Login failed - invalid credentials");
       if (formMessage) {
         formMessage.textContent = "Invalid username/email or password.";
         formMessage.style.color = "red";
@@ -515,6 +539,7 @@ if (loginForm) {
     }
 
     setCurrentUser(foundUser);
+    console.log("User logged in, redirecting...");
 
     if (foundUser.role === "admin") {
       window.location.href = "admin_pages/admin_dashboard.html";
