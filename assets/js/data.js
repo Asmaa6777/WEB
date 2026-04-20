@@ -385,6 +385,10 @@ function generateId() {
 }
 // ===== AUTH LOGIC =====
 
+function setCurrentUser(user) {
+  localStorage.setItem('currentUser', JSON.stringify(user));
+}
+
 // SIGN UP
 const signupForm = document.getElementById("signupForm");
 
@@ -407,29 +411,41 @@ if (signupForm) {
     if (formMessage) formMessage.textContent = "";
 
     if (!firstName || !lastName || !dob || !username || !email || !password || !confirmPassword) {
-      if (formMessage) formMessage.textContent = "Please fill in all required fields.";
+      if (formMessage) {
+        formMessage.textContent = "Please fill in all required fields.";
+        formMessage.style.color = "red";
+      }
       return;
     }
 
     if (password.length < 8) {
-      if (formMessage) formMessage.textContent = "Password must be at least 8 characters.";
+      if (formMessage) {
+        formMessage.textContent = "Password must be at least 8 characters.";
+        formMessage.style.color = "red";
+      }
       return;
     }
 
     if (password !== confirmPassword) {
-      if (formMessage) formMessage.textContent = "Passwords do not match.";
+      if (formMessage) {
+        formMessage.textContent = "Passwords do not match.";
+        formMessage.style.color = "red";
+      }
       return;
     }
 
     const users = getUsers();
 
     const existingUser = users.find(user =>
-      (user.username && user.username.toLowerCase() === username.toLowerCase()) ||
+      user.username.toLowerCase() === username.toLowerCase() ||
       user.email.toLowerCase() === email
     );
 
     if (existingUser) {
-      if (formMessage) formMessage.textContent = "Username or email already exists.";
+      if (formMessage) {
+        formMessage.textContent = "Username or email already exists.";
+        formMessage.style.color = "red";
+      }
       return;
     }
 
@@ -447,15 +463,17 @@ if (signupForm) {
 
     users.push(newUser);
     saveUsers(users);
-    setCurrentUser(newUser);
 
-    if (formMessage) formMessage.textContent = "Account created successfully.";
+    if (formMessage) {
+      formMessage.textContent = "Account created successfully! Redirecting...";
+      formMessage.style.color = "green";
+    }
 
     signupForm.reset();
 
     setTimeout(() => {
       window.location.href = "login.html";
-    }, 1000);
+    }, 1500);
   });
 }
 
@@ -473,20 +491,26 @@ if (loginForm) {
     if (formMessage) formMessage.textContent = "";
 
     if (!identifier || !password) {
-      if (formMessage) formMessage.textContent = "Please enter username/email and password.";
+      if (formMessage) {
+        formMessage.textContent = "Please enter username/email and password.";
+        formMessage.style.color = "red";
+      }
       return;
     }
 
     const users = getUsers();
 
     const foundUser = users.find(user =>
-      ((user.username && user.username.toLowerCase() === identifier) ||
+      (user.username.toLowerCase() === identifier ||
        user.email.toLowerCase() === identifier) &&
       user.password === password
     );
 
     if (!foundUser) {
-      if (formMessage) formMessage.textContent = "Invalid username/email or password.";
+      if (formMessage) {
+        formMessage.textContent = "Invalid username/email or password.";
+        formMessage.style.color = "red";
+      }
       return;
     }
 
