@@ -29,7 +29,7 @@ class MainFooter extends HTMLElement {
                         <h4>Contact</h4>
                         <p>hello@recipefinder.com</p>
                         <p>+1 (555) 234-5678</p>
-                        <p>New York, NY 10001</p>
+                        <p>Cairo, Egypt</p>
                     </div>
                 </div>
                 
