@@ -1,16 +1,9 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>RecipeFinder - All Recipes</title>
-  <link rel="stylesheet" href="../../assets/css/navbar.css" />
-  <link rel="stylesheet" href="../../assets/css/style.css" />
-  <script src="../../assets/js/navbar.js" defer></script>
-</head>
-<body>
-  <main-navbar></main-navbar>
+{% extends "recipes/base.html" %}
+{% load static %}
 
+{% block title %}RecipeFinder - All Recipes{% endblock %}
+
+{% block content %}
   <div class="page-header">
     <p class="section-label">OUR COLLECTION</p>
     <h1 class="page-title">All <em class="gold-italic">Recipes</em></h1>
@@ -33,8 +26,8 @@
       <p>No recipes found. Try a different search or filter.</p>
     </div>
   </div>
+{% endblock %}
 
-  <script src="../../assets/js/data.js"></script>
-  <script src="../../assets/js/recipes.js"></script>
-</body>
-</html>
+{% block extra_js_body %}
+  <script src="{% static 'js/recipes.js' %}"></script>
+{% endblock %}

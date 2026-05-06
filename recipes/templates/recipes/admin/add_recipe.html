@@ -1,21 +1,15 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-     <link rel="stylesheet" href="../../assets/css/add.css">
-     <link rel="stylesheet" href="../../assets/css/admin_profile.css">
-     <script src="../../assets/js/navbar.js" defer></script>
-      <link rel="stylesheet" href="../../assets/css/navbar.css" />
-    <title>Recipe Finder - Add Recipe</title>
-  </head>
-  
-  <body>
- <h1><span id="recipe">🍽️ Recipe</span> <span id="finder">Finder</span></h1>
-    <p>Discover, Share and Save your Favourite Recipes</p>
+{% extends "recipes/base.html" %}
+{% load static %}
 
-     
- <main-navbar></main-navbar>
-    <hr> 
+{% block title %}Recipe Finder - Add Recipe{% endblock %}
 
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'css/add.css' %}">
+    <link rel="stylesheet" href="{% static 'css/admin_profile.css' %}">
+{% endblock %}
+
+{% block content %}
+<div style="padding: 20px;">
     <h2>Add Your Own Recipe</h2>
     <p>Fill in the details below to share your recipe with the community</p>
 
@@ -177,10 +171,9 @@
       <button type="reset"> CLEAR FORM</button>
 
     </form>
+</div>
+{% endblock %}
 
-    <hr>
-    <p>Recipe Finder &copy; 2025 | All Rights Reserved</p>  
-<script src="../../assets/js/data.js"></script>
-<script src="../../assets/js/add-recipe.js"></script>
-  </body>
-</html>
+{% block extra_js_body %}
+    <script src="{% static 'js/add-recipe.js' %}"></script>
+{% endblock %}

@@ -1,23 +1,15 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <link rel="stylesheet" href="../../assets/css/style.css" />
-<link rel="stylesheet" href="../../assets/css/edit_recipe.css" />
-    <link rel="stylesheet" href="../../assets/css/admin_profile.css" />
-    <link rel="stylesheet" href="../../assets/css/navbar.css" />
-  <script src="../../assets/js/navbar.js" defer></script>
+{% extends "recipes/base.html" %}
+{% load static %}
 
-  <title>Recipe Finder - Edit Recipe</title>
-</head>
-<body>
+{% block title %}Recipe Finder - Edit Recipe{% endblock %}
 
-  <header>
-    <main-navbar></main-navbar>
-    <hr>
-  </header>
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'css/edit_recipe.css' %}">
+    <link rel="stylesheet" href="{% static 'css/admin_profile.css' %}">
+{% endblock %}
 
-  <main>
+{% block content %}
+<div style="padding: 20px;">
     <h1>Recipe Finder</h1>
 
     <section id="editSection">
@@ -140,18 +132,17 @@
 
         <button type="submit">Save Changes</button>
         &nbsp;
-        <a href="recipes.html"><button type="button">Cancel</button></a>
+        <a href="{% url 'admin_recipes' %}"><button type="button">Cancel</button></a>
 
       </form>
 
 
       <hr>
-      <p><i>Note: This page is for editing existing recipes. To add a new recipe, please use the <a href="add_recipe.html">Add Recipe</a> page.</i></p>
+      <p><i>Note: This page is for editing existing recipes. To add a new recipe, please use the <a href="{% url 'add_recipe' %}">Add Recipe</a> page.</i></p>
     </section>  
-  </main>
+</div>
+{% endblock %}
 
-  <hr>
-  <script src="../../assets/js/data.js"></script>
-  <script src="../../assets/js/edit-recipe.js"></script>
-</body>
-</html>
+{% block extra_js_body %}
+    <script src="{% static 'js/edit-recipe.js' %}"></script>
+{% endblock %}

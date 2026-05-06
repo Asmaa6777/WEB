@@ -1,0 +1,35 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Recipe Finder Login</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}" />
+</head>
+<body>
+    <main class="auth-container">
+        <h1>Welcome to Recipe Finder</h1>
+        <hr>
+
+        <h2>Login</h2>
+
+        <form id="loginForm">
+            <label for="loginIdentifier">Username or Email:</label><br>
+            <input type="text" id="loginIdentifier" name="loginIdentifier" required /><br><br>
+
+            <label for="loginPassword">Password:</label><br>
+            <input type="password" id="loginPassword" name="loginPassword" required /><br><br>
+
+            <div id="formMessage"></div>
+
+            <input type="submit" value="Login" />
+        </form>
+
+        <br>
+        <p>Don't have an account? <a href="{% url 'signup' %}">Sign Up</a></p>
+    </main>
+
+    <script src="{% static 'js/auth.js' %}"></script>
+</body>
+</html>

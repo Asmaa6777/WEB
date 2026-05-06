@@ -1,0 +1,40 @@
+{% extends "recipes/base.html" %}
+{% load static %}
+
+{% block title %}Delete Recipe - Recipe Finder{% endblock %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'css/admin_profile.css' %}">
+{% endblock %}
+
+{% block content %}
+<div style="padding: 20px;">
+    <h1>Recipe Finder</h1>
+
+    <section id="deleteSection">
+      <h2>Delete Recipe</h2>
+      <p>You are about to permanently delete this recipe.</p>
+      <p><b>Warning:</b> This action cannot be undone.</p>
+
+      <hr>
+
+      <div id="recipeInfo">
+        <p>Recipe Name: <strong id="recipeName"></strong></p>
+        <p>Course: <strong id="recipeCourse"></strong></p>
+      </div>
+
+      <br>
+
+      <p>Are you sure you want to delete this recipe?</p>
+
+      <button id="confirmDeleteBtn">Yes, Delete</button>
+      &nbsp;
+      <button id="cancelDeleteBtn">Cancel</button>
+
+    </section>
+</div>
+{% endblock %}
+
+{% block extra_js_body %}
+    <script src="{% static 'js/delete.recipe.js' %}"></script>
+{% endblock %}
