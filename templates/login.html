@@ -1,11 +1,18 @@
+<<<<<<<< HEAD:templates/user_pages/login.html
 {% load static %}
+========
+>>>>>>>> origin/iman-mange:templates/login.html
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Recipe Finder Login</title>
+<<<<<<<< HEAD:templates/user_pages/login.html
     <link rel="stylesheet" href="{% static 'css/style.css' %}" />
+========
+    <link rel="stylesheet" href="../assets/css/style.css" />
+>>>>>>>> origin/iman-mange:templates/login.html
 </head>
 <body>
     <main class="auth-container">
@@ -27,9 +34,18 @@
         </form>
 
         <br>
+<<<<<<<< HEAD:templates/user_pages/login.html
         <p>Don't have an account? <a href="{% url 'signup' %}">Sign Up</a></p>
     </main>
 
     <script src="{% static 'js/auth.js' %}"></script>
 </body>
 </html>
+========
+        <p>Don't have an account? <a href="signup.html">Sign Up</a></p>
+    </main>
+
+    <script src="../assets/js/auth.js"></script>
+</body>
+</html>
+>>>>>>>> origin/iman-mange:templates/login.html

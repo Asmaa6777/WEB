@@ -1,5 +1,6 @@
 from django.shortcuts import render
 
+<<<<<<< HEAD
 def homepage(request):
     return render(request, 'recipes/homepage.html')
 
@@ -45,3 +46,6 @@ def delete_recipe(request):
 
 def admin_profile(request):
     return render(request, 'recipes/admin/profile.html')
+=======
+# Create your views here.
+>>>>>>> origin/iman-mange
