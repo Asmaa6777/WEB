@@ -1,40 +1,35 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Search Results - RecipeFinder</title>
-  <link rel="stylesheet" href="../../assets/css/navbar.css" />
-  <link rel="stylesheet" href="../../assets/css/style.css" />
-  <script src="../../assets/js/navbar.js" defer></script>
-</head>
-<body>
-  <main-navbar></main-navbar>
+{% extends "base.html" %}
+{% load static %}
 
-  <div class="page-header">
-    <p class="section-label">OUR COLLECTION</p>
-    <h1 class="page-title">Search <em class="gold-italic">Results</em></h1>
+{% block title %}Search Results for "{{ query }}"{% endblock %}
 
-    <div class="search-wrapper">
-      <input type="text" id="searchInput" class="search-bar" placeholder="Search recipes or ingredients..." />
+{% block content %}
+<div class="page-header">
+    <p class="section-label">SEARCH RESULTS</p>
+    <h1 class="page-title">Results for <em class="gold-italic">"{{ query }}"</em></h1>
+</div>
+
+<div class="recipes-section">
+    <div class="recipe-grid">
+        {% for recipe in recipes %}
+        <div class="recipe-card">
+            <div class="card-image-wrapper">
+                <img src="{{ recipe.image.url }}" alt="{{ recipe.name }}" class="card-img" onerror="this.src='{% static 'images/placeholder.svg' %}'">
+                <span class="course-tag">{{ recipe.category.name }}</span>
+            </div>
+            <div class="card-body">
+                <h3 class="card-title">{{ recipe.name }}</h3>
+                <p class="card-desc">{{ recipe.description|truncatewords:20 }}</p>
+                <div class="card-actions">
+                    <a href="{% url 'recipe_detail' recipe.id %}" class="btn-view">View Recipe</a>
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <div class="empty-state" style="display: block;">
+            <p>No recipes found matching your search. Try different keywords.</p>
+        </div>
+        {% endfor %}
     </div>
-
-    <div class="filter-pills">
-      <button class="pill active" data-filter="all">All</button>
-      <button class="pill" data-filter="appetizer">Appetizers</button>
-      <button class="pill" data-filter="main-course">Main Course</button>
-      <button class="pill" data-filter="dessert">Dessert</button>
-    </div>
-  </div>
-
-  <div class="recipes-section">
-    <div class="recipe-grid" id="recipeGrid"></div>
-    <div class="empty-state" id="emptyState">
-      <p>No recipes found. Try a different search or filter.</p>
-    </div>
-  </div>
-
-  <script src="../../assets/js/data.js"></script>
-  <script src="../../assets/js/search_results.js"></script>
-</body>
-</html>
+</div>
+{% endblock %}

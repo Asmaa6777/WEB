@@ -1,4 +1,4 @@
-{% extends "recipes/base.html" %}
+{% extends "base.html" %}
 {% load static %}
 
 {% block title %}RecipeFinder - All Recipes{% endblock %}
@@ -8,26 +8,44 @@
     <p class="section-label">OUR COLLECTION</p>
     <h1 class="page-title">All <em class="gold-italic">Recipes</em></h1>
 
-    <div class="search-wrapper">
-      <input type="text" id="searchInput" class="search-bar" placeholder="Search recipes or ingredients..." />
-    </div>
+    <form action="{% url 'search_results' %}" method="GET" class="search-wrapper">
+      <input type="text" name="q" id="searchInput" class="search-bar" placeholder="Search recipes or ingredients..." />
+    </form>
 
     <div class="filter-pills">
-      <button class="pill active" data-filter="all">All</button>
-      <button class="pill" data-filter="appetizer">Appetizers</button>
-      <button class="pill" data-filter="main-course">Main Course</button>
-      <button class="pill" data-filter="dessert">Dessert</button>
+      <a href="{% url 'recipes_list' %}" class="pill {% if not selected_category %}active{% endif %}">All</a>
+      {% for category in categories %}
+        <a href="{% url 'recipes_by_category' category.slug %}" class="pill {% if selected_category == category.slug %}active{% endif %}">{{ category.name }}</a>
+      {% endfor %}
     </div>
   </div>
 
   <div class="recipes-section">
-    <div class="recipe-grid" id="recipeGrid"></div>
-    <div class="empty-state" id="emptyState">
-      <p>No recipes found. Try a different search or filter.</p>
+    <div class="recipe-grid" id="recipeGrid">
+      {% for recipe in recipes %}
+      <div class="recipe-card" data-course="{{ recipe.category.slug }}">
+        <div class="card-image-wrapper">
+          <img src="{{ recipe.image.url }}" alt="{{ recipe.name }}" class="card-img"
+               onerror="this.src='{% static 'images/placeholder.svg' %}'"/>
+          <span class="course-tag">{{ recipe.category.name }}</span>
+        </div>
+        <div class="card-body">
+          <h3 class="card-title">{{ recipe.name }}</h3>
+          <p class="card-desc">{{ recipe.description|truncatewords:20 }}</p>
+          <div class="card-actions">
+            <a href="{% url 'recipe_detail' recipe.id %}" class="btn-view">View Recipe</a>
+          </div>
+        </div>
+      </div>
+      {% empty %}
+      <div class="empty-state" id="emptyState" style="display: block;">
+        <p>No recipes found. Try a different search or filter.</p>
+      </div>
+      {% endfor %}
     </div>
   </div>
 {% endblock %}
 
 {% block extra_js_body %}
-  <script src="{% static 'js/recipes.js' %}"></script>
+  {# Removing recipes.js as rendering is now handled by Django #}
 {% endblock %}

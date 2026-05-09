@@ -1,3 +1,7 @@
 from django.shortcuts import render
 
-# Create your views here.
+def favorites(request):
+    return render(request, 'social/favorites.html')
+
+def trending(request):
+    return render(request, 'social/trending.html')

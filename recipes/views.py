@@ -1,51 +1,59 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
+from django.db.models import Q
+from .models import Recipe, Category
 
-<<<<<<< HEAD
 def homepage(request):
-    return render(request, 'recipes/homepage.html')
+    """View for the landing page - showing featured and classic recipes"""
+    featured_recipes = Recipe.objects.all().order_by('-created_at')[:6]
+    
+    # Selecting specific "Classic" recipes by ID (Carbonara, Pizza, Tiramisu, Macarons)
+    classic_ids = [1, 13, 12, 18]
+    classic_recipes = Recipe.objects.filter(id__in=classic_ids)
+    
+    categories = Category.objects.all()
+    
+    return render(request, 'recipes/homepage.html', {
+        'featured_recipes': featured_recipes,
+        'classic_recipes': classic_recipes,
+        'categories': categories
+    })
 
-def login_view(request):
-    return render(request, 'recipes/login.html')
+def recipes_list(request, category_slug=None):
+    """View for all recipes with category filtering (via URL slug or query param)"""
+    if not category_slug:
+        category_slug = request.GET.get('category')
+        
+    if category_slug:
+        category = get_object_or_404(Category, slug__iexact=category_slug)
+        recipes = Recipe.objects.filter(category=category)
+    else:
+        recipes = Recipe.objects.all()
+    
+    categories = Category.objects.all()
+    return render(request, 'recipes/recipes.html', {
+        'recipes': recipes,
+        'categories': categories,
+        'selected_category': category_slug
+    })
 
-def signup_view(request):
-    return render(request, 'recipes/signup.html')
-
-def recipes_list(request):
-    return render(request, 'recipes/user/recipes.html')
-
-def trending(request):
-    return render(request, 'recipes/user/trending.html')
-
-def favorites(request):
-    return render(request, 'recipes/user/favorites.html')
-
-def profile(request):
-    return render(request, 'recipes/user/profile.html')
-
-def recipe_detail(request):
-    return render(request, 'recipes/user/recipe_detail.html')
+def recipe_detail(request, pk):
+    """View for a single recipe's details"""
+    recipe = get_object_or_404(Recipe, pk=pk)
+    return render(request, 'recipes/recipe_detail.html', {'recipe': recipe})
 
 def search_results(request):
-    return render(request, 'recipes/user/search-results.html')
-
-# Admin views
-def admin_dashboard(request):
-    return render(request, 'recipes/admin/admin_dashboard.html')
-
-def admin_recipes(request):
-    return render(request, 'recipes/admin/recipes.html')
-
-def add_recipe(request):
-    return render(request, 'recipes/admin/add_recipe.html')
-
-def edit_recipe(request):
-    return render(request, 'recipes/admin/edit_recipe.html')
-
-def delete_recipe(request):
-    return render(request, 'recipes/admin/delete_recipe.html')
-
-def admin_profile(request):
-    return render(request, 'recipes/admin/profile.html')
-=======
-# Create your views here.
->>>>>>> origin/iman-mange
+    """View for searching recipes by name or ingredients"""
+    query = request.GET.get('q', '')
+    if query:
+        recipes = Recipe.objects.filter(
+            Q(name__icontains=query) | 
+            Q(description__icontains=query) |
+            Q(ingredients__icontains=query)
+        ).distinct()
+    else:
+        recipes = Recipe.objects.none()
+    
+    return render(request, 'recipes/search_results.html', {
+        'recipes': recipes,
+        'query': query
+    })

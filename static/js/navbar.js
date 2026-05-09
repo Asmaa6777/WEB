@@ -2,30 +2,26 @@ class MainNavbar extends HTMLElement {
   connectedCallback() {
     const currentUser = JSON.parse(localStorage.getItem('currentUser'));
 
-    // Detect folder depth for correct paths
-    const path = window.location.pathname;
-    const inUserPages = path.includes('/user_pages/');
-    const inAdminPages = path.includes('/admin_pages/');
-    const inSubPages = inUserPages || inAdminPages;
-    const base = inSubPages ? '..' : '.';
+    // Use absolute paths for Django URLs
+    const base = ''; 
 
     // Build nav links based on role
     let navLinks = '';
 
     if (currentUser && currentUser.role === 'admin') {
       navLinks = `
-        <a href="${base}/homepage.html">Home</a>
-        <a href="${base}/admin_pages/admin_dashboard.html">Dashboard</a>
-        <a href="${base}/admin_pages/recipes.html">All Recipes</a>
-        <a href="${base}/user_pages/trending.html">Trending</a>
-        <a href="${base}/admin_pages/add_recipe.html">Add Recipe</a>
+        <a href="/">Home</a>
+        <a href="/management/">Dashboard</a>
+        <a href="/recipes/">All Recipes</a>
+        <a href="/social/trending/">Trending</a>
+        <a href="/management/add-recipe/">Add Recipe</a>
       `;
     } else {
       navLinks = `
-        <a href="${base}/homepage.html">Home</a>
-        <a href="${base}/user_pages/recipes.html">Recipes</a>
-        <a href="${base}/user_pages/trending.html">Trending</a>
-        <a href="${base}/user_pages/favorites.html">Favourites</a>
+        <a href="/">Home</a>
+        <a href="/recipes/">Recipes</a>
+        <a href="/social/trending/">Trending</a>
+        <a href="/social/favorites/">Favourites</a>
       `;
     }
 
@@ -33,8 +29,8 @@ class MainNavbar extends HTMLElement {
     let authHTML = '';
     if (currentUser) {
       const profileLink = currentUser.role === 'admin'
-        ? `${base}/admin_pages/profile.html`
-        : `${base}/user_pages/profile.html`;
+        ? `/management/profile/`
+        : `/accounts/profile/`;
 
       authHTML = `
         <div class="profile-dropdown">
@@ -49,14 +45,14 @@ class MainNavbar extends HTMLElement {
       `;
     } else {
       authHTML = `
-        <a href="${base}/login.html" class="nav-login-link">Login / Signup</a>
+        <a href="/accounts/login/" class="nav-login-link">Login / Signup</a>
       `;
     }
 
     // Build full navbar
     this.innerHTML = `
       <header class="main-header">
-        <a href="${base}/homepage.html" class="logo">
+        <a href="/" class="logo">
           <span class="logo-icon">R</span>
           <span class="logo-text">Recipe<span class="logo-highlight">Finder</span></span>
         </a>
@@ -67,7 +63,7 @@ class MainNavbar extends HTMLElement {
           </div>
 
           <div class="nav-actions">
-            <a href="${base}/user_pages/search-results.html" class="search-btn" aria-label="Search">
+            <a href="/search/" class="search-btn" aria-label="Search">
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                 <circle cx="11" cy="11" r="8"></circle>
                 <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
@@ -80,11 +76,11 @@ class MainNavbar extends HTMLElement {
     `;
 
     // Highlight active page
-    const currentPage = window.location.pathname.split('/').pop();
+    const currentPath = window.location.pathname;
     const links = this.querySelectorAll('.nav-links a');
     links.forEach(link => {
-      const linkPage = link.getAttribute('href').split('/').pop();
-      if (currentPage === linkPage) {
+      const href = link.getAttribute('href');
+      if (currentPath === href || (href !== '/' && currentPath.startsWith(href))) {
         link.classList.add('active');
       }
     });
@@ -95,7 +91,7 @@ class MainNavbar extends HTMLElement {
       logoutBtn.addEventListener('click', (e) => {
         e.preventDefault();
         localStorage.removeItem('currentUser');
-        window.location.href = `${base}/login.html`;
+        window.location.href = `/accounts/login/`;
       });
     }
 

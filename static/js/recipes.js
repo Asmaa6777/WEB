@@ -50,7 +50,7 @@ function renderRecipes() {
     card.classList.add('recipe-card');
     card.setAttribute('data-course', recipe.course);
 
-    let actionButtons = `<a href="recipe_detail.html?id=${recipe.id}" class="btn-view">View Recipe</a>`;
+    let actionButtons = `<a href="/recipe/${recipe.id}/" class="btn-view">View Recipe</a>`;
 
     if (currentUser) {
       actionButtons += `
@@ -64,8 +64,8 @@ function renderRecipes() {
 
     if (currentUser && currentUser.role === 'admin') {
       actionButtons += `
-        <a href="edit_recipe.html?id=${recipe.id}" class="btn-edit">Edit</a>
-        <a href="delete_recipe.html?id=${recipe.id}&name=${encodeURIComponent(recipe.name)}" class="btn-delete">Delete</a>
+        <a href="/management/edit-recipe/${recipe.id}/" class="btn-edit">Edit</a>
+        <a href="/management/delete-recipe/${recipe.id}/?name=${encodeURIComponent(recipe.name)}" class="btn-delete">Delete</a>
       `;
     }
 
