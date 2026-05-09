@@ -13,16 +13,16 @@ class MainFooter extends HTMLElement {
                     
                     <div class="footer-links">
                         <h4>Quick Links</h4>
-                        <a href="/homepage.html">Home</a>
-                        <a href="/pages/user_pages/recipes.html">Recipes</a>
-                        <a href="/pages/user_pages/favorites.html">Favourites</a>
+                        <a href="/">Home</a>
+                        <a href="/recipes/">Recipes</a>
+                        <a href="/social/favorites/">Favourites</a>
                     </div>
 
                     <div class="footer-links">
                         <h4>Categories</h4>
-                        <a href="#">Appetizers</a>
-                        <a href="#">Main Course</a>
-                        <a href="#">Dessert</a>
+                        <a href="/recipes/appetizer/">Appetizers</a>
+                        <a href="/recipes/main-course/">Main Course</a>
+                        <a href="/recipes/dessert/">Dessert</a>
                     </div>
 
                     <div class="footer-contact">
