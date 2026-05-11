@@ -58,6 +58,6 @@ def profile_view(request):
         return redirect("profile")
 
     if getattr(user, 'role', 'user') == 'admin':
-        return render(request, "accounts/admin_profile.html", {"user": user})
+        return render(request, "accounts/admin-profile.html", {"user": user})
     else:
-        return render(request, "accounts/user_profile.html", {"user": user})
+        return render(request, "accounts/user-profile.html", {"user": user})
