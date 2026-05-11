@@ -1,10 +1,11 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Recipe Finder - Sign Up</title>
-  <link rel="stylesheet" href="../assets/css/style.css">
+  <link rel="stylesheet" href="{% static 'css/style.css' %}">
 </head>
 <body>
   <main class="auth-container">
@@ -14,8 +15,8 @@
 
     <hr>
 
-    <form id="signupForm">
-      <fieldset>
+    <form id="signupForm" method="POST" action="">
+      {% csrf_token %} <fieldset>
         <legend>Personal Information</legend>
 
         <label for="firstName">First Name: *</label><br>
@@ -50,9 +51,7 @@
 
       <fieldset>
         <legend>Account Type</legend>
-
         <p>Select your role:</p>
-
         <div class="role-options">
           <label class="role-card" for="regularUser">
             <input type="radio" id="regularUser" name="role" value="user" checked />
@@ -68,11 +67,17 @@
 
       <br>
 
-      <div id="formMessage"></div>
+      <div id="formMessage">
+        {% if messages %}
+            {% for message in messages %}
+                <p class="{{ message.tags }}" style="color: red;">{{ message }}</p>
+            {% endfor %}
+        {% endif %}
+      </div>
 
       <button type="submit">Create Account</button>
       <br><br>
-      <p>Already have an account? <a href="login.html">Log in</a></p>
+      <p>Already have an account? <a href="{% url 'login' %}">Log in</a></p>
     </form>
   </main>
 
@@ -80,7 +85,6 @@
   <footer>
     <p>&copy; Welcome to the Recipe Finder</p>
   </footer>
- <script src="assets/js/data.js"></script>
 
-</body>
+  </body>
 </html>
