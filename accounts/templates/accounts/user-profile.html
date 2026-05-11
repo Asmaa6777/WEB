@@ -26,27 +26,38 @@
       <a href="{% url 'logout' %}" class="btn-logout">Logout</a>
     </div>
 
-    <div class="profile-grid">
-      <section class="profile-card">
-        <div class="avatar-wrapper">
-          <img src="https://ui-avatars.com/api/?name={{ user.username }}&background=c9a84c&color=0a0a0a&size=150&font-size=0.4" alt="Profile avatar" />
-        </div>
-        <div class="user-info">
-          <p>Name: <span>{{ user.first_name }} {{ user.last_name }}</span></p>
-          <p>Username: <span>{{ user.username }}</span></p>
-          <p>Email: <span>{{ user.email }}</span></p>
-          <p>Role: <span style="text-transform: capitalize;">{{ user.role|default:"User" }}</span></p>
-        </div>
-      </section>
-
-      <section class="profile-card">
-        <h2 style="margin-top: 0; color: var(--gold); font-family: 'Playfair Display', serif;">Edit Details</h2>
+    <form id="profileForm" method="POST" action="{% url 'profile' %}" enctype="multipart/form-data">
+      {% csrf_token %}
+      
+      <div class="profile-grid">
         
-        <form id="profileForm" method="POST" action="{% url 'profile' %}" enctype="multipart/form-data">
-          {% csrf_token %}
+        <section class="profile-card">
+          <div class="avatar-wrapper">
+            <div class="avatar-container">
+              <img id="avatarPreview" src="https://ui-avatars.com/api/?name={{ user.username }}&background=c9a84c&color=0a0a0a&size=150&font-size=0.4" alt="Profile avatar" />
+              
+              <input type="file" id="avatarInput" name="avatar" accept="image/*" onchange="previewImage(event)" />
+              
+              <label for="avatarInput" class="camera-icon" title="Change Profile Picture">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="black">
+                  <path d="M12 15a3 3 0 100-6 3 3 0 000 6z" />
+                  <path fill-rule="evenodd" d="M19.916 4.626a.75.75 0 01.208 1.04l-9 13.5a.75.75 0 01-1.154.114l-6-6a.75.75 0 011.06-1.06l5.353 5.353 8.493-12.74a.75.75 0 011.04-.207z" clip-rule="evenodd" />
+                  <path d="M4 6.5A2.5 2.5 0 016.5 4h1.096a1.5 1.5 0 001.341-.806l.3-0.6A2.5 2.5 0 0111.474 1.5h1.052a2.5 2.5 0 012.237 1.094l.3 0.6a1.5 1.5 0 001.341.806H17.5A2.5 2.5 0 0120 6.5v11A2.5 2.5 0 0117.5 20H6.5A2.5 2.5 0 014 17.5v-11zM12 16.5a4.5 4.5 0 100-9 4.5 4.5 0 000 9z" />
+                </svg>
+              </label>
+            </div>
+          </div>
+          
+          <div class="user-info">
+            <p>Name: <span>{{ user.first_name }} {{ user.last_name }}</span></p>
+            <p>Username: <span>{{ user.username }}</span></p>
+            <p>Email: <span>{{ user.email }}</span></p>
+            <p>Role: <span style="text-transform: capitalize;">{{ user.role|default:"User" }}</span></p>
+          </div>
+        </section>
 
-          <label for="avatarInput">Profile Picture (Optional)</label>
-          <input type="file" id="avatarInput" name="avatar" accept="image/*" />
+        <section class="profile-card">
+          <h2 style="margin-top: 0; color: var(--gold); font-family: 'Playfair Display', serif;">Edit Details</h2>
 
           <label for="profileUsername">Username</label>
           <input type="text" id="profileUsername" name="username" value="{{ user.username }}" required />
@@ -65,15 +76,29 @@
           <div style="margin-top: 15px; text-align: center;">
               {% if messages %}
                   {% for message in messages %}
-                      <span style="color: {% if message.tags == 'success' %}#4CAF50{% else %}var(--danger){% endif %}; font-weight: bold; font-family: 'Lato', sans-serif;">
+                      <span style="color: {% if message.tags == 'success' %}#4CAF50{% else %}var(--danger){% endif %}; font-weight: bold;">
                           {{ message }}
                       </span>
                   {% endfor %}
               {% endif %}
           </div>
-        </form>
-      </section>
-    </div>
+        </section>
+
+      </div>
+    </form>
   </main>
+
+  <script>
+    function previewImage(event) {
+      const reader = new FileReader();
+      reader.onload = function() {
+        const output = document.getElementById('avatarPreview');
+        output.src = reader.result;
+      };
+      if(event.target.files[0]) {
+        reader.readAsDataURL(event.target.files[0]);
+      }
+    }
+  </script>
 </body>
 </html>
