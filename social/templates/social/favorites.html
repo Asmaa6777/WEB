@@ -1,37 +1,85 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>My Favourites - RecipeFinder</title>
-  <link rel="stylesheet" href="../../assets/css/navbar.css" />
-  <link rel="stylesheet" href="../../assets/css/style.css" />
-  <script src="../../assets/js/navbar.js" defer></script>
-</head>
-<body>
-  <main-navbar></main-navbar>
+{% extends "base.html" %}
+{% load static %}
 
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/home.css' %}">
+{% endblock %}
+
+{% block title %}My Favourites - RecipeFinder{% endblock %}
+
+{% block content %}
   <div class="page-header">
     <p class="section-label">YOUR COLLECTION</p>
     <h1 class="page-title">My <em class="gold-italic">Favourites</em></h1>
     <p class="page-sub">Recipes you've saved to cook again and again.</p>
-
-    <div class="filter-pills">
-      <button class="pill active" data-filter="all">All</button>
-      <button class="pill" data-filter="appetizer">Appetizers</button>
-      <button class="pill" data-filter="main-course">Main Course</button>
-      <button class="pill" data-filter="dessert">Dessert</button>
-    </div>
   </div>
 
   <div class="recipes-section">
-    <div class="recipe-grid" id="recipeGrid"></div>
-    <div class="empty-state" id="emptyState">
-      <p>No favourite recipes yet. <a href="recipes.html">Browse recipes</a> and add some!</p>
+    <div class="recipe-grid" id="recipeGrid">
+      {% for recipe in recipes %}
+      <div class="recipe-card">
+        <div class="card-image-wrapper">
+          <img src="{% if recipe.image %}{{ recipe.image.url }}{% else %}{% static 'images/placeholder.svg' %}{% endif %}" alt="{{ recipe.name }}" class="card-img"
+               onerror="this.src='{% static 'images/placeholder.svg' %}'"/>
+          <span class="course-tag">{{ recipe.category.name }}</span>
+        </div>
+        <div class="card-body">
+          <h3 class="card-title">{{ recipe.name }}</h3>
+          <p class="card-desc">{{ recipe.description|truncatewords:20 }}</p>
+          <div class="card-actions">
+            <a href="{% url 'recipe_detail' recipe.id %}" class="btn-view">View Recipe</a>
+            <button type="button" class="btn-remove-favorite" data-toggle-url="{% url 'toggle_favorite' recipe.id %}">♥ Remove</button>
+          </div>
+        </div>
+      </div>
+      {% empty %}
+      <div class="empty-state" id="emptyState" style="display: block;">
+        <p>No favourite recipes yet. <a href="{% url 'recipes_list' %}">Browse recipes</a> and add some!</p>
+      </div>
+      {% endfor %}
     </div>
   </div>
+{% endblock %}
 
-  <script src="../../assets/js/data.js"></script>
-  <script src="../../assets/js/favorites.js"></script>
-</body>
-</html>
+{% block extra_js_body %}
+<script>
+  function getCookie(name) {
+    var cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+      var cookies = document.cookie.split(';');
+      for (var i = 0; i < cookies.length; i++) {
+        var cookie = cookies[i].trim();
+        if (cookie.substring(0, name.length + 1) === (name + '=')) {
+          cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+          break;
+        }
+      }
+    }
+    return cookieValue;
+  }
+  (function () {
+    var grid = document.getElementById('recipeGrid');
+    if (!grid) return;
+    grid.addEventListener('click', function (e) {
+      var btn = e.target.closest('.btn-remove-favorite');
+      if (!btn) return;
+      var url = btn.getAttribute('data-toggle-url');
+      if (!url) return;
+      fetch(url, {
+        method: 'POST',
+        credentials: 'same-origin',
+        headers: {
+          'X-CSRFToken': getCookie('csrftoken')
+        }
+      }).then(function (response) {
+        return response.json().then(function (data) {
+          if (response.ok && data.status === 'removed') {
+            var card = btn.closest('.recipe-card');
+            if (card) card.remove();
+          }
+        });
+      }).catch(function () {});
+    });
+  })();
+</script>
+{% endblock %}

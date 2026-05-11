@@ -14,7 +14,11 @@
         {% for recipe in recipes %}
         <div class="recipe-card">
             <div class="card-image-wrapper">
-                <img src="{{ recipe.image.url }}" alt="{{ recipe.name }}" class="card-img" onerror="this.src='{% static 'images/placeholder.svg' %}'">
+                {% if recipe.image %}
+                    <img src="{{ recipe.image.url }}" alt="{{ recipe.name }}" class="card-img">
+                {% else %}
+                    <img src="{% static 'images/placeholder.svg' %}" alt="{{ recipe.name }}" class="card-img">
+                {% endif %}
                 <span class="course-tag">{{ recipe.category.name }}</span>
             </div>
             <div class="card-body">

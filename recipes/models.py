@@ -24,7 +24,7 @@ class Recipe(models.Model):
     description = models.TextField()
     ingredients = models.TextField(help_text="Enter ingredients, one per line")
     instructions = models.TextField(help_text="Enter steps, one per line")
-    image = models.ImageField(upload_to='recipes/', default='placeholder.svg')
+    image = models.ImageField(upload_to='recipes/', blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 

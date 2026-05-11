@@ -4,7 +4,6 @@
 {% block title %}RecipeFinder - {{ recipe.name }}{% endblock %}
 
 {% block extra_css %}
-  <link rel="stylesheet" href="{% static 'css/navbar.css' %}" />
   <link rel="stylesheet" href="{% static 'css/style.css' %}" />
 {% endblock %}
 
@@ -15,7 +14,11 @@
 
   <div class="detail-section">
     <div class="detail-hero">
-      <img src="{{ recipe.image.url }}" alt="{{ recipe.name }}" id="detailImage" class="detail-img" onerror="this.src='{% static 'images/placeholder.svg' %}'"/>
+      {% if recipe.image %}
+        <img src="{{ recipe.image.url }}" alt="{{ recipe.name }}" id="detailImage" class="detail-img">
+      {% else %}
+        <img src="{% static 'images/placeholder.svg' %}" alt="{{ recipe.name }}" id="detailImage" class="detail-img">
+      {% endif %}
       <span class="course-tag" id="detailCourse">{{ recipe.category.name }}</span>
     </div>
 
@@ -44,7 +47,16 @@
 
       <div class="detail-actions">
         {% if user.is_authenticated %}
-          <button class="btn-gold" id="btnFavourite">&#9825; Add to Favourites</button>
+          <button class="btn-gold" id="btnFavourite"
+                  data-recipe-id="{{ recipe.id }}"
+                  data-toggle-url="{% url 'toggle_favorite' recipe.id %}"
+                  {% if is_favorite %}data-is-favorite="true"{% endif %}>
+            {% if is_favorite %}
+              ♥ In Favourites
+            {% else %}
+              ♡ Add to Favourites
+            {% endif %}
+          </button>
         {% endif %}
         
         {% if user.is_staff %}
@@ -54,4 +66,62 @@
       </div>
     </div>
   </div>
+{% endblock %}
+
+{% block extra_js_body %}
+<script>
+  (function() {
+    function getCookie(name) {
+      var cookieValue = null;
+      if (document.cookie && document.cookie !== '') {
+        var cookies = document.cookie.split(';');
+        for (var i = 0; i < cookies.length; i++) {
+          var cookie = cookies[i].trim();
+          if (cookie.substring(0, name.length + 1) === (name + '=')) {
+            cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+            break;
+          }
+        }
+      }
+      return cookieValue;
+    }
+
+    var btn = document.getElementById('btnFavourite');
+    if (!btn) return;
+
+    var isFavorite = btn.hasAttribute('data-is-favorite');
+
+    if (isFavorite) {
+      btn.classList.add('saved');
+    }
+
+    btn.addEventListener('click', function() {
+      var url = btn.getAttribute('data-toggle-url');
+      if (!url) return;
+
+      fetch(url, {
+        method: 'POST',
+        credentials: 'same-origin',
+        headers: {
+          'X-CSRFToken': getCookie('csrftoken')
+        }
+      })
+      .then(function(response) { return response.json(); })
+      .then(function(data) {
+        if (data.status === 'added') {
+          btn.innerHTML = '♥ In Favourites';
+          btn.classList.add('saved');
+          isFavorite = true;
+        } else if (data.status === 'removed') {
+          btn.innerHTML = '♡ Add to Favourites';
+          btn.classList.remove('saved');
+          isFavorite = false;
+        }
+      })
+      .catch(function(err) {
+        console.error('Favourite toggle failed:', err);
+      });
+    });
+  })();
+</script>
 {% endblock %}

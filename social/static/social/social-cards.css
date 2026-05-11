@@ -1,0 +1,66 @@
+/* Social app: recipe card badges + favorite buttons (extends global style.css tokens) */
+
+.card-image-wrapper .course-tag {
+  z-index: 2;
+}
+
+.card-image-wrapper .fav-count-tag {
+  position: absolute;
+  bottom: 12px;
+  right: 12px;
+  z-index: 2;
+  background-color: rgba(26, 26, 26, 0.92);
+  color: var(--gold-light);
+  border: 1px solid var(--gold);
+  padding: 5px 11px;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  font-family: 'Lato', sans-serif;
+  letter-spacing: 0.3px;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  line-height: 1.2;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.45);
+}
+
+.card-actions .btn-remove-favorite,
+.card-actions .btn-toggle-favorite {
+  background-color: transparent;
+  color: var(--gold);
+  border: 1px solid var(--gold);
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  font-family: 'Lato', sans-serif;
+  cursor: pointer;
+  transition: background-color 0.2s, color 0.2s, border-color 0.2s;
+  display: inline-block;
+}
+
+.card-actions .btn-remove-favorite:hover,
+.card-actions .btn-toggle-favorite:hover {
+  background-color: var(--gold);
+  color: var(--background);
+  border-color: var(--gold);
+}
+
+.card-actions .btn-toggle-favorite.saved {
+  background-color: var(--gold);
+  color: var(--background);
+  border-color: var(--gold);
+}
+
+.card-actions .btn-toggle-favorite.saved:hover {
+  background-color: var(--gold-light);
+  border-color: var(--gold-light);
+  color: var(--background);
+}
+
+/* Custom element wrapper from footer.js — home.css styles inner .site-footer only */
+main-footer {
+  display: block;
+  width: 100%;
+}

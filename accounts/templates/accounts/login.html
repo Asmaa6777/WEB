@@ -1,51 +1,83 @@
-<<<<<<<< HEAD:templates/user_pages/login.html
+{% extends "base.html" %}
 {% load static %}
-========
->>>>>>>> origin/iman-mange:templates/login.html
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Recipe Finder Login</title>
-<<<<<<<< HEAD:templates/user_pages/login.html
-    <link rel="stylesheet" href="{% static 'css/style.css' %}" />
-========
-    <link rel="stylesheet" href="../assets/css/style.css" />
->>>>>>>> origin/iman-mange:templates/login.html
-</head>
-<body>
-    <main class="auth-container">
-        <h1>Welcome to Recipe Finder</h1>
-        <hr>
 
-        <h2>Login</h2>
+{% block title %}Login - RecipeFinder{% endblock %}
 
-        <form id="loginForm">
-            <label for="loginIdentifier">Username or Email:</label><br>
-            <input type="text" id="loginIdentifier" name="loginIdentifier" required /><br><br>
+{% block extra_css %}
+<style>
+    .auth-container {
+        max-width: 400px;
+        margin: 50px auto;
+        padding: 30px;
+        background: #fff;
+        border-radius: 12px;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        text-align: center;
+    }
+    .auth-container h1 { margin-bottom: 10px; font-size: 1.8rem; }
+    .auth-container hr { border: 0; border-top: 1px solid #eee; margin: 20px 0; }
+    .auth-form { text-align: left; }
+    .auth-form p { margin-bottom: 15px; }
+    .auth-form input {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ddd;
+        border-radius: 6px;
+        margin-top: 5px;
+    }
+    .btn-auth {
+        width: 100%;
+        padding: 12px;
+        background: #d4af37;
+        color: #fff;
+        border: none;
+        border-radius: 6px;
+        font-size: 1rem;
+        cursor: pointer;
+        margin-top: 10px;
+    }
+    .btn-auth:hover { background: #b8962d; }
+    .auth-footer { margin-top: 20px; font-size: 0.9rem; }
+    .auth-footer a { color: #d4af37; text-decoration: none; }
+    .errorlist { color: #e74c3c; list-style: none; padding: 0; font-size: 0.85rem; }
+</style>
+{% endblock %}
 
-            <label for="loginPassword">Password:</label><br>
-            <input type="password" id="loginPassword" name="loginPassword" required /><br><br>
+{% block content %}
+<main class="auth-container">
+    <h1>Welcome Back</h1>
+    <p>Sign in to access your collection</p>
+    <hr>
 
-            <div id="formMessage"></div>
+    <form method="POST" class="auth-form">
+        {% csrf_token %}
+        {% if form.errors %}
+            <ul class="errorlist">
+                {% for field in form %}
+                    {% for error in field.errors %}
+                        <li>{{ error }}</li>
+                    {% endfor %}
+                {% endfor %}
+                {% for error in form.non_field_errors %}
+                    <li>{{ error }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
 
-            <input type="submit" value="Login" />
-        </form>
+        <p>
+            <label for="id_username">Email Address:</label>
+            <input type="email" name="username" autofocus autocomplete="email" required id="id_username">
+        </p>
+        <p>
+            <label for="id_password">Password:</label>
+            <input type="password" name="password" autocomplete="current-password" required id="id_password">
+        </p>
 
-        <br>
-<<<<<<<< HEAD:templates/user_pages/login.html
+        <button type="submit" class="btn-auth">Login</button>
+    </form>
+
+    <div class="auth-footer">
         <p>Don't have an account? <a href="{% url 'signup' %}">Sign Up</a></p>
-    </main>
-
-    <script src="{% static 'js/auth.js' %}"></script>
-</body>
-</html>
-========
-        <p>Don't have an account? <a href="signup.html">Sign Up</a></p>
-    </main>
-
-    <script src="../assets/js/auth.js"></script>
-</body>
-</html>
->>>>>>>> origin/iman-mange:templates/login.html
+    </div>
+</main>
+{% endblock %}

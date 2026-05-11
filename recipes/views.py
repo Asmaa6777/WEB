@@ -39,7 +39,14 @@ def recipes_list(request, category_slug=None):
 def recipe_detail(request, pk):
     """View for a single recipe's details"""
     recipe = get_object_or_404(Recipe, pk=pk)
-    return render(request, 'recipes/recipe_detail.html', {'recipe': recipe})
+    is_favorite = False
+    if request.user.is_authenticated:
+        from social.models import Favorite
+        is_favorite = Favorite.objects.filter(user=request.user, recipe=recipe).exists()
+    return render(request, 'recipes/recipe_detail.html', {
+        'recipe': recipe,
+        'is_favorite': is_favorite,
+    })
 
 def search_results(request):
     """View for searching recipes by name or ingredients"""

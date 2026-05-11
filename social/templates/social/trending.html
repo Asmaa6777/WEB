@@ -1,26 +1,98 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../../assets/css/navbar.css">
-    <link rel="stylesheet" href="../../assets/css/trend.css">
-        <script src="../../assets/js/navbar.js" defer></script>
+{% extends "base.html" %}
+{% load static %}
 
-    <title>Trending</title>
-</head>
-<body>
-    <main-navbar></main-navbar>
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/home.css' %}">
+{% endblock %}
 
-    <h1 id="h1">Trending Page</h1>
-    <p id="p1">Welcome to the Trending page! Here you can find the latest trends and popular topics.
-         Stay updated with what's happening around the world.</p>
+{% block title %}Trending Recipes - RecipeFinder{% endblock %}
 
-    <div id="recipes-container"></div>
+{% block content %}
+  <div class="page-header">
+    <p class="section-label">POPULAR NOW</p>
+    <h1 class="page-title">Trending <em class="gold-italic">Recipes</em></h1>
+    <p class="page-sub">The most loved recipes in our community.</p>
+  </div>
 
-    <script>const IMAGE_BASE = '../../assets/images/';</script>
-    <script src="../../assets/js/data.js" defer></script>
-    <script src="../../assets/js/trend.js" defer></script>
+  <div class="recipes-section">
+    <div class="recipe-grid" id="recipeGrid">
+      {% for recipe in recipes %}
+      <div class="recipe-card">
+        <div class="card-image-wrapper">
+          <img src="{% if recipe.image %}{{ recipe.image.url }}{% else %}{% static 'images/placeholder.svg' %}{% endif %}" alt="{{ recipe.name }}" class="card-img"
+               onerror="this.src='{% static 'images/placeholder.svg' %}'"/>
+          <span class="course-tag">{{ recipe.category.name }}</span>
+          <span class="fav-count-tag" aria-label="Favourite count"><span aria-hidden="true">♥</span> {{ recipe.fav_count }}</span>
+        </div>
+        <div class="card-body">
+          <h3 class="card-title">{{ recipe.name }}</h3>
+          <p class="card-desc">{{ recipe.description|truncatewords:20 }}</p>
+          <div class="card-actions">
+            <a href="{% url 'recipe_detail' recipe.id %}" class="btn-view">View Recipe</a>
+            {% if user.is_authenticated %}
+            <button type="button"
+                    class="btn-toggle-favorite{% if recipe.id in favorite_recipe_ids %} saved{% endif %}"
+                    data-toggle-url="{% url 'toggle_favorite' recipe.id %}">{% if recipe.id in favorite_recipe_ids %}♥ Saved{% else %}♥ Save{% endif %}</button>
+            {% else %}
+            <a href="{% url 'login' %}" class="btn-view">♥ Save</a>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+      {% empty %}
+      <div class="empty-state" id="emptyState" style="display: block;">
+        <p>No trending recipes found yet.</p>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+{% endblock %}
 
-</body>
-</html>
+{% block extra_js_body %}
+{% if user.is_authenticated %}
+<script>
+  function getCookie(name) {
+    var cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+      var cookies = document.cookie.split(';');
+      for (var i = 0; i < cookies.length; i++) {
+        var cookie = cookies[i].trim();
+        if (cookie.substring(0, name.length + 1) === (name + '=')) {
+          cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+          break;
+        }
+      }
+    }
+    return cookieValue;
+  }
+  (function () {
+    var grid = document.getElementById('recipeGrid');
+    if (!grid) return;
+    grid.addEventListener('click', function (e) {
+      var btn = e.target.closest('.btn-toggle-favorite');
+      if (!btn) return;
+      var url = btn.getAttribute('data-toggle-url');
+      if (!url) return;
+      fetch(url, {
+        method: 'POST',
+        credentials: 'same-origin',
+        headers: {
+          'X-CSRFToken': getCookie('csrftoken')
+        }
+      }).then(function (response) {
+        return response.json().then(function (data) {
+          if (!response.ok) return;
+          if (data.status === 'added') {
+            btn.classList.add('saved');
+            btn.textContent = '♥ Saved';
+          } else if (data.status === 'removed') {
+            btn.classList.remove('saved');
+            btn.textContent = '♥ Save';
+          }
+        });
+      }).catch(function () {});
+    });
+  })();
+</script>
+{% endif %}
+{% endblock %}
