@@ -1,0 +1,85 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Profile - Recipe Finder</title>
+  
+  <link rel="stylesheet" href="{% static 'css/navbar.css' %}">
+  <link rel="stylesheet" href="{% static 'css/style.css' %}">
+  <link rel="stylesheet" href="{% static 'css/admin_profile.css' %}">
+  <script src="{% static 'js/navbar.js' %}" defer></script>
+</head>
+<body>
+
+  <main-navbar></main-navbar>
+
+  <main>
+    <div class="profile-container">
+
+      <div class="profile-header-section">
+        <div class="avatar-container">
+          <img id="profileAvatar" src="{% static 'images/placeholder.svg' %}" alt="Admin Avatar">
+        </div>
+        <div class="profile-info">
+          <h2 id="profileName">{{ user.first_name }} {{ user.last_name }}</h2>
+          <p><strong>Username:</strong> <span>{{ user.username }}</span></p>
+          <p><strong>Email:</strong> <span>{{ user.email }}</span></p>
+          <p><strong>Date of Birth:</strong> <span>{{ user.dob|date:"F d, Y"|default:"Not specified" }}</span></p>
+          <p><strong>Role:</strong> <span style="text-transform: capitalize;">{{ user.role|default:"Admin" }}</span></p>
+          
+          <br>
+          <a href="{% url 'logout' %}" style="color: #ff4d4d; text-decoration: none; font-weight: bold; font-size: 14px;">Logout</a>
+        </div>
+      </div>
+
+      <div class="edit-form-section">
+        <h3>Update Information</h3>
+        
+        <form id="profileForm" method="POST" action="{% url 'profile' %}">
+          {% csrf_token %} <div class="form-vertical">
+
+            <div class="input-group">
+              <label for="profileUsername">Username</label>
+              <input type="text" id="profileUsername" name="username" value="{{ user.username }}" required>
+            </div>
+
+            <div class="input-group">
+              <label for="emailInput">Email Address</label>
+              <input type="email" id="emailInput" name="email" value="{{ user.email }}" required>
+            </div>
+
+            <div class="input-group">
+              <label for="dobInput">Date of Birth</label>
+              <input type="date" id="dobInput" name="dob" value="{{ user.dob|date:'Y-m-d' }}">
+            </div>
+
+            <div class="input-group">
+              <label for="passwordInput">New Password (Optional)</label>
+              <input type="password" id="passwordInput" name="password" placeholder="Leave blank to keep current">
+            </div>
+
+          </div>
+
+          <div class="form-actions">
+            <button type="submit" class="btn-save">Save Changes</button>
+            
+            <div id="profileMessage" class="profile-message" style="margin-top: 10px;">
+                {% if messages %}
+                    {% for message in messages %}
+                        <span style="color: {% if message.tags == 'success' %}var(--gold){% else %}red{% endif %};">
+                            {{ message }}
+                        </span>
+                    {% endfor %}
+                {% endif %}
+            </div>
+          </div>
+        </form>
+      </div>
+
+    </div>
+  </main>
+
+  </body>
+</html>
