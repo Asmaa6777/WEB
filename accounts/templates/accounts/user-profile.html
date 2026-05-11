@@ -42,8 +42,11 @@
       <section class="profile-card">
         <h2 style="margin-top: 0; color: var(--gold); font-family: 'Playfair Display', serif;">Edit Details</h2>
         
-        <form id="profileForm" method="POST" action="{% url 'profile' %}">
+        <form id="profileForm" method="POST" action="{% url 'profile' %}" enctype="multipart/form-data">
           {% csrf_token %}
+
+          <label for="avatarInput">Profile Picture (Optional)</label>
+          <input type="file" id="avatarInput" name="avatar" accept="image/*" />
 
           <label for="profileUsername">Username</label>
           <input type="text" id="profileUsername" name="username" value="{{ user.username }}" required />
