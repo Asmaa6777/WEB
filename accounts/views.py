@@ -23,7 +23,7 @@ def login_view(request):
 
         if user is not None:
             login(request, user)
-            return redirect("/")
+            return redirect("/pages/homepage.html")
 
     return render(request, "accounts/login.html")
 

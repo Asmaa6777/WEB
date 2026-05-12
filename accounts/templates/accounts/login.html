@@ -13,12 +13,14 @@
 
         <h2>Login</h2>
 
-        <form id="loginForm">
-            <label for="loginIdentifier">Username or Email:</label><br>
-            <input type="text" id="loginIdentifier" name="loginIdentifier" required /><br><br>
+        <form method="POST">
+                {% csrf_token %}
+        
+            <label for="username">Username or Email:</label><br>
+<input type="text" id="username" name="username" required /><br><br>
 
-            <label for="loginPassword">Password:</label><br>
-            <input type="password" id="loginPassword" name="loginPassword" required /><br><br>
+<label for="password">Password:</label><br>
+<input type="password" id="password" name="password" required /><br><br>
 
             <div id="formMessage"></div>
 
@@ -28,7 +30,7 @@
         <br>
         <p>Don't have an account? <a href="signup.html">Sign Up</a></p>
     </main>
-    <script src="assets/js/data.js"></script>
+  <!--  <script src="assets/js/data.js"></script> -->
 
 </body>
 </html>
