@@ -74,13 +74,13 @@
     align-items: center;
 }
 
-.search-btn, .nav-login-link {
+.nav-login-link {
     color: var(--text-muted);
     transition: color 0.3s;
     text-decoration: none;
 }
 
-.search-btn:hover, .nav-login-link:hover {
+.nav-login-link:hover {
     color: var(--gold);
 }
 

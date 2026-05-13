@@ -1,20 +1,15 @@
 class MainNavbar extends HTMLElement {
   connectedCallback() {
-    const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+    const user = window.DJANGO_USER;
 
-    // Use absolute paths for Django URLs
-    const base = ''; 
-
-    // Build nav links based on role
+    // Nav links depend on role
     let navLinks = '';
-
-    if (currentUser && currentUser.role === 'admin') {
+    if (user && user.isStaff) {
       navLinks = `
         <a href="/">Home</a>
-        <a href="/management/">Dashboard</a>
+        <a href="/management/dashboard/">Dashboard</a>
         <a href="/recipes/">All Recipes</a>
         <a href="/social/trending/">Trending</a>
-        <a href="/management/add-recipe/">Add Recipe</a>
       `;
     } else {
       navLinks = `
@@ -25,21 +20,17 @@ class MainNavbar extends HTMLElement {
       `;
     }
 
-    // Build auth section
+    // Auth section
     let authHTML = '';
-    if (currentUser) {
-      const profileLink = currentUser.role === 'admin'
-        ? `/management/profile/`
-        : `/accounts/profile/`;
-
+    if (user) {
       authHTML = `
         <div class="profile-dropdown">
           <button class="profile-btn">
-            ${currentUser.name} <span class="arrow">▾</span>
+            ${user.name} <span class="arrow">▾</span>
           </button>
           <div class="dropdown-menu">
-            <a href="${profileLink}">My Profile</a>
-            <a href="#" id="logoutBtn">Logout</a>
+            <a href="/accounts/profile/">My Profile</a>
+            <a href="/accounts/logout/" id="logoutBtn">Logout</a>
           </div>
         </div>
       `;
@@ -49,7 +40,6 @@ class MainNavbar extends HTMLElement {
       `;
     }
 
-    // Build full navbar
     this.innerHTML = `
       <header class="main-header">
         <a href="/" class="logo">
@@ -61,7 +51,6 @@ class MainNavbar extends HTMLElement {
           <div class="nav-links">
             ${navLinks}
           </div>
-
           <div class="nav-actions">
             <div id="auth-container">${authHTML}</div>
           </div>
@@ -69,25 +58,14 @@ class MainNavbar extends HTMLElement {
       </header>
     `;
 
-    // Highlight active page
+    // Highlight active link
     const currentPath = window.location.pathname;
-    const links = this.querySelectorAll('.nav-links a');
-    links.forEach(link => {
+    this.querySelectorAll('.nav-links a').forEach(link => {
       const href = link.getAttribute('href');
       if (currentPath === href || (href !== '/' && currentPath.startsWith(href))) {
         link.classList.add('active');
       }
     });
-
-    // Logout
-    const logoutBtn = this.querySelector('#logoutBtn');
-    if (logoutBtn) {
-      logoutBtn.addEventListener('click', (e) => {
-        e.preventDefault();
-        localStorage.removeItem('currentUser');
-        window.location.href = `/accounts/login/`;
-      });
-    }
 
     // Profile dropdown toggle
     const profileBtn = this.querySelector('.profile-btn');
@@ -97,10 +75,7 @@ class MainNavbar extends HTMLElement {
         e.stopPropagation();
         dropdownMenu.classList.toggle('open');
       });
-
-      document.addEventListener('click', () => {
-        dropdownMenu.classList.remove('open');
-      });
+      document.addEventListener('click', () => dropdownMenu.classList.remove('open'));
     }
   }
 }
