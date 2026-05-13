@@ -1,44 +1,60 @@
-<<<<<<<< HEAD:templates/user_pages/signup.html
 {% load static %}
-========
->>>>>>>> origin/iman-mange:templates/signup.html
+
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport"
+  content="width=device-width, initial-scale=1.0" />
+
   <title>Recipe Finder - Sign Up</title>
-<<<<<<<< HEAD:templates/user_pages/signup.html
-  <link rel="stylesheet" href="{% static 'css/style.css' %}">
-========
-  <link rel="stylesheet" href="../assets/css/style.css">
->>>>>>>> origin/iman-mange:templates/signup.html
+
+  <link rel="stylesheet"
+  href="{% static 'css/style.css' %}">
 </head>
+
 <body>
+
   <main class="auth-container">
+
     <h1>Recipe Finder</h1>
+
     <h2>Create an Account</h2>
-    <p>Fill in the details below to sign up. Fields marked with * are required.</p>
+
+    <p>
+      Fill in the details below to sign up.
+      Fields marked with * are required.
+    </p>
 
     <hr>
 
-<<<<<<<< HEAD:templates/user_pages/signup.html
-========
-    
+    <form method="POST">
 
->>>>>>>> origin/iman-mange:templates/signup.html
-    <form id="signupForm">
+      {% csrf_token %}
+
       <fieldset>
         <legend>Personal Information</legend>
 
         <label for="firstName">First Name: *</label><br>
-        <input type="text" id="firstName" name="firstName" placeholder="e.g. Sarah" required /><br><br>
+        <input type="text"
+        id="firstName"
+        name="firstName"
+        placeholder="e.g. Sarah"
+        required /><br><br>
 
         <label for="lastName">Last Name: *</label><br>
-        <input type="text" id="lastName" name="lastName" placeholder="e.g. Smith" required /><br><br>
+        <input type="text"
+        id="lastName"
+        name="lastName"
+        placeholder="e.g. Smith"
+        required /><br><br>
 
         <label for="dob">Date of Birth: *</label><br>
-        <input type="date" id="dob" name="dob" required /><br><br>
+        <input type="date"
+        id="dob"
+        name="dob"
+        required /><br><br>
       </fieldset>
 
       <br>
@@ -47,35 +63,69 @@
         <legend>Account Details</legend>
 
         <label for="username">Username: *</label><br>
-        <input type="text" id="username" name="username" placeholder="e.g. sarahcooks" required /><br><br>
+        <input type="text"
+        id="username"
+        name="username"
+        placeholder="e.g. sarahcooks"
+        required /><br><br>
 
         <label for="email">Email Address: *</label><br>
-        <input type="email" id="email" name="email" placeholder="e.g. sarah@gmail.com" required /><br><br>
+        <input type="email"
+        id="email"
+        name="email"
+        placeholder="e.g. sarah@gmail.com"
+        required /><br><br>
 
         <label for="password">Password: *</label><br>
-        <input type="password" id="password" name="password" placeholder="At least 8 characters" minlength="8" required /><br><br>
+        <input type="password"
+        id="password"
+        name="password"
+        placeholder="At least 8 characters"
+        minlength="8"
+        required /><br><br>
 
-        <label for="confirmPassword">Confirm Password: *</label><br>
-        <input type="password" id="confirmPassword" name="confirmPassword" placeholder="Repeat your password" required /><br><br>
+        <label for="confirmPassword">
+          Confirm Password: *
+        </label><br>
+
+        <input type="password"
+        id="confirmPassword"
+        name="confirmPassword"
+        placeholder="Repeat your password"
+        required /><br><br>
+
       </fieldset>
 
       <br>
 
       <fieldset>
+
         <legend>Account Type</legend>
 
         <p>Select your role:</p>
 
         <div class="role-options">
+
           <label class="role-card" for="regularUser">
-            <input type="radio" id="regularUser" name="role" value="user" checked />
+            <input type="radio"
+            id="regularUser"
+            name="role"
+            value="user"
+            checked />
+
             <span>User</span>
           </label>
 
           <label class="role-card" for="adminUser">
-            <input type="radio" id="adminUser" name="role" value="admin" />
+
+            <input type="radio"
+            id="adminUser"
+            name="role"
+            value="admin" />
+
             <span>Admin</span>
           </label>
+
         </div>
       </fieldset>
 
@@ -83,27 +133,37 @@
 
       <div id="formMessage"></div>
 
-      <button type="submit">Create Account</button>
+      {% if error %}
+        <p style="color: red;">
+          {{ error }}
+        </p>
+      {% endif %}
+
+      <button type="submit">
+        Create Account
+      </button>
+
       <br><br>
-<<<<<<<< HEAD:templates/user_pages/signup.html
-      <p>Already have an account? <a href="{% url 'login' %}">Log in</a></p>
-========
-      <p>Already have an account? <a href="login.html">Log in</a></p>
->>>>>>>> origin/iman-mange:templates/signup.html
+
+      <p>
+        Already have an account?
+
+        <a href="{% url 'login' %}">
+          Log in
+        </a>
+      </p>
+
     </form>
+
   </main>
 
   <hr>
+
   <footer>
     <p>&copy; Welcome to the Recipe Finder</p>
   </footer>
 
-<<<<<<<< HEAD:templates/user_pages/signup.html
-  <script src="{% static 'js/auth.js' %}"></script>
+  <!-- <script src="assets/js/data.js"></script> -->
+
 </body>
 </html>
-========
-  <script src="../assets/js/auth.js"></script>
-</body>
-</html>
->>>>>>>> origin/iman-mange:templates/signup.html
