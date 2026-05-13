@@ -90,12 +90,10 @@ USE_I18N = True
 USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
+# Static files (CSS, JavaScript, Images)
 STATIC_URL = 'static/'
 
 STATICFILES_DIRS = [
-<<<<<<< HEAD
     BASE_DIR / 'static',
-=======
-    BASE_DIR / "assets",
->>>>>>> cf09ff4f2172b57a470b563276218e0f44c64436
+    BASE_DIR / 'assets',
 ]
