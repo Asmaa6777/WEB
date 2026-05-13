@@ -20,23 +20,19 @@
             <tr>
                 <td id="stat-total">
                     <h3>Total Recipes</h3>
-                    <p><strong>[Dynamic: 180]</strong></p>
+                    <p><strong>{{ total_recipes }}</strong></p>
                 </td>
-                <td id="stat-appetizers">
-                    <h3>Appetizers</h3>
-                    <p><strong>[Dynamic: 45]</strong></p>
+                <td id="stat-active">
+                    <h3>Active Users</h3>
+                    <p><strong>{{ active_users }}</strong></p>
                 </td>
-                <td id="stat-mains">
-                    <h3>Main Courses</h3>
-                    <p><strong>[Dynamic: 85]</strong></p>
-                </td>
-                <td id="stat-desserts">
-                    <h3>Desserts</h3>
-                    <p><strong>[Dynamic: 50]</strong></p>
+                <td id="stat-staff">
+                    <h3>Staff Members</h3>
+                    <p><strong>{{ staff_members }}</strong></p>
                 </td>
                 <td id="stat-users">
                     <h3>Total Users</h3>
-                    <p><strong>[Dynamic: 320]</strong></p>
+                    <p><strong>{{ total_users }}</strong></p>
                 </td>
             </tr>
         </table>
@@ -54,8 +50,8 @@
                     </form>
                 </td>
                 <td align="right">
-                    <a href="{% url 'add_recipe' %}">
-                        <button type="button">+ Add Recipe</button>
+                    <a href="/management/users/">
+                        <button type="button">👥 Manage Users</button>
                     </a>
                 </td>
             </tr>

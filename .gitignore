@@ -158,3 +158,10 @@ cython_debug/
 
 # VS Code
 .vscode/
+*.code-workspace
+
+# Django collected static (output of collectstatic)
+staticfiles/
+
+# Local notes
+templates/notes.txt

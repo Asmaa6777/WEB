@@ -50,11 +50,6 @@
         placeholder="e.g. Smith"
         required /><br><br>
 
-        <label for="dob">Date of Birth: *</label><br>
-        <input type="date"
-        id="dob"
-        name="dob"
-        required /><br><br>
       </fieldset>
 
       <br>
@@ -67,14 +62,16 @@
         id="username"
         name="username"
         placeholder="e.g. sarahcooks"
-        required /><br><br>
+        required /><br>
+        <small id="usernameMsg" style="color:red;"></small><br><br>
 
         <label for="email">Email Address: *</label><br>
         <input type="email"
         id="email"
         name="email"
         placeholder="e.g. sarah@gmail.com"
-        required /><br><br>
+        required /><br>
+        <small id="emailMsg" style="color:red;"></small><br><br>
 
         <label for="password">Password: *</label><br>
         <input type="password"
@@ -95,41 +92,6 @@
         required /><br><br>
 
       </fieldset>
-
-      <br>
-
-      <fieldset>
-
-        <legend>Account Type</legend>
-
-        <p>Select your role:</p>
-
-        <div class="role-options">
-
-          <label class="role-card" for="regularUser">
-            <input type="radio"
-            id="regularUser"
-            name="role"
-            value="user"
-            checked />
-
-            <span>User</span>
-          </label>
-
-          <label class="role-card" for="adminUser">
-
-            <input type="radio"
-            id="adminUser"
-            name="role"
-            value="admin" />
-
-            <span>Admin</span>
-          </label>
-
-        </div>
-      </fieldset>
-
-      <br>
 
       <div id="formMessage"></div>
 
@@ -163,7 +125,36 @@
     <p>&copy; Welcome to the Recipe Finder</p>
   </footer>
 
-  <!-- <script src="assets/js/data.js"></script> -->
+  <script>
+    let usernameTaken = false;
+    let emailTaken = false;
+    const submitBtn = document.querySelector('button[type="submit"]');
 
+    function updateSubmit() {
+      submitBtn.disabled = usernameTaken || emailTaken;
+    }
+
+    // fetch: GET /accounts/check-username/?username=...
+    document.getElementById('username').addEventListener('blur', async function () {
+      const val = this.value.trim();
+      if (!val) return;
+      const res = await fetch(`/accounts/check-username/?username=${encodeURIComponent(val)}`);
+      const data = await res.json();
+      usernameTaken = data.taken;
+      document.getElementById('usernameMsg').textContent = data.taken ? 'Username already taken' : '';
+      updateSubmit();
+    });
+
+    // fetch: GET /accounts/check-email/?email=...
+    document.getElementById('email').addEventListener('blur', async function () {
+      const val = this.value.trim();
+      if (!val) return;
+      const res = await fetch(`/accounts/check-email/?email=${encodeURIComponent(val)}`);
+      const data = await res.json();
+      emailTaken = data.taken;
+      document.getElementById('emailMsg').textContent = data.taken ? 'Email already registered' : '';
+      updateSubmit();
+    });
+  </script>
 </body>
 </html>

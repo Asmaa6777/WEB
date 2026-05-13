@@ -63,12 +63,6 @@ class MainNavbar extends HTMLElement {
           </div>
 
           <div class="nav-actions">
-            <a href="/search/" class="search-btn" aria-label="Search">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <circle cx="11" cy="11" r="8"></circle>
-                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-              </svg>
-            </a>
             <div id="auth-container">${authHTML}</div>
           </div>
         </nav>

@@ -1,125 +1,128 @@
-from django.shortcuts import render, redirect, get_object_or_404
+from django.shortcuts import render, get_object_or_404
 from django.views import View
+from django.http import JsonResponse, HttpResponseForbidden
+from django.contrib.auth.mixins import LoginRequiredMixin
 from accounts.models import CustomUser
-#from recipes.models import Recipe
 from management.models import UserLog
-from django.db.models import Count
 
-# ========== DASHBOARD VIEW ==========
 
-class AdminDashboardView(View):
-    """Main admin dashboard with statistics"""
-    
+class StaffRequiredMixin(LoginRequiredMixin):
+    def dispatch(self, request, *args, **kwargs):
+        if not request.user.is_authenticated:
+            return self.handle_no_permission()
+        if not request.user.is_staff:
+            return HttpResponseForbidden("Staff access required")
+        return super().dispatch(request, *args, **kwargs)
+
+
+# ── Dashboard ────────────────────────────────────────────────────────────────
+
+class AdminDashboardView(StaffRequiredMixin, View):
     def get(self, request):
-        # Get statistics
-        total_users = CustomUser.objects.count()
-        total_recipes = 0
-        active_users = CustomUser.objects.filter(is_active=True).count()
-        staff_members = CustomUser.objects.filter(is_staff=True).count()
-        
-        # Get recent activity
-        recent_activity = UserLog.objects.all().order_by('-timestamp')[:10]
-        
         context = {
-            'total_users': total_users,
-            'total_recipes': total_recipes,
-            'active_users': active_users,
-            'staff_members': staff_members,
-            'recent_activity': recent_activity,
+            'total_users': CustomUser.objects.count(),
+            'total_recipes': 0,
+            'active_users': CustomUser.objects.filter(is_active=True).count(),
+            'staff_members': CustomUser.objects.filter(is_staff=True).count(),
+            'recent_activity': UserLog.objects.order_by('-timestamp')[:10],
         }
-        return render(request, 'management/admin_dashboard_new.html', context)
-  
+        return render(request, 'mgmt/admin_dashboard.html', context)
 
 
-# ========== USER MANAGEMENT VIEWS ==========
+# ── User list — supports fetch (X-Requested-With header) ────────────────────
 
-class ListUsersView(View):
-    """List all users with search and filter"""
-    
+class ListUsersView(StaffRequiredMixin, View):
     def get(self, request):
         users = CustomUser.objects.all()
-        
-        # Search by email or name
         search = request.GET.get('search', '')
-        if search:
-            users = users.filter(email__icontains=search) | \
-                    users.filter(first_name__icontains=search) | \
-                    users.filter(last_name__icontains=search)
-        
-        # Filter by type
         user_type = request.GET.get('type', '')
+
+        if search:
+            users = (
+                users.filter(email__icontains=search) |
+                users.filter(first_name__icontains=search) |
+                users.filter(last_name__icontains=search)
+            )
+
         if user_type == 'staff':
             users = users.filter(is_staff=True)
         elif user_type == 'active':
             users = users.filter(is_active=True)
         elif user_type == 'inactive':
             users = users.filter(is_active=False)
-        
-        context = {
+
+        # fetch() from JS sends this header — return JSON instead of HTML
+        if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
+            data = [
+                {
+                    'id': u.id,
+                    'email': u.email,
+                    'first_name': u.first_name,
+                    'last_name': u.last_name,
+                    'is_staff': u.is_staff,
+                    'is_active': u.is_active,
+                    'date_joined': u.date_joined.strftime('%b %d, %Y'),
+                }
+                for u in users
+            ]
+            return JsonResponse({'users': data})
+
+        return render(request, 'mgmt/users.html', {
             'users': users,
             'search': search,
             'user_type': user_type,
-        }
-        return render(request, 'management/users.html', context)
+        })
 
 
-class UserDetailView(View):
-    """View detailed user information"""
-    
+# ── User detail ──────────────────────────────────────────────────────────────
+
+class UserDetailView(StaffRequiredMixin, View):
     def get(self, request, user_id):
         user = get_object_or_404(CustomUser, id=user_id)
-        
-        # Get user's activity
         user_activity = UserLog.objects.filter(user=user).order_by('-timestamp')[:20]
-        
-        context = {
+        return render(request, 'mgmt/user_detail.html', {
             'user': user,
             'user_activity': user_activity,
-        }
-        return render(request, 'management/user_detail.html', context)
+        })
 
 
-class ToggleStaffView(View):
-    """Make user staff or remove staff privileges"""
-    
+# ── Actions — all return JSON so the page can update without a reload ────────
+
+class ToggleStaffView(StaffRequiredMixin, View):
+    """Called via fetch from user_detail.html. Returns updated is_staff value."""
     def post(self, request, user_id):
         user = get_object_or_404(CustomUser, id=user_id)
         user.is_staff = not user.is_staff
         user.save()
-        
-        # Log the action
         UserLog.objects.create(
             user=user,
             action='staff_status_changed',
-            details=f'Staff status changed to: {user.is_staff}'
+            details=f'Staff status set to {user.is_staff}',
         )
-        
-        return redirect('user_detail', user_id=user_id)
+        return JsonResponse({'is_staff': user.is_staff})
 
 
-class DeactivateUserView(View):
-    """Deactivate/Activate user account"""
-    
+class DeactivateUserView(StaffRequiredMixin, View):
+    """Called via fetch from user_detail.html. Returns updated is_active value."""
     def post(self, request, user_id):
+        if request.user.id == user_id:
+            return JsonResponse({'error': 'You cannot deactivate your own account'}, status=400)
         user = get_object_or_404(CustomUser, id=user_id)
         user.is_active = not user.is_active
         user.save()
-        
-        # Log the action
         UserLog.objects.create(
             user=user,
-            action='account_deactivated' if not user.is_active else 'account_activated',
-            details=f'Account is now: {"inactive" if not user.is_active else "active"}'
+            action='account_activated' if user.is_active else 'account_deactivated',
+            details=f'Account is now {"active" if user.is_active else "inactive"}',
         )
-        
-        return redirect('user_detail', user_id=user_id)
+        return JsonResponse({'is_active': user.is_active})
 
 
-class DeleteUserView(View):
-    """Permanently delete user account"""
-    
+class DeleteUserView(StaffRequiredMixin, View):
+    """Called via fetch from user_detail.html. Returns {deleted: true} on success."""
     def post(self, request, user_id):
+        if request.user.id == user_id:
+            return JsonResponse({'error': 'You cannot delete your own account'}, status=400)
         user = get_object_or_404(CustomUser, id=user_id)
         user.delete()
-        
-        return redirect('user_list')
+        return JsonResponse({'deleted': True})
