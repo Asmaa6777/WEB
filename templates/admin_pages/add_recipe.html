@@ -13,7 +13,11 @@
     <p>Discover, Share and Save your Favourite Recipes</p>
 
      
- <main-navbar></main-navbar>
+ <main-navbar
+  data-authenticated="{{ request.user.is_authenticated|yesno:'true,false' }}"
+  data-user="{{ request.user.email }}"
+  data-role="{% if request.user.is_staff %}admin{% else %}user{% endif %}">
+</main-navbar>
     <hr> 
 
     <h2>Add Your Own Recipe</h2>

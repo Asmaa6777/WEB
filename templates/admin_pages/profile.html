@@ -11,7 +11,11 @@
 </head>
 <body>
 
-  <main-navbar></main-navbar>
+  <main-navbar
+  data-authenticated="{{ request.user.is_authenticated|yesno:'true,false' }}"
+  data-user="{{ request.user.email }}"
+  data-role="{% if request.user.is_staff %}admin{% else %}user{% endif %}">
+</main-navbar>
 
   <main>
     <div class="profile-container">

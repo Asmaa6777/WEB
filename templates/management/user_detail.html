@@ -1,9 +1,9 @@
- {% load static %}
+{% load static %}
 <!DOCTYPE html>
 <html>
 <head>
     <title>User Details</title>
-     <link rel="stylesheet" href="{% static 'css/management.css' %}">
+    <link rel="stylesheet" href="{% static 'css/management.css' %}">
 </head>
 <body>
     <div class="container">
@@ -59,29 +59,20 @@
                         <span class="badge badge-info">👤 User</span>
                     {% endif %}
                 </div>
-                
+
                 <!-- Action Buttons -->
                 <div class="action-buttons">
-                    <form method="POST" action="/management/users/{{ user.id }}/toggle-staff/" style="display: inline;">
-                        {% csrf_token %}
-                        <button type="submit" class="btn btn-warning">
-                            {% if user.is_staff %}Remove Staff{% else %}Make Staff{% endif %}
-                        </button>
-                    </form>
+                    <button type="button" class="btn btn-warning" onclick="toggleStaff({{ user.id }}, {{ user.is_staff|lower }})">
+                        {% if user.is_staff %}Remove Staff{% else %}Make Staff{% endif %}
+                    </button>
                     
-                    <form method="POST" action="/management/users/{{ user.id }}/deactivate/" style="display: inline;">
-                        {% csrf_token %}
-                        <button type="submit" class="btn btn-secondary">
-                            {% if user.is_active %}🔒 Deactivate{% else %}🔓 Activate{% endif %}
-                        </button>
-                    </form>
+                    <button type="button" class="btn btn-secondary" onclick="toggleUserStatus({{ user.id }}, {{ user.is_active|lower }})">
+                        {% if user.is_active %}🔒 Deactivate{% else %}🔓 Activate{% endif %}
+                    </button>
                     
-                    <form method="POST" action="/management/users/{{ user.id }}/delete/" style="display: inline;">
-                        {% csrf_token %}
-                        <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure? This cannot be undone!');">
-                            🗑️ Delete User
-                        </button>
-                    </form>
+                    <button type="button" class="btn btn-danger" onclick="deleteUser({{ user.id }})">
+                        🗑️ Delete User
+                    </button>
                 </div>
             </div>
         </div>
@@ -114,5 +105,7 @@
             {% endif %}
         </div>
     </div>
+
+    <script src="{% static 'js/management.js' %}" defer></script>
 </body>
 </html>
