@@ -1,179 +1,134 @@
-{% extends "recipes/base.html" %}
+{% extends "base.html" %}
 {% load static %}
 
-{% block title %}Recipe Finder - Add Recipe{% endblock %}
+{% block title %}Recipe Finder - {{ title }}{% endblock %}
 
 {% block extra_css %}
     <link rel="stylesheet" href="{% static 'css/add.css' %}">
     <link rel="stylesheet" href="{% static 'css/admin_profile.css' %}">
+    <style>
+        .errorlist { color: red; list-style: none; padding: 0; }
+        .form-section { margin-bottom: 30px; border: 1px solid #ddd; padding: 20px; border-radius: 8px; }
+        .form-section legend { font-weight: bold; padding: 0 10px; color: #d4af37; }
+        .form-group { margin-bottom: 15px; }
+        .form-group label { display: block; margin-bottom: 5px; font-weight: 600; }
+        .form-control { width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px; }
+        .checkbox-group { display: flex; flex-wrap: wrap; gap: 15px; }
+        .checkbox-item { display: flex; align-items: center; gap: 5px; }
+    </style>
 {% endblock %}
 
 {% block content %}
-<div style="padding: 20px;">
-    <h2>Add Your Own Recipe</h2>
-    <p>Fill in the details below to share your recipe with the community</p>
+<div style="padding: 20px; max-width: 800px; margin: 0 auto;">
+    <h2>{{ title }}</h2>
+    <p>Fill in the details below to manage the recipe</p>
 
-    <form id="recipeForm">
- 
-      <fieldset>
-        <legend>Basic Information</legend>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        
+        {% if form.errors %}
+            <div class="alert alert-danger">
+                Please correct the errors below.
+            </div>
+        {% endif %}
 
-        <label for="recipeName">Recipe Name: *</label><br>
-        <input type="text" id="recipeName" name="recipeName" placeholder="e.g. Spaghetti Bolognese" required /><br><br>
+        <fieldset class="form-section">
+            <legend>Basic Information</legend>
+            <div class="form-group">
+                <label for="{{ form.name.id_for_label }}">Recipe Name: *</label>
+                {{ form.name }}
+                {{ form.name.errors }}
+            </div>
+            <div class="form-group">
+                <label for="{{ form.description.id_for_label }}">Description: *</label>
+                {{ form.description }}
+                {{ form.description.errors }}
+            </div>
+            <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px;">
+                <div class="form-group">
+                    <label for="{{ form.cuisine.id_for_label }}">Cuisine:</label>
+                    {{ form.cuisine }}
+                    {{ form.cuisine.errors }}
+                </div>
+                <div class="form-group">
+                    <label for="{{ form.category.id_for_label }}">Meal Type: *</label>
+                    {{ form.category }}
+                    {{ form.category.errors }}
+                </div>
+                <div class="form-group">
+                    <label for="{{ form.difficulty.id_for_label }}">Difficulty: *</label>
+                    {{ form.difficulty }}
+                    {{ form.difficulty.errors }}
+                </div>
+            </div>
+        </fieldset>
 
-        <label for="description"> Description: *</label><br>
+        <fieldset class="form-section">
+            <legend>Time &amp; Servings</legend>
+            <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px;">
+                <div class="form-group">
+                    <label for="{{ form.prep_time.id_for_label }}">Prep Time (mins): *</label>
+                    {{ form.prep_time }}
+                    {{ form.prep_time.errors }}
+                </div>
+                <div class="form-group">
+                    <label for="{{ form.cook_time.id_for_label }}">Cook Time (mins): *</label>
+                    {{ form.cook_time }}
+                    {{ form.cook_time.errors }}
+                </div>
+                <div class="form-group">
+                    <label for="{{ form.servings.id_for_label }}">Servings: *</label>
+                    {{ form.servings }}
+                    {{ form.servings.errors }}
+                </div>
+            </div>
+        </fieldset>
 
-<textarea id="description" name="description"  placeholder=" Describe your recipe..." required></textarea>
+        <fieldset class="form-section">
+            <legend>Ingredients &amp; Instructions</legend>
+            <div class="form-group">
+                <label for="{{ form.ingredients.id_for_label }}">Ingredients: * (Enter one per line)</label>
+                {{ form.ingredients }}
+                {{ form.ingredients.errors }}
+            </div>
+            <div class="form-group">
+                <label for="{{ form.instructions.id_for_label }}">Instructions: * (Enter steps, one per line)</label>
+                {{ form.instructions }}
+                {{ form.instructions.errors }}
+            </div>
+        </fieldset>
 
-        <table>
-          <tr>
-            <td width="180"><label class="table-label">cuisine type *</label></td>
-             <td width="180"><label class="table-label"> meal type *</label></td>
-           <td width="180"><label class="table-label">Difficulty *</label></td>
-          
-            </tr>
-            <td>
-              <select id="cuisine" name="cuisine" required>
-                <option value="">-- Select Cuisine --</option>
-                <option value="italian">Italian</option>
-                <option value="chinese">Chinese</option>
-                <option value="mexican">Mexican</option>
-                <option value="indian">Indian</option>
-                <option value="french">French</option>
-                <option value="japanese">Japanese</option>
-                <option value="mediterranean">Mediterranean</option>
-              </select>
-            <td>
-              <select  id="type"  name="type" required>
-                <option value="">-- Select type --</option>
-                <option value="main course">Main Course</option>
-                <option value="appetizer">Appetizer</option>
-                <option value="dessert">Dessert</option>
-              </select>
-            </td>
-            
-            <td>
-              <select  id="difficulty"  name="difficulty" required>
-                <option value="">-- Select Difficulty --</option>
-                <option value="easy">Easy</option>
-                <option value="medium">Medium</option>
-                <option value="hard">Hard</option>
-              </select>
-            </td>
-          </tr>
-        </table>
+        <fieldset class="form-section">
+            <legend>Extra Details</legend>
+            <label>Dietary Info:</label>
+            <div class="checkbox-group" style="margin-bottom: 20px;">
+                <div class="checkbox-item">
+                    {{ form.is_vegan }} <label for="{{ form.is_vegan.id_for_label }}">Vegan</label>
+                </div>
+                <div class="checkbox-item">
+                    {{ form.is_vegetarian }} <label for="{{ form.is_vegetarian.id_for_label }}">Vegetarian</label>
+                </div>
+                <div class="checkbox-item">
+                    {{ form.is_gluten_free }} <label for="{{ form.is_gluten_free.id_for_label }}">Gluten Free</label>
+                </div>
+                <div class="checkbox-item">
+                    {{ form.is_nut_free }} <label for="{{ form.is_nut_free.id_for_label }}">Nut Free</label>
+                </div>
+                <div class="checkbox-item">
+                    {{ form.is_dairy_free }} <label for="{{ form.is_dairy_free.id_for_label }}">Dairy Free</label>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="{{ form.image.id_for_label }}">Recipe Image:</label>
+                {{ form.image }}
+                {{ form.image.errors }}
+            </div>
+        </fieldset>
 
-      </fieldset>
-
-      <br>
- 
-      <fieldset>
-        <legend>Time &amp; Servings</legend>
-
-        <table>
-          <tr>
-            <td width="180"><label>Prep Time (mins)  *</label></td>
-            <td width="180"><label>Cook Time (mins) *</label></td>
-            <td width="180"><label>Number of Servings *</label></td>
-          </tr>
-          <tr>
-            <td>
-              <input type="number" name="prepTime" id="prepTime" placeholder="e.g. 15" min="1" required />
-            </td>
-            <td>
-              <input type="number" name="cookTime" id="cookTime"placeholder="e.g. 30" min="1" required />
-            </td>
-            <td>
-              <input type="number" name="servings" id="servings" placeholder="e.g. 4" min="1" required />
-            </td>
-          </tr>
-        </table>
-
-      </fieldset>
-
-      <br>
-
-     
-      <fieldset>
-         <legend>Ingredients</legend>
-      <table id="ingredientsTable">
-  <tr>
-    <td width="180"><label class="table-label">Ingredient Name *</label></td>
-    <td width="180"><label class="table-label">Quantity *</label></td>
-    <td width="180"><label class="table-label">Unit *</label></td>
-  </tr>
-  <tr>
-    <td><input type="text" name="ingredientName" placeholder="e.g. Flour" /></td>
-    <td><input type="number" name="quantity" placeholder="e.g. 2" min="0" /></td>
-    <td>
-      <select name="unit">
-        <option value="">-- Select Unit --</option>
-        <option value="cups">Cups</option>
-        <option value="grams">Grams</option>
-        <option value="tbsp">Tbsp</option>
-        <option value="tsp">Tsp</option>
-        <option value="ml">ML</option>
-        <option value="kg">KG</option>
-        <option value="pieces">Pieces</option>
-      </select>
-    </td>
-  </tr>
-</table>
-<br>
-<button type="button" id="addIngredientBtn">+ Add Ingredient</button>
-
-      </fieldset>
-
-      <br>
- 
-      <fieldset>
-        <legend>Instructions</legend>
-
-        <label for="instructions">Step by Step Directions: *</label><br>
-<textarea id="instructions" name="instructions" placeholder=" First do this then do that..." required></textarea>
-
-      </fieldset>
-
-      <br>
-
-    
-      <fieldset>
-        <legend>Extra Details</legend>
-
-        <label>Dietary Info:</label><br><br>
-        <input type="checkbox" id="vegan" name="vegan" />
-        <label for="vegan">Vegan</label> &nbsp;
-
-        <input type="checkbox" id="vegetarian" name="vegetarian" />
-        <label for="vegetarian">Vegetarian</label> &nbsp;
-
-        <input type="checkbox" id="glutenFree" name="glutenFree" />
-        <label for="glutenFree">Gluten Free</label> &nbsp;
-
-        <input type="checkbox" id="nutFree" name="nutFree" />
-        <label for="nutFree">Nut Free</label> &nbsp;
-
-        <input type="checkbox" id="dairyFree" name="dairyFree" />
-        <label for="dairyFree">Dairy Free</label>
-
-        <br><br>
-
-        <label for="recipeImage">Recipe Image:</label><br>
-        <input type="file" id="recipeImage" name="recipeImage" accept="image/*" /><br>
-
-      </fieldset>
-
-      <br>
-
- 
-      <button type="submit"> SUBMIT RECIPE</button>
-      &nbsp;
-      <button type="reset"> CLEAR FORM</button>
-
+        <div style="margin-top: 20px;">
+            <button type="submit" class="btn-view" style="padding: 10px 20px; cursor: pointer;">{{ title|upper }}</button>
+            <a href="{% url 'recipe_manage' %}" style="margin-left: 20px;">Cancel</a>
+        </div>
     </form>
 </div>
-{% endblock %}
-
-{% block extra_js_body %}
-    <script src="{% static 'js/add-recipe.js' %}"></script>
 {% endblock %}

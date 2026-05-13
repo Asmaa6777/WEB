@@ -1,52 +1,18 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Delete Recipe - Recipe Finder</title>
-  <link rel="stylesheet" href="../../assets/css/admin_profile.css" />
-  <link rel="stylesheet" href="../../assets/css/style.css" />
-  <link rel="stylesheet" href="../../assets/css/navbar.css" />
-  <script src="../../assets/js/navbar.js" defer></script>
-</head>
-<body>
+{% extends "base.html" %}
+{% load static %}
 
-  <header>
-    <main-navbar></main-navbar>
-    <hr>
-  </header>
+{% block title %}Delete Recipe - {{ recipe.name }}{% endblock %}
 
-  <main>
-    <h1>Recipe Finder</h1>
+{% block content %}
+<div style="padding: 50px; text-align: center;">
+    <h1 style="color: #d9534f;">Delete Recipe</h1>
+    <p>Are you sure you want to delete "<strong>{{ recipe.name }}</strong>"?</p>
+    <p>This action cannot be undone.</p>
 
-    <section id="deleteSection">
-      <h2>Delete Recipe</h2>
-      <p>You are about to permanently delete this recipe.</p>
-      <p><b>Warning:</b> This action cannot be undone.</p>
-
-      <hr>
-
-      <div id="recipeInfo">
-        <p>Recipe Name: <strong id="recipeName"></strong></p>
-        <p>Course: <strong id="recipeCourse"></strong></p>
-      </div>
-
-      <br>
-
-      <p>Are you sure you want to delete this recipe?</p>
-
-      <button id="confirmDeleteBtn">Yes, Delete</button>
-      &nbsp;
-      <button id="cancelDeleteBtn">Cancel</button>
-
-    </section>
-  </main>
-
-  <hr>
-  <p>Recipe Finder &copy; 2025 | All Rights Reserved</p>
-
-  <script src="../../assets/js/data.js"></script>
-  <script src="../../assets/js/delete.recipe.js"></script>
-
-</body>
-</html>
+    <form method="post" style="margin-top: 30px;">
+        {% csrf_token %}
+        <button type="submit" class="btn-view" style="background-color: #d9534f; border-color: #d43f3a; padding: 10px 20px; cursor: pointer;">Yes, Delete</button>
+        <a href="{% url 'recipe_manage' %}" style="margin-left: 20px; text-decoration: none; color: #555;">Cancel</a>
+    </form>
+</div>
+{% endblock %}

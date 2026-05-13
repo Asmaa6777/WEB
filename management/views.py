@@ -1,9 +1,12 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.views import View
 from django.http import JsonResponse, HttpResponseForbidden
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.urls import reverse_lazy
 from accounts.models import CustomUser
 from management.models import UserLog
+from recipes.models import Recipe, Category
+from .forms import RecipeForm
 
 
 class StaffRequiredMixin(LoginRequiredMixin):
@@ -21,12 +24,93 @@ class AdminDashboardView(StaffRequiredMixin, View):
     def get(self, request):
         context = {
             'total_users': CustomUser.objects.count(),
-            'total_recipes': 0,
+            'total_recipes': Recipe.objects.count(),
             'active_users': CustomUser.objects.filter(is_active=True).count(),
             'staff_members': CustomUser.objects.filter(is_staff=True).count(),
             'recent_activity': UserLog.objects.order_by('-timestamp')[:10],
         }
         return render(request, 'mgmt/admin_dashboard.html', context)
+
+
+# ── User Management ─────────────────────────────────────────────────────────
+
+# ── Recipe Management ───────────────────────────────────────────────────────
+
+class ListRecipesView(StaffRequiredMixin, View):
+    def get(self, request):
+        recipes = Recipe.objects.all().order_by('-created_at')
+        search = request.GET.get('search', '')
+        category_slug = request.GET.get('category', '')
+
+        if search:
+            recipes = recipes.filter(name__icontains=search) | recipes.filter(description__icontains=search)
+        
+        if category_slug:
+            recipes = recipes.filter(category__slug=category_slug)
+
+        categories = Category.objects.all()
+
+        return render(request, 'mgmt/recipe_manage.html', {
+            'recipes': recipes,
+            'categories': categories,
+            'search': search,
+            'current_category': category_slug,
+        })
+
+
+class CreateRecipeView(StaffRequiredMixin, View):
+    def get(self, request):
+        form = RecipeForm()
+        return render(request, 'mgmt/recipe_form.html', {'form': form, 'title': 'Add Recipe'})
+
+    def post(self, request):
+        form = RecipeForm(request.POST, request.FILES)
+        if form.is_valid():
+            recipe = form.save()
+            UserLog.objects.create(
+                user=request.user,
+                action='recipe_created',
+                details=f'Created recipe: {recipe.name}',
+            )
+            return redirect('recipe_manage')
+        return render(request, 'mgmt/recipe_form.html', {'form': form, 'title': 'Add Recipe'})
+
+
+class EditRecipeView(StaffRequiredMixin, View):
+    def get(self, request, pk):
+        recipe = get_object_or_404(Recipe, pk=pk)
+        form = RecipeForm(instance=recipe)
+        return render(request, 'mgmt/recipe_form.html', {'form': form, 'recipe': recipe, 'title': 'Edit Recipe'})
+
+    def post(self, request, pk):
+        recipe = get_object_or_404(Recipe, pk=pk)
+        form = RecipeForm(request.POST, request.FILES, instance=recipe)
+        if form.is_valid():
+            recipe = form.save()
+            UserLog.objects.create(
+                user=request.user,
+                action='recipe_updated',
+                details=f'Updated recipe: {recipe.name}',
+            )
+            return redirect('recipe_manage')
+        return render(request, 'mgmt/recipe_form.html', {'form': form, 'recipe': recipe, 'title': 'Edit Recipe'})
+
+
+class DeleteRecipeView(StaffRequiredMixin, View):
+    def get(self, request, pk):
+        recipe = get_object_or_404(Recipe, pk=pk)
+        return render(request, 'mgmt/delete_recipe.html', {'recipe': recipe})
+
+    def post(self, request, pk):
+        recipe = get_object_or_404(Recipe, pk=pk)
+        name = recipe.name
+        recipe.delete()
+        UserLog.objects.create(
+            user=request.user,
+            action='recipe_deleted',
+            details=f'Deleted recipe: {name}',
+        )
+        return redirect('recipe_manage')
 
 
 # ── User list — supports fetch (X-Requested-With header) ────────────────────

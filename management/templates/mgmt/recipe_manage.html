@@ -1,45 +1,59 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Admin Recipes - Recipe Finder</title>
-    <link rel="stylesheet" href="../../assets/css/admin_profile.css" />
-    <link rel="stylesheet" href="../../assets/css/style.css" />
-  <link rel="stylesheet" href="../../assets/css/navbar.css" />
-  <script src="../../assets/js/navbar.js" defer></script>
-</head>
-<body>
- <main-navbar></main-navbar>
+{% extends "base.html" %}
+{% load static %}
 
-  <div class="page-header">
+{% block title %}Admin Recipes - Recipe Finder{% endblock %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'css/admin_profile.css' %}">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="page-header">
     <p class="section-label">ADMIN COLLECTION</p>
     <h1 class="page-title">All <em class="gold-italic">Recipes</em></h1>
 
     <div class="search-wrapper">
-      <input type="text" id="searchInput" class="search-bar" placeholder="Search recipes or ingredients..." />
+        <form method="get" action="{% url 'recipe_manage' %}">
+            <input type="text" name="search" id="searchInput" class="search-bar" placeholder="Search recipes or ingredients..." value="{{ search }}" />
+        </form>
     </div>
 
     <div class="filter-pills">
-      <button class="pill active" data-filter="all">All</button>
-      <button class="pill" data-filter="appetizer">Appetizers</button>
-      <button class="pill" data-filter="main-course">Main Course</button>
-      <button class="pill" data-filter="dessert">Dessert</button>
+        <a href="{% url 'recipe_manage' %}" class="pill {% if not current_category %}active{% endif %}">All</a>
+        {% for category in categories %}
+            <a href="{% url 'recipe_manage' %}?category={{ category.slug }}" class="pill {% if current_category == category.slug %}active{% endif %}">{{ category.name }}</a>
+        {% endfor %}
     </div>
 
     <div style="margin-top: 24px;">
-      <a href="add_recipe.html" class="btn-view">Add Recipe</a>
+        <a href="{% url 'recipe_create' %}" class="btn-view">Add Recipe</a>
     </div>
-  </div>
+</div>
 
-  <div class="recipes-section">
-    <div class="recipe-grid" id="recipeGrid"></div>
-    <div class="empty-state" id="emptyState">
-      <p>No recipes found. Try a different search or filter.</p>
+<div class="recipes-section">
+    <div class="recipe-grid" id="recipeGrid">
+        {% for recipe in recipes %}
+            <div class="recipe-card">
+                {% if recipe.image %}
+                    <img src="{{ recipe.image.url }}" alt="{{ recipe.name }}" class="recipe-image">
+                {% else %}
+                    <img src="{% static 'images/placeholder.svg' %}" alt="Placeholder" class="recipe-image">
+                {% endif %}
+                <div class="recipe-info">
+                    <h3>{{ recipe.name }}</h3>
+                    <p>{{ recipe.category.name }} | {{ recipe.cuisine }}</p>
+                    <div class="actions" style="margin-top: 10px;">
+                        <a href="{% url 'recipe_edit' recipe.pk %}" class="btn-edit" style="color: blue; margin-right: 10px;">Edit</a>
+                        <a href="{% url 'recipe_delete' recipe.pk %}" class="btn-delete" style="color: red;">Delete</a>
+                    </div>
+                </div>
+            </div>
+        {% empty %}
+            <div class="empty-state">
+                <p>No recipes found. Try a different search or filter.</p>
+            </div>
+        {% endfor %}
     </div>
-  </div>
-
-  <script src="../../assets/js/data.js"></script>
-  <script src="../../assets/js/admin-recipes.js"></script>
-</body>
-</html>
+</div>
+{% endblock %}
