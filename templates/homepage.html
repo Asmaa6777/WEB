@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recipe Finder </title>
+    <link rel="stylesheet" href="../assets/css/navbar.css">
+    <link rel="stylesheet" href="../assets/css/home.css">
+    <script src="../assets/js/navbar.js" defer></script>
+</head>
+<body>
+    <script src="../assets/js/data.js"></script>
+
+<script>
+const currentUser = JSON.parse(localStorage.getItem("currentUser"));
+
+if (!currentUser) {
+  window.location.href = "login.html";
+}
+</script>
+    
+    <main-navbar
+  data-authenticated="{{ request.user.is_authenticated|yesno:'true,false' }}"
+  data-user="{{ request.user.email }}"
+  data-role="{% if request.user.is_staff %}admin{% else %}user{% endif %}">
+</main-navbar>
+    
+    <main>
+        <section class="hero">
+            <div class="hero-content">
+                <h4>DISCOVER CULINARY EXCELLENCE</h4>
+                <h1>A Symphony of <span class="text-gold">Taste</span><br>& Elegance</h1>
+                <p>Explore a curated collection of exquisite recipes crafted by world-class chefs, designed to elevate your dining experience.</p>
+                
+                <form action="../pages/user_pages/search-results.html" method="GET" class="search-bar-container">
+                    <button type="submit" style="background: transparent; border: none; cursor: pointer; color: var(--text-muted); display: flex; padding: 0; margin-right: 10px;">
+                        <svg class="search-icon-input" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                    </button>
+                    <input type="text" name="q" placeholder="Search recipes or ingredients..." required style="background: transparent; border: none; color: var(--white); width: 100%; outline: none; font-family: var(--font-body); font-size: 16px;">
+                </form>
+
+                <div class="category-pills">
+                    <button class="pill active">All</button>
+                    <button class="pill">Appetizers</button>
+                    <button class="pill">Main Course</button>
+                    <button class="pill">Dessert</button>
+                </div>
+            </div>
+        </section>
+
+        <section class="features">
+            <div class="features-inner">
+                <div class="section-header">
+                    <h5>Why Choose Us</h5>
+                    <h2>The Art of Fine Cooking</h2>
+                </div>
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <div class="icon-container"><svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="feature-icon"><path d="M17 21a1 1 0 0 0 1-1v-5.35c0-.457.316-.844.727-1.041a4 4 0 0 0-2.134-7.589 5 5 0 0 0-9.186 0 4 4 0 0 0-2.134 7.588c.411.198.727.585.727 1.041V20a1 1 0 0 0 1 1Z"></path><path d="M6 17h12"></path></svg></div>
+                        <h3>Chef's Expertise</h3>
+                        <p>Recipes curated by award-winning chefs from Michelin-starred restaurants worldwide.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="icon-container"><svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="feature-icon"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z"></path><path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"></path></svg></div>
+                        <h3>Fresh Ingredients</h3>
+                        <p>Every recipe emphasizes seasonal, locally sourced ingredients for maximum flavor.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="icon-container"><svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="feature-icon"><path d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .963 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.581a.5.5 0 0 1 0 .964L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.963 0z"></path><path d="M20 3v4"></path><path d="M22 5h-4"></path><path d="M4 17v2"></path><path d="M5 18H3"></path></svg></div>
+                        <h3>Unique Experience</h3>
+                        <p>Discover rare culinary techniques and flavor combinations you won't find elsewhere.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="icon-container"><svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="feature-icon"><path d="M12 7v14"></path><path d="M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z"></path></svg></div>
+                        <h3>Curated Menu</h3>
+                        <p>Thoughtfully organized collections for every occasion, from casual to fine dining.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="featured-section">
+            <div class="section-header left-align">
+                <div class="header-left">
+                    <h5>FEATURED</h5>
+                    <h2>Signature Recipes</h2>
+                </div>
+                <a href="../pages/user_pages/recipes.html" class="view-all">View all &rarr;</a>
+            </div>
+
+            <div class="carousel-container" id="recipeCarousel"></div>
+        </section>
+
+        <section class="featured-section">
+            <div class="section-header left-align">
+                <div class="header-left">
+                    <h5>CLASSICS</h5>
+                    <h2>Timeless Dishes</h2>
+                </div>
+                <a href="../pages/user_pages/recipes.html" class="view-all">View all &rarr;</a>
+            </div>
+
+            <div class="carousel-container timeless-carousel" id="timelessCarousel"></div>
+        </section>
+        
+        <section class="inspiration-section">
+            <div class="inspiration-inner">
+                <div class="section-header"><h2>Looking for inspiration?</h2></div>
+                <div class="inspiration-grid">
+                    <a href="#" class="inspiration-card">
+                        <div class="inspiration-image"><img src="../assets/images/pexels-lucasandrade-7961932.webp" alt="Family Dinners"></div>
+                        <div class="inspiration-text"><h3>5 easy family dinners for £25</h3></div>
+                    </a>
+                    <a href="#" class="inspiration-card">
+                        <div class="inspiration-image"><img src="https://images.unsplash.com/photo-1551326844-4df70f78d0e9?w=600&q=80" alt="Weekly meal plans"></div>
+                        <div class="inspiration-text"><h3>Weekly meal plans</h3></div>
+                    </a>
+                    <a href="#" class="inspiration-card">
+                        <div class="inspiration-image"><img src="../assets/images/pexels-peep-this-photo-1766934996-31846713.webp" alt="Budget meals"></div>
+                        <div class="inspiration-text"><h3>Budget meals and recipes</h3></div>
+                    </a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <main-footer></main-footer>
+
+    <script src="../../assets/js/footer.js" defer></script>
+    <script src="../assets/js/data.js"></script>
+    <script src="../assets/js/home.js"></script>
+</body>
+</html>

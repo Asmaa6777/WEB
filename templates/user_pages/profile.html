@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>My Profile - Recipe Finder</title>
+  <link rel="stylesheet" href="../../assets/css/navbar.css" />
+  <link rel="stylesheet" href="../../assets/css/style.css" />
+  <script src="../../assets/js/navbar.js" defer></script>
+  <style>
+    .profile-page { max-width: 900px; margin: 40px auto; padding: 0 20px; }
+    .profile-header { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
+    .profile-summary, .profile-form { background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.12); border-radius: 12px; padding: 24px; margin-top: 24px; }
+    .profile-summary img { width: 150px; height: 150px; border-radius: 16px; object-fit: cover; display: block; margin-bottom: 16px; }
+    .profile-summary p { margin: 10px 0; }
+    .profile-form label { display: block; margin: 14px 0 6px; }
+    .profile-form input { width: 100%; max-width: 420px; padding: 10px; border-radius: 8px; border: 1px solid #ccc; }
+    .profile-form button { margin-top: 18px; padding: 12px 20px; border: none; border-radius: 8px; background: #ff7f50; color: white; cursor: pointer; }
+    .profile-message { margin-top: 12px; font-weight: 600; }
+  </style>
+</head>
+<body>
+  <main-navbar
+  data-authenticated="{{ request.user.is_authenticated|yesno:'true,false' }}"
+  data-user="{{ request.user.email }}"
+  data-role="{% if request.user.is_staff %}admin{% else %}user{% endif %}">
+</main-navbar>
+
+  <main class="profile-page">
+    <div class="profile-header">
+      <div>
+        <h1>My Profile</h1>
+        <p>Welcome back! Your current account information appears below.</p>
+      </div>
+    </div>
+
+    <section class="profile-summary">
+      <h2>Account Details</h2>
+      <img id="profileAvatar" src="../../assets/images/placeholder.svg" alt="Profile avatar" />
+      <p><strong>Name:</strong> <span id="profileName"></span></p>
+      <p><strong>Username:</strong> <span id="profileUsernameText"></span></p>
+      <p><strong>Email:</strong> <span id="profileEmail"></span></p>
+      <p><strong>Date of Birth:</strong> <span id="profileDob"></span></p>
+      <p><strong>Role:</strong> <span id="profileRole"></span></p>
+    </section>
+
+    <section class="profile-form">
+      <h2>Edit Profile</h2>
+      <form id="profileForm">
+        <label for="profileUsername">Username</label>
+        <input type="text" id="profileUsername" name="username" required />
+
+        <label for="emailInput">Email</label>
+        <input type="email" id="emailInput" name="email" required />
+
+        <label for="dobInput">Date of Birth</label>
+        <input type="date" id="dobInput" name="dob" />
+
+        <label for="passwordInput">New Password</label>
+        <input type="password" id="passwordInput" name="password" placeholder="Leave blank to keep current password" />
+
+        <button type="submit">Save Changes</button>
+        <p id="profileMessage" class="profile-message"></p>
+      </form>
+    </section>
+  </main>
+
+  <script src="../../assets/js/data.js" defer></script>
+  <script src="../../assets/js/profile.js" defer></script>
+</body>
+</html>

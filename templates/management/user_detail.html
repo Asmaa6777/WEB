@@ -1,0 +1,111 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>User Details</title>
+    <link rel="stylesheet" href="{% static 'css/management.css' %}">
+</head>
+<body>
+    <div class="container">
+        <a href="/management/users/" class="back-link">← Back to Users</a>
+        
+        <h1>User: {{ user.email }}</h1>
+        
+        <!-- Details Grid -->
+        <div class="detail-grid">
+            <!-- User Information -->
+            <div class="section">
+                <h2>👤 User Information</h2>
+                <div class="info-row">
+                    <label>Email:</label>
+                    <span>{{ user.email }}</span>
+                </div>
+                <div class="info-row">
+                    <label>Name:</label>
+                    <span>{{ user.first_name }} {{ user.last_name }}</span>
+                </div>
+                <div class="info-row">
+                    <label>Joined:</label>
+                    <span>{{ user.date_joined|date:"M d, Y H:i" }}</span>
+                </div>
+                <div class="info-row">
+                    <label>Last Login:</label>
+                    <span>
+                        {% if user.last_login %}
+                            {{ user.last_login|date:"M d, Y H:i" }}
+                        {% else %}
+                            Never
+                        {% endif %}
+                    </span>
+                </div>
+            </div>
+            
+            <!-- Account Status -->
+            <div class="section">
+                <h2>⚙️ Account Status</h2>
+                <div class="info-row">
+                    <label>Account Status:</label>
+                    {% if user.is_active %}
+                        <span class="badge badge-success">✅ Active</span>
+                    {% else %}
+                        <span class="badge badge-danger">❌ Inactive</span>
+                    {% endif %}
+                </div>
+                <div class="info-row">
+                    <label>User Role:</label>
+                    {% if user.is_staff %}
+                        <span class="badge badge-danger">👮 Staff</span>
+                    {% else %}
+                        <span class="badge badge-info">👤 User</span>
+                    {% endif %}
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="action-buttons">
+                    <button type="button" class="btn btn-warning" onclick="toggleStaff({{ user.id }}, {{ user.is_staff|lower }})">
+                        {% if user.is_staff %}Remove Staff{% else %}Make Staff{% endif %}
+                    </button>
+                    
+                    <button type="button" class="btn btn-secondary" onclick="toggleUserStatus({{ user.id }}, {{ user.is_active|lower }})">
+                        {% if user.is_active %}🔒 Deactivate{% else %}🔓 Activate{% endif %}
+                    </button>
+                    
+                    <button type="button" class="btn btn-danger" onclick="deleteUser({{ user.id }})">
+                        🗑️ Delete User
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Recent Activity -->
+        <div class="activity-section">
+            <h2>📝 Recent Activity</h2>
+            
+            {% if user_activity %}
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Action</th>
+                            <th>Details</th>
+                            <th>Time</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for activity in user_activity %}
+                        <tr>
+                            <td>{{ activity.action }}</td>
+                            <td>{{ activity.details }}</td>
+                            <td>{{ activity.timestamp|date:"M d, H:i" }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            {% else %}
+                <p class="no-data">No activity recorded</p>
+            {% endif %}
+        </div>
+    </div>
+
+    <script src="{% static 'js/management.js' %}" defer></script>
+</body>
+</html>

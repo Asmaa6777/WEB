@@ -1,14 +1,19 @@
 class MainNavbar extends HTMLElement {
   connectedCallback() {
-    const user = window.DJANGO_USER;
+    const isAuthenticated = this.dataset.authenticated === 'true';
+    const userEmail = this.dataset.user || '';
+    const userRole = this.dataset.role || 'user';
+    const isAdmin = userRole === 'admin';
 
-    // Nav links depend on role
     let navLinks = '';
-    if (user && user.isStaff) {
+    if (isAdmin) {
       navLinks = `
         <a href="/">Home</a>
         <a href="/management/dashboard/">Dashboard</a>
         <a href="/recipes/">All Recipes</a>
+        <a href="/management/recipes/">Manage Recipes</a>
+        <a href="/management/recipes/new/">Add Recipe</a>
+        <a href="/management/users/">Manage Users</a>
         <a href="/social/trending/">Trending</a>
       `;
     } else {
@@ -20,14 +25,17 @@ class MainNavbar extends HTMLElement {
       `;
     }
 
-    // Auth section
     let authHTML = '';
-    if (user) {
+    if (isAuthenticated) {
+      const initial = userEmail ? userEmail[0].toUpperCase() : 'U';
+
       authHTML = `
         <div class="profile-dropdown">
-          <button class="profile-btn">
-            ${user.name} <span class="arrow">▾</span>
-          </button>
+          <a class="profile-link" href="#">
+            <span class="profile-avatar">${initial}</span>
+            <span style="color: var(--text-muted); font-size:14px;">${userEmail}</span>
+            <span style="color: var(--text-muted);">▾</span>
+          </a>
           <div class="dropdown-menu">
             <a href="/accounts/profile/">My Profile</a>
             <a href="/accounts/logout/" id="logoutBtn">Logout</a>
@@ -52,6 +60,12 @@ class MainNavbar extends HTMLElement {
             ${navLinks}
           </div>
           <div class="nav-actions">
+            <a href="/search/" class="search-btn" aria-label="Search">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="11" cy="11" r="8"></circle>
+                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+              </svg>
+            </a>
             <div id="auth-container">${authHTML}</div>
           </div>
         </nav>
@@ -68,14 +82,17 @@ class MainNavbar extends HTMLElement {
     });
 
     // Profile dropdown toggle
-    const profileBtn = this.querySelector('.profile-btn');
+    const profileLink = this.querySelector('.profile-link');
     const dropdownMenu = this.querySelector('.dropdown-menu');
-    if (profileBtn && dropdownMenu) {
-      profileBtn.addEventListener('click', (e) => {
+    if (profileLink && dropdownMenu) {
+      profileLink.addEventListener('click', (e) => {
+        e.preventDefault();
         e.stopPropagation();
         dropdownMenu.classList.toggle('open');
       });
-      document.addEventListener('click', () => dropdownMenu.classList.remove('open'));
+      document.addEventListener('click', () => {
+        dropdownMenu.classList.remove('open');
+      });
     }
   }
 }
