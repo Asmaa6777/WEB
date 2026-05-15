@@ -1,80 +1,85 @@
-{% extends "recipes/base.html" %}
+{% extends "base.html" %}
 {% load static %}
 
 {% block title %}Admin Dashboard - Recipe Finder{% endblock %}
 
 {% block extra_css %}
     <link rel="stylesheet" href="{% static 'css/admin_dashboard.css' %}">
-    <link rel="stylesheet" href="{% static 'css/admin_profile.css' %}">
 {% endblock %}
 
 {% block content %}
-<div style="padding: 20px;">
-    <header>
-        <h1>Admin Dashboard</h1>
-    </header>
+<div class="container">
 
-    <hr>
-    <section>
-        <table width="100%" border="1" cellpadding="10" cellspacing="0">
-            <tr>
-                <td id="stat-total">
-                    <h3>Total Recipes</h3>
-                    <p><strong>{{ total_recipes }}</strong></p>
-                </td>
-                <td id="stat-active">
-                    <h3>Active Users</h3>
-                    <p><strong>{{ active_users }}</strong></p>
-                </td>
-                <td id="stat-staff">
-                    <h3>Staff Members</h3>
-                    <p><strong>{{ staff_members }}</strong></p>
-                </td>
-                <td id="stat-users">
-                    <h3>Total Users</h3>
-                    <p><strong>{{ total_users }}</strong></p>
-                </td>
-            </tr>
-        </table>
-    </section>
+    <p class="dashboard-subtitle">ADMIN PANEL</p>
+    <h1 class="dashboard-title">Dashboard</h1>
 
-    <br>
+    <!-- Stats cards -->
+    <div class="stats-grid">
+        <div class="stat-card">
+            <h3>Total Recipes</h3>
+            <div class="stat-number">{{ total_recipes }}</div>
+        </div>
+        <div class="stat-card">
+            <h3>Active Users</h3>
+            <div class="stat-number">{{ active_users }}</div>
+        </div>
+        <div class="stat-card">
+            <h3>Staff Members</h3>
+            <div class="stat-number">{{ staff_members }}</div>
+        </div>
+        <div class="stat-card">
+            <h3>Total Users</h3>
+            <div class="stat-number">{{ total_users }}</div>
+        </div>
+    </div>
 
-    <section>
-        <table width="100%">
-            <tr>
-                <td align="left">
-                    <form id="searchForm" action="{% url 'search_results' %}" method="GET">
-                        <input type="text" name="search" placeholder="Search recipes..." required>
-                        <button type="submit"> Search</button>
-                    </form>
-                </td>
-                <td align="right">
-                    <a href="/management/users/">
-                        <button type="button">👥 Manage Users</button>
-                    </a>
-                </td>
-            </tr>
-        </table>
+    <!-- Toolbar: search + manage users button -->
+    <div class="dashboard-toolbar">
+        <form action="{% url 'recipe_manage' %}" method="GET">
+            <input type="text" name="search" placeholder="Search recipes…">
+            <button type="submit" class="btn-search">Search</button>
+        </form>
+        <a href="{% url 'user_list' %}" class="btn btn-warning">👥 Manage Users</a>
+    </div>
 
-        <br>
-
-        <table border="1" width="100%" cellpadding="10" cellspacing="0">
+    <!-- Recent recipes table -->
+    <div class="table-wrapper">
+        <table>
             <thead>
                 <tr>
                     <th></th>
-                    <th>RECIPE ID</th>
-                    <th>RECIPE NAME</th>
-                    <th>COURSE NAME</th>
-                    <th>DATE ADDED</th>
-                    <th>STATUS</th>
-                    <th>ACTIONS</th>
+                    <th>ID</th>
+                    <th>Recipe Name</th>
+                    <th>Category</th>
+                    <th>Date Added</th>
+                    <th>Status</th>
+                    <th>Actions</th>
                 </tr>
             </thead>
-            <tbody id="recipesTableBody">
+            <tbody>
+                {% for recipe in recipes %}
+                <tr>
+                    <td><input type="checkbox"></td>
+                    <td>{{ recipe.id }}</td>
+                    <td>{{ recipe.name }}</td>
+                    <td>{{ recipe.category.name }}</td>
+                    <td>{{ recipe.created_at|date:"d/m/Y" }}</td>
+                    <td><span class="badge-success">Published</span></td>
+                    <td>
+                        <a href="{% url 'recipe_edit' recipe.pk %}" class="btn-view">Edit</a>
+                        &nbsp;|&nbsp;
+                        <a href="{% url 'recipe_delete' recipe.pk %}" style="color:#e74c3c; font-size:13px;">Delete</a>
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="7" class="no-data">No recipes added yet.</td>
+                </tr>
+                {% endfor %}
             </tbody>
         </table>
-    </section>
+    </div>
+
 </div>
 {% endblock %}
 

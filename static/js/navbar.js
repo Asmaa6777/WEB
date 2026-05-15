@@ -72,14 +72,30 @@ class MainNavbar extends HTMLElement {
       </header>
     `;
 
-    // Highlight active link
+    // Highlight the single best-matching nav link.
+    // Exact match wins outright; otherwise the longest prefix match wins.
+    // This prevents /management/recipes/ and /management/recipes/new/ both
+    // being highlighted when the user is on the "Add Recipe" page.
     const currentPath = window.location.pathname;
-    this.querySelectorAll('.nav-links a').forEach(link => {
+    const links = [...this.querySelectorAll('.nav-links a')];
+    let bestLink = null;
+    let bestScore = -1;
+    links.forEach(link => {
       const href = link.getAttribute('href');
-      if (currentPath === href || (href !== '/' && currentPath.startsWith(href))) {
-        link.classList.add('active');
+      if (currentPath === href) {
+        // Exact match — score beyond any prefix length
+        if (href.length + 1000 > bestScore) {
+          bestScore = href.length + 1000;
+          bestLink = link;
+        }
+      } else if (href !== '/' && currentPath.startsWith(href)) {
+        if (href.length > bestScore) {
+          bestScore = href.length;
+          bestLink = link;
+        }
       }
     });
+    if (bestLink) bestLink.classList.add('active');
 
     // Profile dropdown toggle
     const profileLink = this.querySelector('.profile-link');

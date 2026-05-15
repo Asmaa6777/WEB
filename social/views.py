@@ -6,16 +6,15 @@ from django.db.models import Count
 from recipes.models import Recipe
 from .models import Favorite
 
-@login_required
 @require_POST
 def toggle_favorite(request, recipe_id):
+    if not request.user.is_authenticated:
+        return JsonResponse({'detail': 'Authentication required'}, status=403)
     recipe = get_object_or_404(Recipe, id=recipe_id)
     favorite, created = Favorite.objects.get_or_create(user=request.user, recipe=recipe)
-    
     if not created:
         favorite.delete()
         return JsonResponse({'status': 'removed'})
-    
     return JsonResponse({'status': 'added'})
 
 @login_required

@@ -6,7 +6,7 @@ from django.urls import reverse_lazy
 from accounts.models import CustomUser
 from management.models import UserLog
 from recipes.models import Recipe, Category
-from .forms import RecipeForm
+from recipes.forms import RecipeForm
 
 
 class StaffRequiredMixin(LoginRequiredMixin):
@@ -28,6 +28,7 @@ class AdminDashboardView(StaffRequiredMixin, View):
             'active_users': CustomUser.objects.filter(is_active=True).count(),
             'staff_members': CustomUser.objects.filter(is_staff=True).count(),
             'recent_activity': UserLog.objects.order_by('-timestamp')[:10],
+            'recipes': Recipe.objects.all().order_by('-created_at')[:10],  # Show 10 most recent
         }
         return render(request, 'mgmt/admin_dashboard.html', context)
 
@@ -208,5 +209,11 @@ class DeleteUserView(StaffRequiredMixin, View):
         if request.user.id == user_id:
             return JsonResponse({'error': 'You cannot delete your own account'}, status=400)
         user = get_object_or_404(CustomUser, id=user_id)
+        email = user.email
         user.delete()
+        UserLog.objects.create(
+            user=request.user,
+            action='user_deleted',
+            details=f'Deleted account: {email}',
+        )
         return JsonResponse({'deleted': True})

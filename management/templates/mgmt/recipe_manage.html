@@ -1,58 +1,60 @@
 {% extends "base.html" %}
 {% load static %}
 
-{% block title %}Admin Recipes - Recipe Finder{% endblock %}
-
-{% block extra_css %}
-    <link rel="stylesheet" href="{% static 'css/admin_profile.css' %}">
-    <link rel="stylesheet" href="{% static 'css/style.css' %}">
-{% endblock %}
+{% block title %}Manage Recipes - Recipe Finder{% endblock %}
 
 {% block content %}
 <div class="page-header">
     <p class="section-label">ADMIN COLLECTION</p>
-    <h1 class="page-title">All <em class="gold-italic">Recipes</em></h1>
+    <h1 class="page-title">Manage <em class="gold-italic">Recipes</em></h1>
 
     <div class="search-wrapper">
         <form method="get" action="{% url 'recipe_manage' %}">
-            <input type="text" name="search" id="searchInput" class="search-bar" placeholder="Search recipes or ingredients..." value="{{ search }}" />
+            <input type="text" name="search" id="searchInput" class="search-bar"
+                   placeholder="Search recipes or ingredients…" value="{{ search }}" />
         </form>
     </div>
 
     <div class="filter-pills">
         <a href="{% url 'recipe_manage' %}" class="pill {% if not current_category %}active{% endif %}">All</a>
         {% for category in categories %}
-            <a href="{% url 'recipe_manage' %}?category={{ category.slug }}" class="pill {% if current_category == category.slug %}active{% endif %}">{{ category.name }}</a>
+            <a href="{% url 'recipe_manage' %}?category={{ category.slug }}"
+               class="pill {% if current_category == category.slug %}active{% endif %}">
+                {{ category.name }}
+            </a>
         {% endfor %}
     </div>
 
     <div style="margin-top: 24px;">
-        <a href="{% url 'recipe_create' %}" class="btn-view">Add Recipe</a>
+        <a href="{% url 'recipe_create' %}" class="btn-view">+ Add Recipe</a>
     </div>
 </div>
 
 <div class="recipes-section">
     <div class="recipe-grid" id="recipeGrid">
         {% for recipe in recipes %}
-            <div class="recipe-card">
+        <div class="recipe-card">
+            <div class="card-image-wrapper">
+                <span class="course-tag">{{ recipe.category.name|upper }}</span>
                 {% if recipe.image %}
-                    <img src="{{ recipe.image.url }}" alt="{{ recipe.name }}" class="recipe-image">
+                    <img src="{{ recipe.image.url }}" alt="{{ recipe.name }}" class="card-img">
                 {% else %}
-                    <img src="{% static 'images/placeholder.svg' %}" alt="Placeholder" class="recipe-image">
+                    <img src="{% static 'images/placeholder.svg' %}" alt="{{ recipe.name }}" class="card-img">
                 {% endif %}
-                <div class="recipe-info">
-                    <h3>{{ recipe.name }}</h3>
-                    <p>{{ recipe.category.name }} | {{ recipe.cuisine }}</p>
-                    <div class="actions" style="margin-top: 10px;">
-                        <a href="{% url 'recipe_edit' recipe.pk %}" class="btn-edit" style="color: blue; margin-right: 10px;">Edit</a>
-                        <a href="{% url 'recipe_delete' recipe.pk %}" class="btn-delete" style="color: red;">Delete</a>
-                    </div>
+            </div>
+            <div class="card-body">
+                <h3 class="card-title">{{ recipe.name }}</h3>
+                <p class="card-desc">{{ recipe.cuisine|default:"—" }} · {{ recipe.get_difficulty_display }}</p>
+                <div class="card-actions">
+                    <a href="{% url 'recipe_edit' recipe.pk %}" class="btn-edit">Edit</a>
+                    <a href="{% url 'recipe_delete' recipe.pk %}" class="btn-delete">Delete</a>
                 </div>
             </div>
+        </div>
         {% empty %}
-            <div class="empty-state">
-                <p>No recipes found. Try a different search or filter.</p>
-            </div>
+        <div class="empty-state" style="display:block;">
+            <p>No recipes found. Try a different search or filter.</p>
+        </div>
         {% endfor %}
     </div>
 </div>

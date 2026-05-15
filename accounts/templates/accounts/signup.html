@@ -1,160 +1,121 @@
+{% extends "base.html" %}
 {% load static %}
 
-<!DOCTYPE html>
-<html lang="en">
+{% block title %}Sign Up - Recipe Finder{% endblock %}
 
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport"
-  content="width=device-width, initial-scale=1.0" />
+{% block extra_css %}
+<style>
+  .auth-container {
+    max-width: 480px;
+    margin: 60px auto;
+    padding: 40px;
+    background: var(--card-bg, #1a1a1a);
+    border: 1px solid var(--border, #2a2a2a);
+    border-radius: 12px;
+  }
+  .auth-container h1 { font-size: 1.6rem; margin-bottom: 4px; }
+  .auth-container h2 { font-size: 1.1rem; color: var(--text-muted, #888); margin-bottom: 6px; font-weight: 400; }
+  .auth-container .subtitle { font-size: 0.85rem; color: var(--text-muted, #888); margin-bottom: 24px; }
+  .auth-container fieldset { border: 1px solid var(--border, #333); border-radius: 8px; padding: 16px 20px; margin-bottom: 20px; }
+  .auth-container legend { padding: 0 8px; font-size: 0.85rem; font-weight: 600; color: var(--gold, #d4af37); }
+  .auth-container label { display: block; margin-bottom: 5px; font-size: 0.88rem; font-weight: 600; }
+  .auth-container input[type="text"],
+  .auth-container input[type="email"],
+  .auth-container input[type="password"] {
+    width: 100%; padding: 9px 12px; margin-bottom: 14px;
+    border: 1px solid var(--border, #333); border-radius: 6px;
+    background: var(--input-bg, #111); color: var(--white, #fff);
+    font-size: 0.93rem; box-sizing: border-box;
+  }
+  .auth-container small { display: block; margin-top: -10px; margin-bottom: 10px; font-size: 0.8rem; }
+  .auth-container button[type="submit"] {
+    width: 100%; padding: 12px; background: var(--gold, #d4af37);
+    color: #000; border: none; border-radius: 6px;
+    font-size: 1rem; font-weight: 700; cursor: pointer;
+  }
+  .auth-container button[type="submit"]:disabled { opacity: 0.5; cursor: not-allowed; }
+  .auth-container .auth-links { margin-top: 20px; text-align: center; font-size: 0.9rem; color: var(--text-muted, #888); }
+  .auth-container .auth-links a { color: var(--gold, #d4af37); }
+  .error-msg { color: #e05555; margin-bottom: 14px; font-size: 0.9rem; }
+</style>
+{% endblock %}
 
-  <title>Recipe Finder - Sign Up</title>
+{% block content %}
+<div class="auth-container">
+  <h1>Recipe Finder</h1>
+  <h2>Create an Account</h2>
+  <p class="subtitle">Fields marked with * are required.</p>
 
-  <link rel="stylesheet"
-  href="{% static 'css/style.css' %}">
-</head>
+  <form method="POST">
+    {% csrf_token %}
 
-<body>
+    <fieldset>
+      <legend>Personal Information</legend>
+      <label for="firstName">First Name *</label>
+      <input type="text" id="firstName" name="firstName" placeholder="e.g. Sarah" required />
 
-  <main class="auth-container">
+      <label for="lastName">Last Name *</label>
+      <input type="text" id="lastName" name="lastName" placeholder="e.g. Smith" required />
+    </fieldset>
 
-    <h1>Recipe Finder</h1>
+    <fieldset>
+      <legend>Account Details</legend>
+      <label for="username">Username *</label>
+      <input type="text" id="username" name="username" placeholder="e.g. sarahcooks" required />
+      <small id="usernameMsg" style="color: #e05555;"></small>
 
-    <h2>Create an Account</h2>
+      <label for="email">Email Address *</label>
+      <input type="email" id="email" name="email" placeholder="e.g. sarah@gmail.com" required />
+      <small id="emailMsg" style="color: #e05555;"></small>
 
-    <p>
-      Fill in the details below to sign up.
-      Fields marked with * are required.
-    </p>
+      <label for="password">Password *</label>
+      <input type="password" id="password" name="password" placeholder="At least 8 characters" minlength="8" required />
 
-    <hr>
+      <label for="confirmPassword">Confirm Password *</label>
+      <input type="password" id="confirmPassword" name="confirmPassword" placeholder="Repeat your password" required />
+    </fieldset>
 
-    <form method="POST">
+    {% if error %}
+      <p class="error-msg">{{ error }}</p>
+    {% endif %}
 
-      {% csrf_token %}
+    <button type="submit">Create Account</button>
+  </form>
 
-      <fieldset>
-        <legend>Personal Information</legend>
+  <div class="auth-links">
+    <p>Already have an account? <a href="{% url 'login' %}">Log in</a></p>
+  </div>
+</div>
+{% endblock %}
 
-        <label for="firstName">First Name: *</label><br>
-        <input type="text"
-        id="firstName"
-        name="firstName"
-        placeholder="e.g. Sarah"
-        required /><br><br>
+{% block extra_js_body %}
+<script>
+  let usernameTaken = false;
+  let emailTaken = false;
+  const submitBtn = document.querySelector('button[type="submit"]');
 
-        <label for="lastName">Last Name: *</label><br>
-        <input type="text"
-        id="lastName"
-        name="lastName"
-        placeholder="e.g. Smith"
-        required /><br><br>
+  function updateSubmit() {
+    submitBtn.disabled = usernameTaken || emailTaken;
+  }
 
-      </fieldset>
+  document.getElementById('username').addEventListener('blur', async function () {
+    const val = this.value.trim();
+    if (!val) return;
+    const res = await fetch(`/accounts/check-username/?username=${encodeURIComponent(val)}`);
+    const data = await res.json();
+    usernameTaken = data.taken;
+    document.getElementById('usernameMsg').textContent = data.taken ? 'Username already taken' : '';
+    updateSubmit();
+  });
 
-      <br>
-
-      <fieldset>
-        <legend>Account Details</legend>
-
-        <label for="username">Username: *</label><br>
-        <input type="text"
-        id="username"
-        name="username"
-        placeholder="e.g. sarahcooks"
-        required /><br>
-        <small id="usernameMsg" style="color:red;"></small><br><br>
-
-        <label for="email">Email Address: *</label><br>
-        <input type="email"
-        id="email"
-        name="email"
-        placeholder="e.g. sarah@gmail.com"
-        required /><br>
-        <small id="emailMsg" style="color:red;"></small><br><br>
-
-        <label for="password">Password: *</label><br>
-        <input type="password"
-        id="password"
-        name="password"
-        placeholder="At least 8 characters"
-        minlength="8"
-        required /><br><br>
-
-        <label for="confirmPassword">
-          Confirm Password: *
-        </label><br>
-
-        <input type="password"
-        id="confirmPassword"
-        name="confirmPassword"
-        placeholder="Repeat your password"
-        required /><br><br>
-
-      </fieldset>
-
-      <div id="formMessage"></div>
-
-      {% if error %}
-        <p style="color: red;">
-          {{ error }}
-        </p>
-      {% endif %}
-
-      <button type="submit">
-        Create Account
-      </button>
-
-      <br><br>
-
-      <p>
-        Already have an account?
-
-        <a href="{% url 'login' %}">
-          Log in
-        </a>
-      </p>
-
-    </form>
-
-  </main>
-
-  <hr>
-
-  <footer>
-    <p>&copy; Welcome to the Recipe Finder</p>
-  </footer>
-
-  <script>
-    let usernameTaken = false;
-    let emailTaken = false;
-    const submitBtn = document.querySelector('button[type="submit"]');
-
-    function updateSubmit() {
-      submitBtn.disabled = usernameTaken || emailTaken;
-    }
-
-    // fetch: GET /accounts/check-username/?username=...
-    document.getElementById('username').addEventListener('blur', async function () {
-      const val = this.value.trim();
-      if (!val) return;
-      const res = await fetch(`/accounts/check-username/?username=${encodeURIComponent(val)}`);
-      const data = await res.json();
-      usernameTaken = data.taken;
-      document.getElementById('usernameMsg').textContent = data.taken ? 'Username already taken' : '';
-      updateSubmit();
-    });
-
-    // fetch: GET /accounts/check-email/?email=...
-    document.getElementById('email').addEventListener('blur', async function () {
-      const val = this.value.trim();
-      if (!val) return;
-      const res = await fetch(`/accounts/check-email/?email=${encodeURIComponent(val)}`);
-      const data = await res.json();
-      emailTaken = data.taken;
-      document.getElementById('emailMsg').textContent = data.taken ? 'Email already registered' : '';
-      updateSubmit();
-    });
-  </script>
-</body>
-</html>
+  document.getElementById('email').addEventListener('blur', async function () {
+    const val = this.value.trim();
+    if (!val) return;
+    const res = await fetch(`/accounts/check-email/?email=${encodeURIComponent(val)}`);
+    const data = await res.json();
+    emailTaken = data.taken;
+    document.getElementById('emailMsg').textContent = data.taken ? 'Email already registered' : '';
+    updateSubmit();
+  });
+</script>
+{% endblock %}

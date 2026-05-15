@@ -60,8 +60,8 @@
         {% endif %}
         
         {% if user.is_staff %}
-          <a href="#" class="btn-outline">Edit Recipe</a>
-          <a href="#" class="btn-danger">Delete Recipe</a>
+          <a href="{% url 'recipe_edit' recipe.pk %}" class="btn-outline">Edit Recipe</a>
+          <a href="{% url 'recipe_delete' recipe.pk %}" class="btn-danger">Delete Recipe</a>
         {% endif %}
       </div>
     </div>

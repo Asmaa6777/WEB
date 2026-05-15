@@ -4,13 +4,23 @@ from .models import Recipe, Category
 
 def homepage(request):
     featured_recipes = Recipe.objects.all().order_by('-created_at')[:6]
-    classic_ids = [1, 13, 12, 18]
-    classic_recipes = Recipe.objects.filter(id__in=classic_ids)
+    classic_recipes = Recipe.objects.all().order_by('created_at')[:4]
     categories = Category.objects.all()
+
+    favorite_ids = set()
+    if request.user.is_authenticated:
+        from social.models import Favorite
+        all_ids = [r.id for r in featured_recipes] + [r.id for r in classic_recipes]
+        favorite_ids = set(
+            Favorite.objects.filter(user=request.user, recipe_id__in=all_ids)
+            .values_list('recipe_id', flat=True)
+        )
+
     return render(request, 'recipes/homepage.html', {
         'featured_recipes': featured_recipes,
         'classic_recipes': classic_recipes,
-        'categories': categories
+        'categories': categories,
+        'favorite_ids': favorite_ids,
     })
 
 def recipes_list(request, category_slug=None):

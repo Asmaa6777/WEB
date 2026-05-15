@@ -1,82 +1,11 @@
-.main-header {
-    display: flex;
-    justify-content: space-between; 
-    align-items: center;
-    background-color: rgba(10, 10, 10, 0.85); 
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px); 
-    padding: 15px 50px;
-    position: sticky;
-    top: 0;
-    z-index: 1000;
-}
+/* Admin / recipe form page styles only.
+   Navbar styles come from navbar.css — do NOT redefine
+   .main-header, .main-nav, .nav-links, .nav-actions,
+   .logo, .logo-icon, .logo-text, .logo-highlight here. */
 
-.main-nav {
-    display: flex;
-    align-items: center;
-    width: 100%; 
-    justify-content: center; 
-    position: relative; 
-}
-
-.nav-links {
-    display: flex;
-    gap: 25px;
-}
-
-.nav-actions {
-    position: absolute;
-    right: 0; 
-    display: flex;
-    gap: 20px;
-    align-items: center;
-}
-
-.main-nav a {
-    color: #cccccc;
-    text-decoration: none;
-    font-family: 'Lato', sans-serif;
-    font-size: 16px;
-    transition: color 0.3s;
-}
-
-.main-nav a:hover, .main-nav a.active {
-    color: var(--gold);
-}
-
-.logo {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-}
-
-.logo-icon {
-    background-color: var(--gold);
-    color: #000;
-    width: 45px;
-    height: 45px;
-    border-radius: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-weight: 700;
-    font-size: 22px;
-    font-family: 'Playfair Display', serif;
-}
-
-.logo-text {
-    color: var(--white);
-    font-size: 28px;
-    font-family: 'Playfair Display', serif;
-}
-
-.logo-highlight {
-    color: var(--gold);
-}
-/* -------------------------------------- */
 .profile-container {
-    max-width: 1524px;
-    margin: 20px auto; 
+    max-width: 960px;
+    margin: 32px auto;
     background-color: var(--surface);
     border: 1px solid var(--border);
     border-radius: 10px;
@@ -127,7 +56,7 @@
     display: flex;
     flex-direction: column;
     gap: 20px;
-    max-width: 600px; 
+    max-width: 600px;
 }
 
 .input-group label {
@@ -156,7 +85,6 @@
 .form-actions {
     margin-top: 30px;
     max-width: 600px;
-    text-align: left; 
 }
 
 .btn-save {

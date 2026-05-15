@@ -1,56 +1,61 @@
 document.addEventListener('DOMContentLoaded', () => {
     
-    // We no longer build cards in JS as Django handles rendering.
-    // We only keep the interactivity (Heart logic, Carousel scrolling, Auth UI).
-
     // 1. INITIALIZE PAGE
-    updateAuthUI();
     attachHeartLogic();
     attachCarouselLogic();
 
     // --- LOGIC FUNCTIONS ---
 
-    function updateAuthUI() {
-        const currentUser = JSON.parse(localStorage.getItem('currentUser')); 
-        const authContainer = document.getElementById('auth-container');
-        if (!authContainer) return;
-
-        if (currentUser) {
-            authContainer.innerHTML = `
-                <a href="/accounts/profile/" class="auth-link" style="display: flex; align-items: center; gap: 8px;">
-                    <span class="user-name">${currentUser.name}</span>
-                    <span style="font-size: 18px;">👤</span>
-                </a>
-            `;
-        } else {
-            authContainer.innerHTML = `
-                <a href="/accounts/login/" class="auth-link">Login</a>
-                <span class="auth-separator">/</span>
-                <a href="/accounts/signup/" class="auth-link">Signup</a>
-            `;
-        }
-    }
-
     function attachHeartLogic() {
         document.querySelectorAll('.heart-btn').forEach(btn => {
-            btn.addEventListener('click', (e) => {
+            btn.addEventListener('click', async (e) => {
                 e.preventDefault();
-                const recipeId = parseInt(btn.getAttribute('data-id'));
-                let favs = JSON.parse(localStorage.getItem('favourites')) || [];
+                const recipeId = btn.getAttribute('data-id');
                 const svg = btn.querySelector('svg');
 
-                if (favs.includes(recipeId)) {
-                    favs = favs.filter(id => id !== recipeId);
-                    svg.setAttribute('fill', 'none');
-                    svg.setAttribute('stroke', 'currentColor');
-                } else {
-                    favs.push(recipeId);
-                    svg.setAttribute('fill', '#d4af37');
-                    svg.setAttribute('stroke', '#d4af37');
+                try {
+                    const response = await fetch(`/social/favorite/toggle/${recipeId}/`, {
+                        method: 'POST',
+                        headers: {
+                            'X-CSRFToken': getCookie('csrftoken'),
+                            'Content-Type': 'application/json',
+                            'X-Requested-With': 'XMLHttpRequest'
+                        }
+                    });
+
+                    if (response.status === 403) {
+                        window.location.href = '/accounts/login/';
+                        return;
+                    }
+
+                    const data = await response.json();
+                    if (data.status === 'added') {
+                        svg.setAttribute('fill', '#d4af37');
+                        svg.setAttribute('stroke', '#d4af37');
+                    } else {
+                        svg.setAttribute('fill', 'none');
+                        svg.setAttribute('stroke', 'currentColor');
+                    }
+                } catch (error) {
+                    console.error('Error toggling favorite:', error);
                 }
-                localStorage.setItem('favourites', JSON.stringify(favs));
             });
         });
+    }
+
+    function getCookie(name) {
+        let cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            const cookies = document.cookie.split(';');
+            for (let i = 0; i < cookies.length; i++) {
+                const cookie = cookies[i].trim();
+                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
     }
 
     function attachCarouselLogic() {

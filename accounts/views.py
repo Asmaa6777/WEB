@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth import authenticate, login, logout, update_session_auth_hash
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
 from django.views.decorators.http import require_GET
@@ -7,6 +7,9 @@ from accounts.models import CustomUser
 
 
 def signup_view(request):
+    if request.user.is_authenticated:
+        return redirect('homepage')
+
     if request.method == "POST":
         username = request.POST.get("username", "").strip()
         email = request.POST.get("email", "").strip()
@@ -24,19 +27,23 @@ def signup_view(request):
         if CustomUser.objects.filter(email=email).exists():
             return render(request, "accounts/signup.html", {"error": "Email already registered"})
 
-        CustomUser.objects.create_user(
+        user = CustomUser.objects.create_user(
             username=username,
             email=email,
             password=password,
             first_name=first_name,
             last_name=last_name,
         )
-        return redirect("login")
+        login(request, user)
+        return redirect('homepage')
 
     return render(request, "accounts/signup.html")
 
 
 def login_view(request):
+    if request.user.is_authenticated:
+        return redirect('homepage')
+
     if request.method == "POST":
         identifier = request.POST.get("username", "").strip()
         password = request.POST.get("password", "")
@@ -51,23 +58,23 @@ def login_view(request):
 
         if user is not None:
             login(request, user)
-            return redirect("homepage")
+            next_url = request.POST.get('next') or request.GET.get('next') or 'homepage'
+            return redirect(next_url)
 
         return render(request, "accounts/login.html", {"error": "Invalid username/email or password"})
 
-    return render(request, "accounts/login.html")
+    return render(request, "accounts/login.html", {"next": request.GET.get('next', '')})
 
 
 def logout_view(request):
     logout(request)
-    return redirect("login")
+    return redirect('homepage')
 
 
 # ── Fetch endpoints ──────────────────────────────────────────────────────────
 
 @require_GET
 def check_username(request):
-    """Used by signup form to validate username availability in real time."""
     username = request.GET.get("username", "").strip()
     taken = CustomUser.objects.filter(username=username).exists()
     return JsonResponse({"taken": taken})
@@ -75,7 +82,6 @@ def check_username(request):
 
 @require_GET
 def check_email(request):
-    """Used by signup form to validate email availability in real time."""
     email = request.GET.get("email", "").strip()
     taken = CustomUser.objects.filter(email=email).exists()
     return JsonResponse({"taken": taken})
@@ -83,13 +89,11 @@ def check_email(request):
 
 @login_required
 def profile_view(request):
-    """Renders the profile HTML page."""
     return render(request, "accounts/profile.html")
 
 
 @login_required
 def profile_api(request):
-    """JSON endpoint used by profile.html via fetch. GET returns user data, POST updates it."""
     u = request.user
 
     if request.method == "GET":
@@ -119,7 +123,13 @@ def profile_api(request):
 
         u.first_name = first_name
         u.last_name = last_name
+
         if password:
             u.set_password(password)
-        u.save()
+            u.save()
+            # Keep user logged in after password change
+            update_session_auth_hash(request, u)
+        else:
+            u.save()
+
         return JsonResponse({"success": True})

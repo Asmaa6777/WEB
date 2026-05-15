@@ -3,22 +3,21 @@
 /* ===========================
    CSS VARIABLES
 =========================== */
-
 :root {
     --background: #0a0a0a;
     --surface: #1a1a1a;
+    --surface-2: #1e1e1e;
     --gold: #c9a84c;
     --gold-light: #e8c97a;
     --white: #ffffff;
     --text-muted: #a0a0a0;
+    --text-light: #cccccc;
     --border: #2a2a2a;
-    --overlay: rgba(0, 0, 0, 0.6);
 }
 
 /* ===========================
    RESET & BASE
 =========================== */
-
 * {
     margin: 0;
     padding: 0;
@@ -30,52 +29,285 @@ body {
     color: var(--white);
     font-family: 'Lato', sans-serif;
     min-height: 100vh;
-    padding-bottom: 40px;
 }
 
-h1 {
-    font-family: 'Playfair Display', serif;
-    font-size: 28px;
-    font-weight: 400;
-    font-size: 15px;
-    transition: color 0.3s;
+/* ===========================
+   MAIN HEADER — the sticky bar
+=========================== */
+.main-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 48px;
+    height: 64px;
+    background-color: var(--surface);
+    border-bottom: 1px solid var(--border);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    width: 100%;
+    gap: 32px;
+}
+
+/* ===========================
+   LOGO
+=========================== */
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
     text-decoration: none;
+    flex-shrink: 0;
 }
 
-.nav-links a:hover, .nav-links a.active {
+.logo-icon {
+    width: 36px;
+    height: 36px;
+    background-color: var(--gold);
+    color: var(--background);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+    font-size: 1rem;
+    flex-shrink: 0;
+}
+
+.logo-text {
+    font-family: 'Lato', sans-serif;
+    font-weight: 700;
+    font-size: 1.1rem;
+    color: var(--white);
+    letter-spacing: 0.3px;
+}
+
+.logo-highlight {
     color: var(--gold);
 }
 
-.nav-actions {
-    position: absolute;
-    right: 0;
+/* ===========================
+   MAIN NAV — row to the right of the logo
+=========================== */
+.main-nav {
     display: flex;
-    gap: 20px;
     align-items: center;
+    gap: 36px;
+    flex: 1;
+    justify-content: flex-end;
 }
 
-.nav-login-link {
-    color: var(--text-muted);
-    transition: color 0.3s;
+/* ===========================
+   NAV LINKS
+=========================== */
+.nav-links {
+    display: flex;
+    align-items: center;
+    gap: 32px;
+}
+
+.nav-links a {
+    font-family: 'Lato', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 400;
+    color: var(--text-light);
+    letter-spacing: 0.3px;
     text-decoration: none;
+    transition: color 0.2s;
+    position: relative;
+    padding-bottom: 4px;
+    white-space: nowrap;
+}
+
+.nav-links a:hover {
+    color: var(--white);
+}
+
+.nav-links a.active {
+    color: var(--gold);
+    font-weight: 600;
+}
+
+.nav-links a.active::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background-color: var(--gold);
+    border-radius: 2px;
+}
+
+/* ===========================
+   NAV ACTIONS — search + auth, right-most
+=========================== */
+.nav-actions {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    flex-shrink: 0;
+}
+
+/* ===========================
+   SEARCH BUTTON
+=========================== */
+.search-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-muted);
+    text-decoration: none;
+    transition: color 0.2s;
+    padding: 4px;
+}
+
+.search-btn:hover {
+    color: var(--gold);
+}
+
+/* ===========================
+   LOGIN / SIGNUP LINK
+=========================== */
+.nav-login-link {
+    font-family: 'Lato', sans-serif;
+    font-size: 0.88rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    text-decoration: none;
+    border: 1px solid var(--border);
+    padding: 7px 18px;
+    border-radius: 8px;
+    transition: color 0.2s, border-color 0.2s;
+    white-space: nowrap;
 }
 
 .nav-login-link:hover {
     color: var(--gold);
+    border-color: var(--gold);
+}
+
+/* ===========================
+   PROFILE DROPDOWN
+=========================== */
+.profile-dropdown {
+    position: relative;
 }
 
 .profile-link {
     display: flex;
     align-items: center;
     gap: 8px;
+    cursor: pointer;
+    text-decoration: none;
     color: var(--text-muted);
-    font-size: 15px;
-    transition: color 0.3s;
+    padding: 4px 0;
+    transition: color 0.2s;
 }
 
 .profile-link:hover {
     color: var(--white);
-    padding: 30px 0 20px;
+}
+
+.profile-avatar {
+    width: 34px;
+    height: 34px;
+    background-color: var(--gold);
+    color: var(--background);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Lato', sans-serif;
+    font-weight: 700;
+    font-size: 0.9rem;
+    flex-shrink: 0;
+}
+
+/* ===========================
+   DROPDOWN MENU
+=========================== */
+.dropdown-menu {
+    display: none;
+    position: absolute;
+    top: calc(100% + 10px);
+    right: 0;
+    background-color: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    min-width: 170px;
+    z-index: 200;
+    overflow: hidden;
+    box-shadow: 0 8px 28px rgba(0, 0, 0, 0.5);
+}
+
+.dropdown-menu.open {
+    display: block;
+}
+
+.dropdown-menu a {
+    display: block;
+    padding: 12px 18px;
+    font-family: 'Lato', sans-serif;
+    font-size: 0.88rem;
+    color: var(--text-light);
+    text-decoration: none;
+    transition: background-color 0.2s, color 0.2s;
+}
+
+.dropdown-menu a:hover {
+    background-color: var(--surface-2);
+    color: var(--gold);
+}
+
+/* ===========================
+   RESPONSIVE
+=========================== */
+@media (max-width: 900px) {
+    .main-header {
+        padding: 0 24px;
+        gap: 20px;
+    }
+
+    .nav-links {
+        gap: 18px;
+    }
+
+    .nav-links a {
+        font-size: 0.82rem;
+    }
+}
+
+@media (max-width: 640px) {
+    .main-header {
+        padding: 12px 16px;
+        height: auto;
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+
+    .main-nav {
+        gap: 12px;
+        width: 100%;
+        justify-content: space-between;
+    }
+
+    .nav-links {
+        gap: 12px;
+        flex-wrap: wrap;
+    }
+}
+
+/* ===========================
+   SHARED LAYOUT UTILITIES
+   (used by management/admin pages)
+=========================== */
+
+h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 28px;
+    font-weight: 400;
 }
 
 h2 {
@@ -86,19 +318,11 @@ h2 {
     margin-bottom: 20px;
 }
 
-/* ===========================
-   CONTAINER
-=========================== */
-
 .container {
     max-width: 1200px;
     margin: 0 auto;
     padding: 30px 40px;
 }
-
-/* ===========================
-   BACK / NAV LINKS
-=========================== */
 
 .back-link {
     color: var(--gold);
@@ -135,7 +359,6 @@ h2 {
 /* ===========================
    STATS GRID
 =========================== */
-
 .stats-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -168,9 +391,8 @@ h2 {
 }
 
 /* ===========================
-   SEARCH SECTION
+   SEARCH SECTION (admin pages)
 =========================== */
-
 .search-section {
     background-color: var(--surface);
     border: 1px solid var(--border);
@@ -235,9 +457,8 @@ h2 {
 }
 
 /* ===========================
-   TABLE STYLES
+   TABLE STYLES (admin pages)
 =========================== */
-
 .table-wrapper {
     background-color: var(--surface);
     border: 1px solid var(--border);
@@ -280,10 +501,9 @@ table tbody tr:hover {
 }
 
 /* ===========================
-   BADGES
+   BADGES (admin user status)
 =========================== */
-
-.badge {
+.badge-success {
     display: inline-block;
     padding: 4px 10px;
     border-radius: 4px;
@@ -291,36 +511,53 @@ table tbody tr:hover {
     font-weight: 700;
     letter-spacing: 0.5px;
     font-family: 'Lato', sans-serif;
-}
-
-.badge-success {
     background: rgba(39, 174, 96, 0.15);
     color: #2ecc71;
     border: 1px solid rgba(39, 174, 96, 0.3);
 }
 
 .badge-danger {
+    display: inline-block;
+    padding: 4px 10px;
+    border-radius: 4px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    font-family: 'Lato', sans-serif;
     background: rgba(231, 76, 60, 0.15);
     color: #e74c3c;
     border: 1px solid rgba(231, 76, 60, 0.3);
 }
 
 .badge-warning {
+    display: inline-block;
+    padding: 4px 10px;
+    border-radius: 4px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    font-family: 'Lato', sans-serif;
     background: rgba(201, 168, 76, 0.15);
     color: var(--gold);
     border: 1px solid rgba(201, 168, 76, 0.3);
 }
 
 .badge-info {
+    display: inline-block;
+    padding: 4px 10px;
+    border-radius: 4px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    font-family: 'Lato', sans-serif;
     background: rgba(52, 152, 219, 0.15);
     color: #3498db;
     border: 1px solid rgba(52, 152, 219, 0.3);
 }
 
 /* ===========================
-   BUTTONS
+   BUTTONS (admin pages)
 =========================== */
-
 .btn {
     padding: 8px 14px;
     border: none;
@@ -384,21 +621,9 @@ table tbody tr:hover {
     background-color: var(--gold-light);
 }
 
-.btn-info {
-    background-color: rgba(52, 152, 219, 0.2);
-    color: #3498db;
-    border: 1px solid rgba(52, 152, 219, 0.3);
-}
-
-.btn-info:hover {
-    background-color: #3498db;
-    color: var(--white);
-}
-
 /* ===========================
-   DETAIL PAGE
+   DETAIL PAGE (user detail)
 =========================== */
-
 .detail-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -449,10 +674,6 @@ table tbody tr:hover {
     flex-wrap: wrap;
 }
 
-/* ===========================
-   ACTIVITY SECTION
-=========================== */
-
 .activity-section {
     background-color: var(--surface);
     border: 1px solid var(--border);
@@ -470,9 +691,12 @@ table tbody tr:hover {
     color: var(--white);
 }
 
-/* ===========================
-   NAV BUTTONS (dashboard)
-=========================== */
+.no-data {
+    text-align: center;
+    color: var(--text-muted);
+    padding: 40px;
+    font-size: 13px;
+}
 
 .nav-buttons {
     display: flex;
@@ -498,21 +722,6 @@ table tbody tr:hover {
     background-color: var(--gold-light);
 }
 
-/* ===========================
-   EMPTY STATE
-=========================== */
-
-.no-data {
-    text-align: center;
-    color: var(--text-muted);
-    padding: 40px;
-    font-size: 13px;
-}
-
-/* ===========================
-   RESPONSIVE
-=========================== */
-
 @media (max-width: 768px) {
     .container {
         padding: 20px;
@@ -526,17 +735,7 @@ table tbody tr:hover {
         flex-direction: column;
     }
 
-    .search-form input,
-    .search-form select {
-        width: 100%;
-    }
-
     .action-buttons {
         flex-direction: column;
-    }
-
-    .action-buttons form,
-    .action-buttons button {
-        width: 100%;
     }
 }

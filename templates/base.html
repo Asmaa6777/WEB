@@ -5,29 +5,25 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}Recipe Finder{% endblock %}</title>
-    <link rel="stylesheet" href="{% static 'css/navbar.css' %}?v=2">
+    <link rel="stylesheet" href="{% static 'css/navbar.css' %}?v=3">
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
     {% block extra_css %}{% endblock %}
-    <script>
-      window.DJANGO_USER = {% if user.is_authenticated %}{
-        name: "{{ user.get_full_name|default:user.username }}",
-        username: "{{ user.username }}",
-        isStaff: {{ user.is_staff|lower }}
-      }{% else %}null{% endif %};
-    </script>
-    <script src="{% static 'js/navbar.js' %}?v=2" defer></script>
+    <script src="{% static 'js/navbar.js' %}?v=3" defer></script>
     <script src="{% static 'js/footer.js' %}" defer></script>
-    <script src="{% static 'js/data.js' %}"></script>
-    {% block extra_js_head %}{% endblock %}
+{% block extra_js_head %}{% endblock %}
 </head>
 <body>
-    <main-navbar></main-navbar>
+    <main-navbar
+      data-authenticated="{{ user.is_authenticated|yesno:'true,false' }}"
+      data-user="{{ user.email }}"
+      data-role="{% if user.is_staff %}admin{% else %}user{% endif %}">
+    </main-navbar>
     
     <main>
         {% block content %}{% endblock %}
     </main>
 
-    <main-footer></main-footer>
+    <main-footer data-role="{% if user.is_staff %}admin{% else %}user{% endif %}"></main-footer>
 
     {% block extra_js_body %}{% endblock %}
 </body>

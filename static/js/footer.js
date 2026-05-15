@@ -1,5 +1,6 @@
 class MainFooter extends HTMLElement {
     connectedCallback() {
+        const isAdmin = this.dataset.role === 'admin';
         this.innerHTML = `
             <footer class="site-footer">
                 <div class="footer-content">
@@ -10,12 +11,12 @@ class MainFooter extends HTMLElement {
                         </div>
                         <p>Discover exquisite recipes crafted by world-class chefs. Your journey to culinary excellence starts here.</p>
                     </div>
-                    
+
                     <div class="footer-links">
                         <h4>Quick Links</h4>
                         <a href="/">Home</a>
                         <a href="/recipes/">Recipes</a>
-                        <a href="/social/favorites/">Favourites</a>
+                        ${isAdmin ? '' : '<a href="/social/favorites/">Favourites</a>'}
                     </div>
 
                     <div class="footer-links">
