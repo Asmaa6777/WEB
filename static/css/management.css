@@ -523,6 +523,15 @@ small {
     padding: 40px !important;
 }
 
+input[type="checkbox"] {
+    accent-color: var(--gold);
+    width: 15px;
+    height: 15px;
+    cursor: pointer;
+    margin-right: 4px;
+    vertical-align: middle;
+}
+
 /* RESPONSIVE */
 @media (max-width: 600px) {
     .container { padding: 20px 16px; }

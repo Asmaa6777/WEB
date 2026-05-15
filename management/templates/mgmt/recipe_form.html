@@ -1,133 +1,122 @@
 {% extends "base.html" %}
 {% load static %}
 
-{% block title %}Recipe Finder - {{ title }}{% endblock %}
+{% block title %}{{ title }} - Recipe Finder{% endblock %}
 
 {% block extra_css %}
-    <link rel="stylesheet" href="{% static 'css/add.css' %}">
-    <link rel="stylesheet" href="{% static 'css/admin_profile.css' %}">
-    <style>
-        .errorlist { color: red; list-style: none; padding: 0; }
-        .form-section { margin-bottom: 30px; border: 1px solid #ddd; padding: 20px; border-radius: 8px; }
-        .form-section legend { font-weight: bold; padding: 0 10px; color: #d4af37; }
-        .form-group { margin-bottom: 15px; }
-        .form-group label { display: block; margin-bottom: 5px; font-weight: 600; }
-        .form-control { width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px; }
-        .checkbox-group { display: flex; flex-wrap: wrap; gap: 15px; }
-        .checkbox-item { display: flex; align-items: center; gap: 5px; }
-    </style>
+    <link rel="stylesheet" href="{% static 'css/management.css' %}">
 {% endblock %}
 
 {% block content %}
-<div style="padding: 20px; max-width: 800px; margin: 0 auto;">
-    <h2>{{ title }}</h2>
-    <p>Fill in the details below to manage the recipe</p>
+<div class="container">
+    <a href="{% url 'recipe_manage' %}" class="back-link">← Back to Recipes</a>
+    <h1>{{ title }}</h1>
 
     <form method="post" enctype="multipart/form-data">
         {% csrf_token %}
-        
+
         {% if form.errors %}
-            <div class="alert alert-danger">
-                Please correct the errors below.
-            </div>
+        <ul class="errorlist">
+            {% for field in form %}
+                {% for error in field.errors %}
+                    <li>{{ field.label }}: {{ error }}</li>
+                {% endfor %}
+            {% endfor %}
+            {% for error in form.non_field_errors %}
+                <li>{{ error }}</li>
+            {% endfor %}
+        </ul>
         {% endif %}
 
-        <fieldset class="form-section">
-            <legend>Basic Information</legend>
+        <div class="section" style="margin-bottom: 20px;">
+            <h2>Basic Information</h2>
             <div class="form-group">
-                <label for="{{ form.name.id_for_label }}">Recipe Name: *</label>
+                <label for="{{ form.name.id_for_label }}">Recipe Name *</label>
                 {{ form.name }}
-                {{ form.name.errors }}
             </div>
             <div class="form-group">
-                <label for="{{ form.description.id_for_label }}">Description: *</label>
+                <label for="{{ form.description.id_for_label }}">Description *</label>
                 {{ form.description }}
-                {{ form.description.errors }}
             </div>
             <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px;">
                 <div class="form-group">
-                    <label for="{{ form.cuisine.id_for_label }}">Cuisine:</label>
+                    <label for="{{ form.cuisine.id_for_label }}">Cuisine</label>
                     {{ form.cuisine }}
-                    {{ form.cuisine.errors }}
                 </div>
                 <div class="form-group">
-                    <label for="{{ form.category.id_for_label }}">Meal Type: *</label>
+                    <label for="{{ form.category.id_for_label }}">Meal Type *</label>
                     {{ form.category }}
-                    {{ form.category.errors }}
                 </div>
                 <div class="form-group">
-                    <label for="{{ form.difficulty.id_for_label }}">Difficulty: *</label>
+                    <label for="{{ form.difficulty.id_for_label }}">Difficulty *</label>
                     {{ form.difficulty }}
-                    {{ form.difficulty.errors }}
                 </div>
             </div>
-        </fieldset>
+        </div>
 
-        <fieldset class="form-section">
-            <legend>Time &amp; Servings</legend>
+        <div class="section" style="margin-bottom: 20px;">
+            <h2>Time &amp; Servings</h2>
             <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px;">
                 <div class="form-group">
-                    <label for="{{ form.prep_time.id_for_label }}">Prep Time (mins): *</label>
+                    <label for="{{ form.prep_time.id_for_label }}">Prep Time (mins) *</label>
                     {{ form.prep_time }}
-                    {{ form.prep_time.errors }}
                 </div>
                 <div class="form-group">
-                    <label for="{{ form.cook_time.id_for_label }}">Cook Time (mins): *</label>
+                    <label for="{{ form.cook_time.id_for_label }}">Cook Time (mins) *</label>
                     {{ form.cook_time }}
-                    {{ form.cook_time.errors }}
                 </div>
                 <div class="form-group">
-                    <label for="{{ form.servings.id_for_label }}">Servings: *</label>
+                    <label for="{{ form.servings.id_for_label }}">Servings *</label>
                     {{ form.servings }}
-                    {{ form.servings.errors }}
                 </div>
             </div>
-        </fieldset>
+        </div>
 
-        <fieldset class="form-section">
-            <legend>Ingredients &amp; Instructions</legend>
+        <div class="section" style="margin-bottom: 20px;">
+            <h2>Ingredients &amp; Instructions</h2>
             <div class="form-group">
-                <label for="{{ form.ingredients.id_for_label }}">Ingredients: * (Enter one per line)</label>
+                <label for="{{ form.ingredients.id_for_label }}">Ingredients * <small>(one per line)</small></label>
                 {{ form.ingredients }}
-                {{ form.ingredients.errors }}
             </div>
             <div class="form-group">
-                <label for="{{ form.instructions.id_for_label }}">Instructions: * (Enter steps, one per line)</label>
+                <label for="{{ form.instructions.id_for_label }}">Instructions * <small>(one step per line)</small></label>
                 {{ form.instructions }}
-                {{ form.instructions.errors }}
             </div>
-        </fieldset>
+        </div>
 
-        <fieldset class="form-section">
-            <legend>Extra Details</legend>
-            <label>Dietary Info:</label>
-            <div class="checkbox-group" style="margin-bottom: 20px;">
-                <div class="checkbox-item">
-                    {{ form.is_vegan }} <label for="{{ form.is_vegan.id_for_label }}">Vegan</label>
-                </div>
-                <div class="checkbox-item">
-                    {{ form.is_vegetarian }} <label for="{{ form.is_vegetarian.id_for_label }}">Vegetarian</label>
-                </div>
-                <div class="checkbox-item">
-                    {{ form.is_gluten_free }} <label for="{{ form.is_gluten_free.id_for_label }}">Gluten Free</label>
-                </div>
-                <div class="checkbox-item">
-                    {{ form.is_nut_free }} <label for="{{ form.is_nut_free.id_for_label }}">Nut Free</label>
-                </div>
-                <div class="checkbox-item">
-                    {{ form.is_dairy_free }} <label for="{{ form.is_dairy_free.id_for_label }}">Dairy Free</label>
+        <div class="section" style="margin-bottom: 20px;">
+            <h2>Extra Details</h2>
+            <div class="form-group">
+                <label>Dietary Info</label>
+                <div style="display: flex; flex-wrap: wrap; gap: 24px; margin-top: 10px;">
+                    <label style="display:flex; align-items:center; gap:8px; text-transform:none; letter-spacing:normal; font-size:14px; font-weight:400; color:var(--text-light);">
+                        {{ form.is_vegan }} Vegan
+                    </label>
+                    <label style="display:flex; align-items:center; gap:8px; text-transform:none; letter-spacing:normal; font-size:14px; font-weight:400; color:var(--text-light);">
+                        {{ form.is_vegetarian }} Vegetarian
+                    </label>
+                    <label style="display:flex; align-items:center; gap:8px; text-transform:none; letter-spacing:normal; font-size:14px; font-weight:400; color:var(--text-light);">
+                        {{ form.is_gluten_free }} Gluten Free
+                    </label>
+                    <label style="display:flex; align-items:center; gap:8px; text-transform:none; letter-spacing:normal; font-size:14px; font-weight:400; color:var(--text-light);">
+                        {{ form.is_nut_free }} Nut Free
+                    </label>
+                    <label style="display:flex; align-items:center; gap:8px; text-transform:none; letter-spacing:normal; font-size:14px; font-weight:400; color:var(--text-light);">
+                        {{ form.is_dairy_free }} Dairy Free
+                    </label>
                 </div>
             </div>
             <div class="form-group">
-                <label for="{{ form.image.id_for_label }}">Recipe Image:</label>
+                <label for="{{ form.image.id_for_label }}">Recipe Image</label>
                 {{ form.image }}
-                {{ form.image.errors }}
             </div>
-        </fieldset>
+        </div>
 
-        <div style="margin-top: 20px;">
-            <button type="submit" class="btn-view" style="padding: 10px 20px; cursor: pointer;">{{ title|upper }}</button>
-            <a href="{% url 'recipe_manage' %}" style="margin-left: 20px;">Cancel</a>
+        <div style="display: flex; gap: 12px; margin-top: 8px; padding-bottom: 40px;">
+            <button type="submit">{{ title }}</button>
+            <a href="{% url 'recipe_manage' %}" style="display:inline-block;">
+                <button type="button">Cancel</button>
+            </a>
         </div>
     </form>
 </div>
