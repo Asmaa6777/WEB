@@ -29,12 +29,12 @@
           <p class="card-desc">{{ recipe.description|truncatewords:20 }}</p>
           <div class="card-actions">
             <a href="{% url 'recipe_detail' recipe.id %}" class="btn-view">View Recipe</a>
-            {% if user.is_authenticated %}
-            <button type="button"
-                    class="btn-toggle-favorite{% if recipe.id in favorite_recipe_ids %} saved{% endif %}"
-                    data-toggle-url="{% url 'toggle_favorite' recipe.id %}">{% if recipe.id in favorite_recipe_ids %}♥ Saved{% else %}♥ Save{% endif %}</button>
-            {% else %}
-            <a href="{% url 'login' %}" class="btn-view">♥ Save</a>
+            {% if not user.is_authenticated %}
+              <a href="{% url 'login' %}" class="btn-view">♥ Save</a>
+            {% elif not user.is_staff %}
+              <button type="button"
+                      class="btn-toggle-favorite{% if recipe.id in favorite_recipe_ids %} saved{% endif %}"
+                      data-toggle-url="{% url 'toggle_favorite' recipe.id %}">{% if recipe.id in favorite_recipe_ids %}♥ Saved{% else %}♥ Save{% endif %}</button>
             {% endif %}
           </div>
         </div>
