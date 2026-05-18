@@ -238,6 +238,30 @@ img {
   border-color: var(--gold);
 }
 
+.search-submit-btn {
+  position: absolute;
+  right: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: transparent;
+  border: none;
+  color: var(--text-muted);
+  cursor: pointer;
+  padding: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 0.2s;
+}
+
+.search-submit-btn:hover {
+  color: var(--gold);
+}
+
+.search-wrapper:focus-within .search-submit-btn {
+  color: var(--gold);
+}
+
  
 .filter-pills {
   display: flex;

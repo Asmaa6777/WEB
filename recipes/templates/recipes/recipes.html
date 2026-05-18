@@ -10,6 +10,12 @@
 
     <form action="{% url 'search_results' %}" method="GET" class="search-wrapper">
       <input type="text" name="q" id="searchInput" class="search-bar" placeholder="Search recipes or ingredients..." />
+      <button type="submit" class="search-submit-btn">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="11" cy="11" r="8"></circle>
+          <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+        </svg>
+      </button>
     </form>
 
     <div class="filter-pills">
@@ -23,7 +29,7 @@
   <div class="recipes-section">
     <div class="recipe-grid" id="recipeGrid">
       {% for recipe in recipes %}
-      <div class="recipe-card" data-course="{{ recipe.category.slug }}">
+      <div class="recipe-card" data-course="{{ recipe.category.slug }}" data-ingredients="{{ recipe.ingredients|lower }}">
         <div class="card-image-wrapper">
           {% if recipe.image %}
             <img src="{{ recipe.image.url }}" alt="{{ recipe.name }}" class="card-img">
@@ -50,5 +56,37 @@
 {% endblock %}
 
 {% block extra_js_body %}
-  {# Removing recipes.js as rendering is now handled by Django #}
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const searchInput = document.getElementById('searchInput');
+      const recipeGrid = document.getElementById('recipeGrid');
+      const emptyState = document.getElementById('emptyState');
+      if (!recipeGrid) return;
+      const cards = recipeGrid.querySelectorAll('.recipe-card');
+
+      searchInput.addEventListener('input', () => {
+        const query = searchInput.value.toLowerCase().trim();
+        let hasResults = false;
+
+        cards.forEach(card => {
+          const title = card.querySelector('.card-title').textContent.toLowerCase();
+          const desc = card.querySelector('.card-desc').textContent.toLowerCase();
+          const ingredients = card.getAttribute('data-ingredients') || '';
+          
+          if (title.includes(query) || desc.includes(query) || ingredients.includes(query)) {
+            card.style.display = 'block';
+            hasResults = true;
+          } else {
+            card.style.display = 'none';
+          }
+        });
+
+        if (hasResults || query === '') {
+          emptyState.style.display = 'none';
+        } else {
+          emptyState.style.display = 'block';
+        }
+      });
+    });
+  </script>
 {% endblock %}

@@ -46,7 +46,7 @@
       </div>
 
       <div class="detail-actions">
-        {% if user.is_authenticated %}
+        {% if user.is_authenticated and not user.is_staff %}
           <button class="btn-gold" id="btnFavourite"
                   data-recipe-id="{{ recipe.id }}"
                   data-toggle-url="{% url 'toggle_favorite' recipe.id %}"
