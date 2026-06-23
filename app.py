@@ -208,14 +208,25 @@ st.markdown(
     """
     <style>
     .stApp {
-        background: linear-gradient(135deg, #fff7ed 0%, #fff1f2 45%, #fef3c7 100%);
+        background: radial-gradient(circle at top left, rgba(220, 38, 38, .16), transparent 32%),
+                    radial-gradient(circle at bottom right, rgba(249, 115, 22, .14), transparent 34%),
+                    #080808;
+        color: #fff7ed;
+    }
+    section[data-testid="stSidebar"] {
+        background: #0f0f0f;
+        border-right: 1px solid rgba(239, 68, 68, .28);
+    }
+    h2, h3, label, .stMarkdown, .stCaption {
+        color: #fff7ed;
     }
     .hero {
         padding: 2.2rem;
         border-radius: 28px;
-        background: linear-gradient(135deg, #7c2d12, #dc2626 48%, #f97316);
+        background: linear-gradient(135deg, #151515, #2a0f0f 48%, #7f1d1d);
         color: white;
-        box-shadow: 0 20px 55px rgba(124, 45, 18, .25);
+        border: 1px solid rgba(239, 68, 68, .55);
+        box-shadow: 0 20px 55px rgba(0, 0, 0, .45);
         margin-bottom: 1.5rem;
     }
     .hero h1 {
@@ -228,31 +239,32 @@ st.markdown(
         font-size: 1.1rem;
         max-width: 760px;
         margin-top: 1rem;
-        color: #fff7ed;
+        color: #ffe4e6;
     }
     .metric-card {
         padding: 1rem;
         border-radius: 18px;
-        background: rgba(255,255,255,.72);
-        border: 1px solid rgba(251, 146, 60, .35);
+        background: rgba(18, 18, 18, .9);
+        border: 1px solid rgba(239, 68, 68, .42);
         text-align: center;
+        box-shadow: 0 14px 35px rgba(0, 0, 0, .25);
     }
     .recipe-card {
         border-radius: 22px;
-        background: rgba(255,255,255,.84);
-        border: 1px solid rgba(251, 146, 60, .35);
+        background: rgba(15, 15, 15, .94);
+        border: 1px solid rgba(239, 68, 68, .38);
         padding: 1rem 1rem 1.2rem;
-        box-shadow: 0 14px 35px rgba(124, 45, 18, .10);
+        box-shadow: 0 14px 35px rgba(0, 0, 0, .36);
         height: 100%;
     }
     .recipe-title {
         font-size: 1.35rem;
         font-weight: 800;
-        color: #7c2d12;
+        color: #fff7ed;
         margin: .7rem 0 .25rem;
     }
     .recipe-meta {
-        color: #9a3412;
+        color: #fca5a5;
         font-size: .92rem;
         margin-bottom: .55rem;
     }
@@ -260,16 +272,17 @@ st.markdown(
         display: inline-block;
         padding: .25rem .55rem;
         border-radius: 999px;
-        background: #ffedd5;
-        color: #9a3412;
+        background: rgba(127, 29, 29, .72);
+        border: 1px solid rgba(248, 113, 113, .35);
+        color: #fecaca;
         margin: .12rem;
         font-size: .78rem;
         font-weight: 700;
     }
     [data-testid="stExpander"] {
-        background: rgba(255, 255, 255, .68);
+        background: rgba(8, 8, 8, .72);
         border-radius: 16px;
-        border: 1px solid rgba(251, 146, 60, .25);
+        border: 1px solid rgba(239, 68, 68, .28);
     }
     </style>
     """,
@@ -299,7 +312,7 @@ metrics = [
 ]
 for col, (label, value) in zip(metric_cols, metrics):
     col.markdown(
-        f'<div class="metric-card"><div style="font-size:2rem;font-weight:900;color:#7c2d12;">{value}</div><div style="color:#9a3412;">{label}</div></div>',
+        f'<div class="metric-card"><div style="font-size:2rem;font-weight:900;color:#fff7ed;">{value}</div><div style="color:#fca5a5;">{label}</div></div>',
         unsafe_allow_html=True,
     )
 
@@ -345,7 +358,7 @@ for row_start in range(0, len(filtered_recipes), 3):
                 st.image(str(image_path(recipe)), width="stretch")
                 st.markdown(f'<div class="recipe-title">{recipe["name"]}</div>', unsafe_allow_html=True)
                 st.markdown(
-                    f'<div class="recipe-meta">🍽️ {recipe["category"]} · 🌍 {recipe["cuisine"]} · ⏱️ {format_time(recipe["time"])} · ⭐ {recipe["difficulty"]}</div>',
+                    f'<div class="recipe-meta">{recipe["category"]} · {recipe["cuisine"]} · {format_time(recipe["time"])} · {recipe["difficulty"]}</div>',
                     unsafe_allow_html=True,
                 )
                 st.write(recipe["description"])
