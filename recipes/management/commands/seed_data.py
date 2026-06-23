@@ -14,9 +14,15 @@ class Command(BaseCommand):
             action='store_true',
             help='Delete all existing data before seeding',
         )
+        parser.add_argument(
+            '--with-demo-users',
+            action='store_true',
+            help='Create demo admin/user accounts for local development only',
+        )
 
     def handle(self, *args, **kwargs):
         reset = kwargs.get('reset')
+        with_demo_users = kwargs.get('with_demo_users')
         if reset:
             self.stdout.write(self.style.WARNING('Resetting database...'))
             Recipe.objects.all().delete()
@@ -26,8 +32,9 @@ class Command(BaseCommand):
 
         self.stdout.write('Seeding data...')
 
-        # 1. Create Users
-        self.create_users()
+        # 1. Create optional demo users for local development only
+        if with_demo_users:
+            self.create_users()
 
         # 2. Create Categories
         categories = self.create_categories()
