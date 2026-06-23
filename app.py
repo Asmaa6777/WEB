@@ -309,7 +309,7 @@ def recipe_browser(admin_mode: bool = False) -> None:
         for col, recipe in zip(cols, filtered[start : start + 3]):
             with col:
                 st.markdown('<div class="recipe-card">', unsafe_allow_html=True)
-                st.image(image_path(recipe), width="stretch")
+                st.image(image_path(recipe), use_container_width=True)
                 st.markdown(f'<div class="recipe-title">{recipe["name"]}</div>', unsafe_allow_html=True)
                 st.markdown(
                     f'<div class="recipe-meta">{recipe["category"]} · {recipe["cuisine"]} · {format_time(recipe["time"])} · {recipe["difficulty"]}</div>',
